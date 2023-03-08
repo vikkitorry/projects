@@ -8,7 +8,7 @@
     scroll-behavior: smooth;
 }
 body {
-    height: 100vh;
+    height: 100%;
     overflow-y: scroll;
 }
 a {
@@ -58,12 +58,44 @@ li {
     color: #545454;
     letter-spacing: 1.2px;
 }
-/*header*/
+/*only*/
 .only {
-    margin: 0 auto;
-    height: 908px;
+    position: relative;
+    width: 100%;
     background: url(../../assets/img/start-screen-gradient-background.png)no-repeat center/cover;
 }
+.only__container {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    justify-content: space-between;
+    align-items: end;
+}
+.only__tittle{
+    color: #FFFFFF;
+    width: 310px;
+    font-family: Georgia;
+    font-style: ;          /**/
+    font-size: 44px;
+    line-height: 57px;
+    line-height: 130%;
+    margin-bottom: 40px;
+}
+.only-text {
+    width: 460px;
+    margin-bottom: 40px;
+}
+.btn__only {
+    margin-bottom: 240px;
+}
+.btn__only a {
+    padding: 14px;
+    display: block;
+    width: 200px;
+    height: 52px;
+    color: #292929;
+}
+/*header*/
 .header {
     position: relative;
     width: 100%;
@@ -114,40 +146,11 @@ li {
 .nav__link:hover {
     color: #FAFAFA;
 }
-/*only*/
-.only__container {
-    display: flex;
-    flex-direction: row;
-    gap: 40px;
-    justify-content: space-between;
-    align-items: end;
-}
-.only__tittle{
-    color: #FFFFFF;
-    width: 310px;
-    font-family: Georgia;
-    font-style: ;          /**/
-    font-size: 44px;
-    line-height: 57px;
-    line-height: 130%;
-    margin-bottom: 40px;
-}
-.only-text {
-    width: 460px;
-    margin-bottom: 40px;
-}
-.btn__only {
-    margin-bottom: 240px;
-}
-.btn__only a {
-    padding: 14px;
-    display: block;
-    width: 200px;
-    height: 52px;
-    color: #292929;
-}
 /*about*/
-.about{
+.about {
+    position: relative;
+}
+.about__container{
     display: flex;
     flex-direction: row;
     align-items: end;
@@ -170,16 +173,128 @@ li {
 }
 /*friends*/
 .friends{
+    background: #F6F6F6;
+    width: 100%;
     padding: 80px 0 100px 0;
+}
+.friends__container{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 60px;
 }
+
 .friends .tittle-h2{
     text-align: center;
 }
 .btn__friends{
     width: 260px;
+}
+.friends__container__cards {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.arrow {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid #F1CDB3;
+}
+.arrow:hover {
+    background-color: #FDDCC4;
+    border: 2px solid #FDDCC4;
+}
+.arrow-left{
+    background: url(../../assets/img/png/Arrow-left.png) no-repeat center;
+}
+.arrow-right{
+    background: url(../../assets/img/png/Arrow-right.png) no-repeat center;
+}
+.friends__window{
+    position: relative;
+    width: 990px;
+    height: 435px;
+}
+.friend-name {
+
+}
+.btn-friend {
+    background-color: #FAFAFA;
+    border: solid 2px #F1CDB3;
+    width: 187px;
+    font-family: Georgia;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 22px;
+    color: #292929;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+
+
+.carousel_actual {
+    position: absolute;
+    animation: 1s ease-in-out;
+}
+.carousel_next {
+    position: absolute;
+    right: -990px;
+    animation: 1s ease-in-out;
+}
+.friends_slider {
+    display: flex;
+    flex-direction: row;
+    gap: 90px;
+    justify-content: space-between;
+    width: 100%;
+}
+.friends__card{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: space-between;
+    height: 100%;
+    border-color: #FAFAFA;
+}
+.friends__card-pic{
+    width: 100%;
+}
+
+
+/* create my animation*/
+.to-left {
+    animation-name: left;
+}
+.from-right {
+    animation-name: right;
+}
+.to-right {
+    animation-name: right;
+    animation-direction: reverse;
+}
+.from-left {
+    animation-name: left;
+    animation-direction: reverse;
+}
+
+@keyframes left {
+    from {
+      left: 0;
+    }
+    to {
+      left: -104%;
+    }
+}
+@keyframes right {
+    from {
+      left: 104%;
+    }
+    to {
+      left: 0;
+    }
 }
