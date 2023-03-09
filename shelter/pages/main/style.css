@@ -24,7 +24,7 @@ li {
 }
 .text {
     font-family: Arial;
-    font-style: ;          /**/
+    font-weight: 400;
     font-size: 15px;
     line-height: 160%;
     color: #CDCDCD;
@@ -47,11 +47,19 @@ li {
 .overlay {
     width: 100%;
     height: 100%;
+    background: rgba(41, 41, 41, 0.6);
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 2;
     display: none;
+}
+.overlay-active {
+    display: block;
 }
 .tittle-h2 {
     font-family: Georgia;
-    font-weight: 400;          /**/
+    font-weight: 400;
     font-size: 35px;
     line-height: 130%;
     color: #CDCDCD;
@@ -76,7 +84,7 @@ li {
     color: #FFFFFF;
     width: 310px;
     font-family: Georgia;
-    font-style: ;          /**/
+    font-weight: 400;
     font-size: 44px;
     line-height: 57px;
     line-height: 130%;
@@ -95,6 +103,7 @@ li {
     width: 200px;
     height: 52px;
     color: #292929;
+    text-align: center;
 }
 /*header*/
 .header {
@@ -131,6 +140,7 @@ li {
     font-size: 13px;
     line-height: 15px;
     letter-spacing: 1.4px;
+    text-align: center;
 }
 /*logo end*/
 .nav__list{
@@ -335,7 +345,7 @@ li {
     font-weight: 400;
     line-height: 23px;
     color: #545454;
-    letter-spacing: 1.1px;
+    letter-spacing: 1px;
     text-align: center;
 }
 .help-icon-pic-1 {
@@ -444,9 +454,84 @@ li {
     color: #B2B2B2;
     width: 380px;
 }
-
-
-
-
+/*footer*/
+.footer {
+    width: 100%;
+    position: relative;
+    background: url(../../assets/img/footer.png) no-repeat center/cover;
+    overflow-x: hidden;
+    height: 350px;
+}
+.footer__container{
+    padding-top: 39px;
+    display: flex;
+    flex-direction: row;
+    gap: 160px;
+    justify-content: space-between;
+}
+.footer__container-pic{
+    min-width: 300px;
+    height: 310px;
+}
+.footer-pic{
+    width: 100%;
+}
+.footer__container-desc{
+    display: flex;
+    flex-direction: row;
+    gap: 160px;
+}
+.footer__container-questions, .footer__container-waiting {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    margin-bottom: 60px;
+    justify-content: space-between;
+}
+.footer__container-questions {
+    gap: 43px;
+}
+.footer__container-waiting {
+    gap: 32px;
+}
+.footer-subtittle {
+    font-family: Georgia;
+    font-size: 35px;
+    font-weight: 400;
+    line-height: 45px;
+    color: #FFFFFF;
+    letter-spacing: 2px;
+    width: 279px;
+}
+.footer__container-text {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: left;
+}
+.footer-text {
+    font-family: Georgia;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23px;
+    color: #F1CDB3;
+    letter-spacing: 1.2px;
+}
+.footer-questions-icon-1{
+    background: url(../../assets/img/png/footer-mail.svg)no-repeat center;
+    width: 40px;
+    height: 26px;
+}
+.footer-questions-icon-2{
+    background: url(../../assets/img/png/footer-phone.svg)no-repeat center;
+    width: 40px;
+    height: 32px;
+}
+.footer-waiting-icon-1 {
+    background: url(../../assets/img/png/footer-pin.svg)no-repeat center;
+    min-width: 23px;
+    height: 32px;
+}
+/*end*/
 
 
