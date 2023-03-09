@@ -63,6 +63,7 @@ li {
     position: relative;
     width: 100%;
     background: url(../../assets/img/start-screen-gradient-background.png)no-repeat center/cover;
+    overflow-x: hidden;
 }
 .only__container {
     display: flex;
@@ -184,7 +185,6 @@ li {
     align-items: center;
     gap: 60px;
 }
-
 .friends .tittle-h2{
     text-align: center;
 }
@@ -220,25 +220,6 @@ li {
     height: 435px;
     overflow: hidden;
 }
-.friend-name {
-
-}
-.btn-friend {
-    background-color: #FAFAFA;
-    border: solid 2px #F1CDB3;
-    width: 187px;
-    font-family: Georgia;
-    font-size: 17px;
-    font-weight: 400;
-    line-height: 22px;
-    color: #292929;
-    letter-spacing: 1px;
-    text-align: center;
-    margin-bottom: 32px;
-}
-
-
-
 .carousel_actual {
     position: absolute;
     animation: 1s ease-in-out;
@@ -268,8 +249,31 @@ li {
 .friends__card-pic{
     width: 100%;
 }
-
-
+.friend-name{
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 20px;
+    letter-spacing: 1px;
+    color: #545454;
+}
+.btn-friend {
+    background-color: #FAFAFA;
+    border: solid 2px #F1CDB3;
+    width: 187px;
+    font-family: Georgia;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 22px;
+    color: #292929;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-bottom: 32px;
+}
+.btn-friend:hover {
+    border: #FDDCC4;
+}
 /* create my animation*/
 .to-left {
     animation-name: left;
@@ -285,7 +289,6 @@ li {
     animation-name: left;
     animation-direction: reverse;
 }
-
 @keyframes left {
     from {
       left: 0;
@@ -302,3 +305,148 @@ li {
       left: 0;
     }
 }
+/*help*/
+.help__container {
+    padding: 80px 0 100px 0;
+}
+.help__container .tittle-h2{
+    text-align: center;
+    margin-bottom: 60px;
+}
+.help__container-icons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0 87px;
+    gap: 55px 120px;
+    align-items: center;
+    justify-content: center;
+}
+.help-icon{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+.help-icon-text{
+    font-family: Georgia;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23px;
+    color: #545454;
+    letter-spacing: 1.1px;
+    text-align: center;
+}
+.help-icon-pic-1 {
+    background: url(../../assets/img/png/help-1.svg) no-repeat center;
+    width: 48px;
+    height: 60px;
+}
+.help-icon-pic-2 {
+    background: url(../../assets/img/png/help-2.svg) no-repeat center;
+    width: 59.95px;
+    height: 60px;
+}
+.help-icon-pic-3 {
+    background: url(../../assets/img/png/help-3.svg) no-repeat center;
+    width: 60px;
+    height: 60px;
+}
+.help-icon-pic-4 {
+    background: url(../../assets/img/png/help-4.svg) no-repeat center;
+    width: 60px;
+    height: 60px;
+}
+.help-icon-pic-5 {
+    background: url(../../assets/img/png/help-5.svg) no-repeat center;
+    width: 31.3px;
+    height: 60px;
+}
+.help-icon-pic-6 {
+    background: url(../../assets/img/png/help-6.svg) no-repeat center;
+    width: 60px;
+    height: 60px;
+}
+.help-icon-pic-7 {
+    background: url(../../assets/img/png/help-7.svg) no-repeat center;
+    width: 60px;
+    height: 60px;
+}
+.help-icon-pic-8 {
+    background: url(../../assets/img/png/help-8.svg) no-repeat center;
+    width: 60px;
+    height: 60px;
+}
+.help-icon-pic-9 {
+    background: url(../../assets/img/png/help-9.svg) no-repeat center;
+    width: 58px;
+    height: 60px;
+}
+/*addition*/
+.addition{
+    background: #F6F6F6;
+}
+.addition__container {
+    padding: 80px 0 100px 0;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+}
+.addition-pic{
+    width: 505px;
+    height: 261px;
+}
+.addition__container-desc {
+    align-self: self-end;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 380px;
+}
+.bank-name{
+    font-family: Georgia;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 17px;
+    color: #545454;
+    letter-spacing: 1.1px;
+}
+.addition-card-container{
+    display: flex;
+    padding: 10px 15px;
+    gap: 15px;
+    width: 349px;
+    height: 43px;
+    background-color: #F1CDB3;
+    border-radius: 7px;
+}
+.addition-card-icon{
+    width: 31px;
+    height: 23px;
+    background: url(../../assets/img/png/adddition-icon.svg) no-repeat center;
+}
+.addition-card-text{
+    font-family: Georgia;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23px;
+    color: #545454;
+    letter-spacing: 1.1px;
+}
+.addition-text{
+    font-family: Arial;
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #B2B2B2;
+    width: 380px;
+}
+
+
+
+
+
+
