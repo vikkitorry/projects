@@ -1,7 +1,3 @@
-/*font*/
-
-
-
 /*settings*/
 * {
     box-sizing: border-box;
@@ -226,9 +222,10 @@ li {
 }
 .friends__window{
     position: relative;
-    width: 990px;
+    width: 996px;
     height: 435px;
     overflow: hidden;
+    padding-left: 3px;
 }
 .carousel_actual {
     position: absolute;
@@ -255,6 +252,7 @@ li {
     height: 100%;
     background: #FAFAFA;
     width: 270px;
+    margin-bottom: 2px;
 }
 .friends__card-pic{
     width: 100%;
@@ -281,8 +279,20 @@ li {
     text-align: center;
     margin-bottom: 32px;
 }
-.btn-friend:hover {
+.friends__card:hover{
+    cursor: pointer;
+    background: #FFFFFF;
+    box-shadow: -5px 0 5px -5px #4C4C4C,
+    5px 0 5px -5px #4C4C4C;
+}
+.friends__card:hover .friend-name {
+    transform: scale(1.2);
+    text-shadow: #4c4c4ca5 4px 4px 3px;
+}
+.friends__card:hover .btn-friend{
+    cursor: pointer;
     border: #FDDCC4;
+    background-color: #FDDCC4;
 }
 /* create my animation*/
 .to-left {
