@@ -118,7 +118,7 @@ li {
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    color: #FFFFFF
+    color: #FFFFFF;
 }
 .logo-tittle{
     font-family: 'Georgia';
@@ -146,6 +146,10 @@ li {
 }
 .nav__item-active {
     border-bottom: 3px solid #F1CDB3;
+}
+.nav__item:hover {
+    border-bottom: 3px solid #F1CDB3;
+    transform: scale(1.1);
 }
 .nav__link-active {
     color: #FAFAFA;
@@ -242,6 +246,7 @@ li {
     gap: 90px;
     justify-content: space-between;
     width: 100%;
+    padding-top: 2px;
 }
 .friends__card{
     display: flex;
@@ -252,7 +257,7 @@ li {
     height: 100%;
     background: #FAFAFA;
     width: 270px;
-    margin-bottom: 2px;
+    height: 435px;
 }
 .friends__card-pic{
     width: 100%;
@@ -282,8 +287,12 @@ li {
 .friends__card:hover{
     cursor: pointer;
     background: #FFFFFF;
-    box-shadow: -5px 0 5px -5px #4C4C4C,
-    5px 0 5px -5px #4C4C4C;
+    box-shadow:
+                -5px -5px 2px -1px rgba(211, 100, 159, 0.5),
+                -5px 5px 2px -1px rgba(95, 115, 186, 0.5),
+                5px -5px 2px -1px rgba(248, 84, 84, 0.708),
+                5px 5px 2px -1px rgba(70, 145, 80, 0.5)
+
 }
 .friends__card:hover .friend-name {
     transform: scale(1.2);
@@ -441,13 +450,17 @@ li {
     height: 43px;
     background-color: #F1CDB3;
     border-radius: 7px;
+    cursor: pointer;
+}
+.addition-card-container:hover {
+    background-color: #FDDCC4;
 }
 .addition-card-icon{
     width: 31px;
     height: 23px;
     background: url(../../assets/img/png/adddition-icon.svg) no-repeat center;
 }
-.addition-card-text{
+.addition-card-text a{
     font-family: Georgia;
     font-size: 20px;
     font-weight: 400;
