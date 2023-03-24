@@ -718,8 +718,3 @@ li {
 /*end*/
 /**media*/
 /*remove all after that @media screen and (min-width: 768px) and (max-width: 1279.9px)...*/
-@media (max-width: 1279.9px) {
-    body {
-        display: none !important;
-    }
-}
