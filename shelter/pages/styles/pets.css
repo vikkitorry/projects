@@ -113,4 +113,78 @@
     text-align: left;
 }
 /*media*/
-/*remove all after that @media screen and (min-width: 768px) and (max-width: 1279.9px)...*/
+@media screen and (min-width: 768px) and (max-width: 1279.9px){
+    .our {
+        padding-bottom: 75px;
+    }
+    .our .tittle-h2 {
+        margin-bottom: 30px;
+    }
+    .our_slider {
+        padding: 2px 2px;
+        display: flex;
+        flex-direction: row;
+        gap: 30px 38px;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        overflow-y: hidden;
+        height: 1370px;
+    }
+    .our__window {
+        margin: 0 auto;
+        padding: 0 60px;
+        max-width: 710px;
+        height: 1410px;
+    }
+    .buttons__container{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+    }
+    .pets_flip {
+        width: 52px;
+        height: 52px;
+        border-radius: 100%;
+        border: 2px solid #F1CDB3;
+    }
+    .page {
+        background-color: #F1CDB3;
+    }
+    .page-number {
+        font-family: Georgia;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 23px;
+        color: #292929;
+        text-align: center;
+        padding-top: 13px;
+    }
+    .point{
+        font-family: Georgia;
+        text-align: center;
+        padding-top: 14px;
+        font-weight: 400;
+        font-size: 20px;
+        color: #292929;
+    }
+    .pets_flip:hover {                             /*hover*/
+        background: #FDDCC4;
+        border: 2px solid #FDDCC4;
+    }
+    .point-disabled {
+        color: #CDCDCD;
+    }
+    .flip-disabled:hover {                             /*hover*/
+        background: none;
+        border: 2px solid #CDCDCD;
+    }
+    .flip-disabled{
+        border: 2px solid #CDCDCD;
+    }
+    .modal .modal-tittle {
+        margin-bottom: 10px;
+    }
+}
+/*remove all after that @media screen and (max-width: 767.9px)...*/
