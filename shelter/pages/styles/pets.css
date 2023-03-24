@@ -1,9 +1,18 @@
 /*header*/
 .header__wrapper {
-    position: relative;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background-color: #FFFFFF;
 }
 .header {
     padding: 30px 0;
+}
+.main {
+    padding-top: 120px;
+    position: relative;
 }
 /*logo*/
 .logo__container{
@@ -40,15 +49,15 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    margin-bottom: 60px;
 }
 .our__window {
     overflow-x: hidden;
     width: 1200px;
+    height: 960px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .buttons__container{
@@ -57,7 +66,8 @@
     justify-content: center;
     gap: 20px;
 }
-.pets_flip {
+.pets_flip, .page {
+    cursor: pointer;
     width: 52px;
     height: 52px;
     border-radius: 100%;
@@ -83,11 +93,11 @@
     font-size: 20px;
     color: #292929;
 }
-.pets_flip:hover {
+.pets_flip:hover, .page:hover{
     background: #FDDCC4;
     border: 2px solid #FDDCC4;
 }
-.point-disabled {
+.flip-disabled .point {
     color: #CDCDCD;
 }
 .flip-disabled:hover {
@@ -95,13 +105,12 @@
     border: 2px solid #CDCDCD;
 }
 .flip-disabled{
+    cursor: default;
     border: 2px solid #CDCDCD;
 }
-
-
-
-
-/*#FDDCC4  hover*/
-.double-skip-left {
-
+.modal__container-text .modal-tittle {
+    margin-bottom: 10px;
+    text-align: left;
 }
+/*media*/
+/*remove all after that @media screen and (min-width: 768px) and (max-width: 1279.9px)...*/

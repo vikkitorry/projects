@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../main/normalize.css">
-    <link rel="stylesheet" href="../main/style.css">
-    <link rel="stylesheet" href="./pets.css">
+    <link rel="stylesheet" href="../styles/normalize.css">
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/pets.css">
     <link rel="icon" href="../../assets/icons/icon.png">
     <title>Our Pets</title>
 </head>
-<body>
+<body class="body">
     <div class="header__wrapper">
         <div class="wrapper">
             <header class=" header">
@@ -20,9 +20,12 @@
                         <p class="logo-text">Shelter for pets in Boston</p>
                     </a>
                     <ul class="nav__list">
-                        <li class="nav__item"><a href="../main/index.html" class="nav__link text">About the shelter</a></li>
-                        <li class="nav__item nav__item-active"><a href="../pets/pets.html" class="nav__link nav__link-active text">Our pets</a></li>
-                        <li class="nav__item"><a href="../main/index.html#help" class="nav__link text">Help the shelter</a></li>
+                        <li class="nav__item"><a href="../main/index.html" class="nav__link text">About the shelter</a>
+                        </li>
+                        <li class="nav__item nav__item-active"><a href="../pets/pets.html"
+                                class="nav__link nav__link-active text">Our pets</a></li>
+                        <li class="nav__item"><a href="../main/index.html#help" class="nav__link text">Help the
+                                shelter</a></li>
                         <li class="nav__item"><a href="#footer" class="nav__link text">Contacts</a></li>
                     </ul>
                 </nav>
@@ -30,96 +33,118 @@
             <div class="overlay"></div>
         </div>
     </div>
-    <main>
+    <main class="main">
         <section class="our">
             <div class="wrapper">
                 <h2 class="tittle-h2">Our friends who<br>are looking for a house</h2>
-                <div class="our__window">
-                    <div class="">
-                        <div class="our_slider">
-
-                            <div class="friends__card">
-                                <div class="friends__card-wrapper-pic">
-                                    <img src="../../assets/img/friends-1-1280.jpg" alt="cat" class="friends__card-pic">
-                                </div>
-                                <p class="friend-name">Katrine</p>
-                                <div class="btn__container">
-                                    <button class="btn btn-friend">Learn more</button>
-                                </div>
+                <div class="our__windowrapper">
+                    <div class="our__window">
+                    <div class="our_slider">
+                        <div class="friends__card" data-name="Katrine">
+                            <div class="friends__card-wrapper-pic">
+                                <img src="../../assets/img/friends-1-1280.jpg" alt="cat" class="friends__card-pic">
                             </div>
-                            <div class="friends__card">
-                                <div class="friends__card-wrapper-pic">
-                                    <img src="../../assets/img/friends-2-1280.jpg" alt="cat" class="friends__card-pic">
-                                </div>
-                                <p class="friend-name">Jennifer</p>
-                                <div class="btn__container">
-                                    <button class="btn btn-friend">Learn more</button>
-                                </div>
-                            </div>
-                            <div class="friends__card">
-                                <div class="friends__card-wrapper-pic">
-                                    <img src="../../assets/img/friends-3-1280.jpg" alt="cat" class="friends__card-pic">
-                                </div>
-                                <p class="friend-name">Woody</p>
-                                <div class="btn__container">
-                                    <button class="btn btn-friend">Learn more</button>
-                                </div>
-                            </div>
-                            <div class="friends__card">
-                                <div class="friends__card-wrapper-pic">
-                                    <img src="../../assets/img/friends-4-1280.jpg" alt="cat" class="friends__card-pic">
-                                </div>
-                                <p class="friend-name">Sophia</p>
-                                <div class="btn__container">
-                                    <button class="btn btn-friend">Learn more</button>
-                                </div>
-                            </div>
-
-
-                            <div class="friends__card">
-                                <div class="friends__card-wrapper-pic">
-                                    <img src="../../assets/img/friends-5-1280.jpg" alt="cat" class="friends__card-pic">
-                                </div>
-                                <p class="friend-name">Timmy</p>
-                                <div class="btn__container">
-                                    <button class="btn btn-friend">Learn more</button>
-                                </div>
-                            </div>
-                            <div class="friends__card">
-                                <div class="friends__card-wrapper-pic">
-                                    <img src="../../assets/img/friends-6-1280.jpg" alt="cat" class="friends__card-pic">
-                                </div>
-                                <p class="friend-name">Charly</p>
-                                <div class="btn__container">
-                                    <button class="btn btn-friend">Learn more</button>
-                                </div>
-                            </div>
-                            <div class="friends__card">
-                                <div class="friends__card-wrapper-pic">
-                                    <img src="../../assets/img/friends-7-1280.jpg" alt="cat" class="friends__card-pic">
-                                </div>
-                                <p class="friend-name">Scarlett</p>
-                                <div class="btn__container">
-                                    <button class="btn btn-friend">Learn more</button>
-                                </div>
-                            </div>
-                            <div class="friends__card">
-                                <div class="friends__card-wrapper-pic">
-                                    <img src="../../assets/img/friends-8-1280.jpg" alt="cat" class="friends__card-pic">
-                                </div>
-                                <p class="friend-name">Freddie</p>
-                                <div class="btn__container">
-                                    <button class="btn btn-friend">Learn more</button>
-                                </div>
+                            <p class="friend-name">Katrine</p>
+                            <div class="btn__container">
+                                <button class="btn btn-friend">Learn more</button>
                             </div>
                         </div>
-                        <div class="buttons__container">
-                            <div class="double-flip-left pets_flip flip-disabled"><p class="point point-disabled">&lt;&lt;</p></div>
-                            <div class="flip-left pets_flip flip-disabled"><p class="point point-disabled">&lt;</p></div>
-                            <div class="page pets_flip"><p class="page-number">1</p></div>
-                            <div class="flip-left pets_flip"><p class="point">&gt;</p></div>
-                            <div class="double-flip-right pets_flip"><p class="point">&gt;&gt;</p></div>
+                        <div class="friends__card" data-name="Jennifer">
+                            <div class="friends__card-wrapper-pic">
+                                <img src="../../assets/img/friends-2-1280.jpg" alt="cat" class="friends__card-pic">
+                            </div>
+                            <p class="friend-name">Jennifer</p>
+                            <div class="btn__container">
+                                <button class="btn btn-friend">Learn more</button>
+                            </div>
                         </div>
+                        <div class="friends__card" data-name="Woody">
+                            <div class="friends__card-wrapper-pic">
+                                <img src="../../assets/img/friends-3-1280.jpg" alt="cat" class="friends__card-pic">
+                            </div>
+                            <p class="friend-name">Woody</p>
+                            <div class="btn__container">
+                                <button class="btn btn-friend">Learn more</button>
+                            </div>
+                        </div>
+                        <div class="friends__card" data-name="Sophia">
+                            <div class="friends__card-wrapper-pic">
+                                <img src="../../assets/img/friends-4-1280.jpg" alt="cat" class="friends__card-pic">
+                            </div>
+                            <p class="friend-name">Sophia</p>
+                            <div class="btn__container">
+                                <button class="btn btn-friend">Learn more</button>
+                            </div>
+                        </div>
+                        <div class="friends__card" data-name="Timmy">
+                            <div class="friends__card-wrapper-pic">
+                                <img src="../../assets/img/friends-5-1280.jpg" alt="cat" class="friends__card-pic">
+                            </div>
+                            <p class="friend-name">Timmy</p>
+                            <div class="btn__container">
+                                <button class="btn btn-friend">Learn more</button>
+                            </div>
+                        </div>
+                        <div class="friends__card" data-name="Charly">
+                            <div class="friends__card-wrapper-pic">
+                                <img src="../../assets/img/friends-6-1280.jpg" alt="cat" class="friends__card-pic">
+                            </div>
+                            <p class="friend-name">Charly</p>
+                            <div class="btn__container">
+                                <button class="btn btn-friend">Learn more</button>
+                            </div>
+                        </div>
+                        <div class="friends__card" data-name="Scarlett">
+                            <div class="friends__card-wrapper-pic">
+                                <img src="../../assets/img/friends-7-1280.jpg" alt="cat" class="friends__card-pic">
+                            </div>
+                            <p class="friend-name">Scarlett</p>
+                            <div class="btn__container">
+                                <button class="btn btn-friend">Learn more</button>
+                            </div>
+                        </div>
+                        <div class="friends__card" data-name="Freddie">
+                            <div class="friends__card-wrapper-pic">
+                                <img src="../../assets/img/friends-8-1280.jpg" alt="cat" class="friends__card-pic">
+                            </div>
+                            <p class="friend-name">Freddie</p>
+                            <div class="btn__container">
+                                <button class="btn btn-friend">Learn more</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="buttons__container">
+                        <div class="double-flip-left pets_flip flip-disabled">
+                            <p class="point">&lt;&lt;</p>
+                        </div>
+                        <div class="flip-left pets_flip flip-disabled">
+                            <p class="point">&lt;</p>
+                        </div>
+                        <div class="page">
+                            <p class="page-number">1</p>
+                        </div>
+                        <div class="flip-right pets_flip">
+                            <p class="point">&gt;</p>
+                        </div>
+                        <div class="double-flip-right pets_flip">
+                            <p class="point">&gt;&gt;</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal">
+                <div class="modal__close"></div>
+                <div class="modal__container">
+                    <div class="modal__container-pic">
+                        <!--<img src="" class="modal-pic">-->
+                    </div>
+                    <div class="modal__container-text">
+                        <!--<h2 class="tittle-h2 modal-tittle"></h2>-->
+                        <p class="modal-subtittle"></p>
+                        <p class="modal-text"></p>
+                        <ul class="modal-list">
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -141,21 +166,24 @@
                 </div>
                 <div class="footer__container-waiting">
                     <h3 class="footer-subtittle">We are waiting<br>for your visit</h3>
-                    <a class="footer__container-text" href="https://www.google.com/maps/@21.0428279,105.8210332,15z" target="_blank">
+                    <a class="footer__container-text" href="https://www.google.com/maps/@21.0428279,105.8210332,15z"
+                        target="_blank">
                         <div class="footer-waiting-icon-1"></div>
                         <p class="footer-text">1 Central Street, Boston (entrance from the store)</p>
                     </a>
-                    <a class="footer__container-text" href="https://www.google.com/maps/@21.0428279,105.8210332,15z" target="_blank">
+                    <a class="footer__container-text" href="https://www.google.com/maps/@21.0428279,105.8210332,15z"
+                        target="_blank">
                         <div class="footer-waiting-icon-1"></div>
                         <p class="footer-text">18 South Park, London</p>
                     </a>
                 </div>
             </div>
             <div class="footer__container-pic">
-                <img src="../../assets/img/footer-dog.svg" alt="cute dog" class="footer-pic">
+                <img src="../../assets/img/footer-dog.png" alt="cute dog" class="footer-pic">
             </div>
         </div>
     </footer>
-  <script src="./script.js"></script>
+    <!--<script src="../js-apps/pets.js" type="module"></script>-->
+    <!--<script src="../js-apps/burger.js" type="module"></script>-->
 </body>
 </html>
