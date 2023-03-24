@@ -717,4 +717,131 @@ li {
 }
 /*end*/
 /**media*/
-/*remove all after that @media screen and (min-width: 768px) and (max-width: 1279.9px)...*/
+@media screen and (min-width: 768px) and (max-width: 1279.9px){
+    .wrapper {
+        padding: 0 30px;
+    }
+    .header {
+        padding-top: 30px;
+        padding-bottom: 60px;
+    }
+    .only__container {
+        display: flex;
+        flex-direction: column;
+        gap: 100px;
+        justify-content: center;
+        align-items: center;
+    }
+    .only__container-pic {
+        width: 569px;
+        height: 593px;
+        margin: 0 0 0 auto;
+    }
+    .only-pic {
+        width: 100%;
+        height: 100%;
+    }
+    .btn__only {
+        margin: 0 auto;
+    }
+    .about__container {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+        gap: 80px;
+    }
+    .modal__container {
+        width: 630px;
+        height: 350px;
+    }
+    .modal__container-pic {
+        width: 350px;
+        height: 350px;
+    }
+    .modal__container-text {
+        padding: 10px 10px 0 10px;
+        width: 280px;
+        height: 350px;
+    }
+    .modal-text, .modal-subtittle {
+        margin-bottom: 20px;
+    }
+    .modal-text {
+        font-size: 13px;
+        line-height: 14px;
+    }
+    .modal-list-item {
+        margin-bottom: 6px;
+    }
+   .friends_slider {
+        display: flex;
+        flex-direction: row;
+        width: 584px;
+        gap: 40px;
+        overflow-x: hidden;
+        margin: 0;
+    }
+    .friends__card {
+        min-width: 265px;
+        margin-left: 3px;
+    }
+    .friends__window {
+        width: 584px;
+    }
+    .help__container-icons {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 0 40px;
+        grid-gap: 55px 60px;
+        align-items: center;
+        justify-content: center;
+    }
+    .addition__container {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 60px;
+        justify-content: center;
+        align-items: center;
+    }
+    .addition__container-desc {
+        align-self: center;
+    }
+    .footer {
+        height: 639px;
+    }
+    .footer__container{
+        padding-top: 30px;
+        padding-left: 64px;
+        padding-right: 64px;
+        display: flex;
+        flex-direction: column;
+        gap: 65px;
+        justify-content: center;
+    }
+    .footer__container-pic{
+        margin: 0 auto;
+        width: 300px;
+    }
+    .footer__container-desc{
+        display: flex;
+        flex-direction: row;
+        gap: 60px;
+        justify-content: center;
+    }
+    .footer__container-waiting .footer-text {
+        letter-spacing: 0.1px;
+    }
+    .footer__container-questions, .footer__container-waiting {
+        margin: 0;
+    }
+    .footer__container-text {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+    }
+    .footer-text {
+        max-width: 268px;
+    }
+}
+/*remove all after that @media screen and (max-width: 767.9px)...*/
