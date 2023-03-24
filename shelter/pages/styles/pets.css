@@ -1,0 +1,116 @@
+/*header*/
+.header__wrapper {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background-color: #FFFFFF;
+}
+.header {
+    padding: 30px 0;
+}
+.main {
+    padding-top: 120px;
+    position: relative;
+}
+/*logo*/
+.logo__container{
+    color: #292929;
+}
+.logo-tittle{
+    color: #545454;
+}
+/*logo end*/
+.nav__link {
+    color: #545454;
+}
+.nav__link-active {
+    color: #292929;
+}
+.nav__link:hover {
+    color: #292929;
+}
+/*our*/
+.our {
+    position: relative;
+    background: #F6F6F6;
+    padding: 80px 0 100px 0;
+}
+.our .tittle-h2 {
+    text-align: center;
+    margin-bottom: 60px;
+}
+.our_slider {
+    padding: 2px 2px;
+    display: flex;
+    flex-direction: row;
+    gap: 30px 38px;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.our__window {
+    overflow-x: hidden;
+    width: 1200px;
+    height: 960px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.buttons__container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+.pets_flip, .page {
+    cursor: pointer;
+    width: 52px;
+    height: 52px;
+    border-radius: 100%;
+    border: 2px solid #F1CDB3;
+}
+.page {
+    background-color: #F1CDB3;
+}
+.page-number {
+    font-family: Georgia;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    color: #292929;
+    text-align: center;
+    padding-top: 13px;
+}
+.point{
+    font-family: Georgia;
+    text-align: center;
+    padding-top: 14px;
+    font-weight: 400;
+    font-size: 20px;
+    color: #292929;
+}
+.pets_flip:hover, .page:hover{
+    background: #FDDCC4;
+    border: 2px solid #FDDCC4;
+}
+.flip-disabled .point {
+    color: #CDCDCD;
+}
+.flip-disabled:hover {
+    background: none;
+    border: 2px solid #CDCDCD;
+}
+.flip-disabled{
+    cursor: default;
+    border: 2px solid #CDCDCD;
+}
+.modal__container-text .modal-tittle {
+    margin-bottom: 10px;
+    text-align: left;
+}
+/*media*/
+/*remove all after that @media screen and (min-width: 768px) and (max-width: 1279.9px)...*/
