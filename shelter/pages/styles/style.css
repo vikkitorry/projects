@@ -198,9 +198,11 @@ li {
 }
 .nav__item-active:hover {
     transform: none;
+    cursor: default;
 }
 .nav__link-active {
     color: #FAFAFA;
+    cursor: default;
 }
 .nav__link:hover {
     color: #FAFAFA;
@@ -567,6 +569,10 @@ li {
     background: url(../../assets/img/png/help-9.svg) no-repeat center;
     width: 58px;
     height: 60px;
+}
+.help-icon-pic:hover {
+    transition: 0.6s;
+    transform: rotate(360deg) scale(1.2);
 }
 /*addition*/
 .addition{
