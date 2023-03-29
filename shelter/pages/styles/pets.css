@@ -30,6 +30,7 @@
 }
 .nav__link:hover {
     color: #292929;
+    transition: 0.8s;
 }
 /*our*/
 .our {
@@ -96,6 +97,7 @@
 .pets_flip:hover, .page:hover{
     background: #FDDCC4;
     border: 2px solid #FDDCC4;
+    transition: 0.8s;
 }
 .flip-disabled .point {
     color: #CDCDCD;
