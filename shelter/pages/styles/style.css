@@ -81,6 +81,7 @@ li {
 }
 .btn:hover {
     background: #FDDCC4;
+    transition: 0.8s;
 }
 .overlay {
     cursor: pointer;
@@ -193,9 +194,6 @@ li {
 .nav__item-active {
     border-bottom: 3px solid #F1CDB3;
 }
-.nav__item:hover {
-    transform: scale(1.1);
-}
 .nav__item-active:hover {
     transform: none;
     cursor: default;
@@ -205,7 +203,9 @@ li {
     cursor: default;
 }
 .nav__link:hover {
+    transition: 0.6s;
     color: #FAFAFA;
+    transform: scale(1.1)
 }
 /*about*/
 .about {
@@ -268,6 +268,7 @@ li {
 .arrow:hover {
     background-color: #FDDCC4;
     border: 2px solid #FDDCC4;
+    transition: 0.6s;
 }
 .arrow-left{
     background: url(../../assets/img/png/Arrow-left.png) no-repeat center;
@@ -312,9 +313,15 @@ li {
     background: #FAFAFA;
     width: 270px;
     height: 435px;
+    border-radius: 9px;
+    transition: 0.6s;
+}
+.friends__card-wrapper-pic {
+    border-radius: 9px;
 }
 .friends__card-pic{
     width: 100%;
+    border-radius: 9px;
 }
 .friend-name{
     font-family: Georgia;
@@ -340,23 +347,27 @@ li {
     margin-bottom: 32px;
 }
 .friends__card:hover{
+    transition: 0.6s;
     cursor: pointer;
     background: #FFFFFF;
-    box-shadow:
+    /*box-shadow:
                 -5px -5px 2px -1px rgba(211, 100, 159, 0.5),
                 -5px 5px 2px -1px rgba(95, 115, 186, 0.5),
                 5px -5px 2px -1px rgba(248, 84, 84, 0.708),
-                5px 5px 2px -1px rgba(70, 145, 80, 0.5)
+                5px 5px 2px -1px rgba(70, 145, 80, 0.5)*/
+    box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
 
 }
 .friends__card:hover .friend-name {
     transform: scale(1.2);
     text-shadow: #4c4c4ca5 4px 4px 3px;
+    transition: 0.8s;
 }
 .friends__card:hover .btn-friend{
     cursor: pointer;
     border: #FDDCC4;
     background-color: #FDDCC4;
+    transition: 0.6s;
 }
 /* create my animation*/
 .to-left {
