@@ -188,5 +188,58 @@
     .modal .modal-tittle {
         margin-bottom: 10px;
     }
+    /*delete after week 2*/
+    .card-7, .card-8 {
+        display: none;
+    }/*delete after week 2*/
 }
-/*remove all after that @media screen and (max-width: 767.9px)...*/
+
+@media screen and (max-width: 767.9px){
+    .burger {
+        background: url(../../assets/icons/Burger-pets.svg) no-repeat center;
+    }
+    .burger ~ .nav__list{
+        background: #FFFFFF;
+    }
+    .logo-text {
+        color: #292929;
+    }
+    .modal .modal-tittle {
+        text-align: center;
+    }
+    .our {
+        padding: 42px 0 42px 0;
+    }
+    .our .tittle-h2 {
+        margin-bottom: 42px;
+    }
+    .our_slider {
+        padding: 2px 2px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .friends__card {
+        margin-bottom: 30px;
+    }
+    .our__window {
+        width: 274px;
+        height: 1417px;
+        margin: 0 auto;
+    }
+    .buttons__container div:nth-child(-n+4) {
+        margin-right: 10px;
+    }
+    .modal__container-text .modal-tittle {
+        margin-bottom: 10px;
+    }
+    .buttons__container{
+        gap: 0;
+    }
+    .card-4, .card-5, .card-6, .card-7, .card-8 {
+        display: none;
+    }
+}
