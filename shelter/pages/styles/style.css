@@ -44,6 +44,9 @@ body {
     height: 100%;
     overflow-y: scroll;
 }
+::-webkit-scrollbar { 
+    display: none; 
+}
 body.block {
     overflow-y: hidden;
 }
@@ -286,27 +289,37 @@ li {
     overflow: hidden;
    /* padding-left: 3px;*/
 }
-.carousel_actual {
+
+.carousel_left {
     position: absolute;
     animation: 1s ease-in-out;
+    left: -990px;
 }
-.carousel_next {
+.carousel_right {
     position: absolute;
     right: -990px;
     animation: 1s ease-in-out;
 }
+.carousel_center {
+    position: absolute;
+    animation: 1s ease-in-out;
+}
+
+
+
 .friends_slider {
     display: flex;
     flex-direction: row;
     gap: 90px;
     justify-content: space-between;
-    width: 990px;
+    width: 870px;/*990*/
     padding-top: 2px;
     padding-bottom: 2px;
 }
+/*
 .friends_slider:first-child {
     margin-left: 3px;
-}
+}*/
 .friends__card{
     display: flex;
     align-items: center;
@@ -315,6 +328,7 @@ li {
     justify-content: space-between;
     background: #FAFAFA;
     width: 270px;
+    min-width: 270px;
     height: 435px;
     border-radius: 9px;
     transition: 0.6s;
@@ -501,6 +515,9 @@ li {
     height: 12px;
 }
 .modal__close:hover {
+    background-color: #F1CDB3;
+}
+.modal__close:active {
     background-color: #F1CDB3;
 }
 
@@ -736,7 +753,7 @@ li {
 }
 /*end*/
 /**media*/
-
+/*
 @media screen and (min-width: 1000px) and (max-width: 1279px){
     .only__container-pic {
         max-width: 698px;
@@ -760,6 +777,20 @@ li {
         gap: 40px;
         overflow-x: hidden;
         margin: 0;
+    }
+    .carousel_center {
+        position: absolute;
+        animation: 1s ease-in-out;
+    }
+    .carousel_left {
+        position: absolute;
+        animation: 1s ease-in-out;
+        left: -600px;
+    }
+    .carousel_right {
+        position: absolute;
+        right: -600px;
+        animation: 1s ease-in-out;
     }
     .friends__card {
         min-width: 265px;
@@ -786,9 +817,9 @@ li {
     .footer-text {
         max-width: 258px;
     }
-}
+}*/
 
-@media screen and (min-width: 768px) and (max-width: 1000px){
+@media screen and (min-width: 768px) and (max-width: 1279.9px){
     .wrapper {
         padding: 0 30px;
     }
@@ -850,6 +881,10 @@ li {
     }
     .modal-list-item {
         margin-bottom: 6px;
+    }
+
+    .friends_slider:nth-last-child(n+2) {
+        display: none;
     }
    .friends_slider {
         display: flex;
