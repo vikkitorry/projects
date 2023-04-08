@@ -1,7 +1,8 @@
+
 /*header*/
 .header__wrapper {
     width: 100%;
-    position: relative; /*fixed*/
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 2;
@@ -11,7 +12,7 @@
     padding: 30px 0;
 }
 .main {
-    padding-top: 0px; /*120px*/
+    padding-top: 120px;
     position: relative;
 }
 /*logo*/
@@ -30,7 +31,6 @@
 }
 .nav__link:hover {
     color: #292929;
-    transition: 0.8s;
 }
 /*our*/
 .our {
@@ -40,27 +40,27 @@
 }
 .our .tittle-h2 {
     text-align: center;
-    margin-bottom: 59px;
+    margin-bottom: 60px;
 }
 .our_slider {
-    padding: 5px 5px;
+    padding: 2px 2px;
     display: flex;
     flex-direction: row;
-    gap: 30px 30px;
+    gap: 30px 38px;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
 }
 .our__window {
     overflow-x: hidden;
-    max-width: auto;
-    width: auto;
+    width: 1200px;
     height: 960px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
 }
+
 .buttons__container{
     display: flex;
     flex-direction: row;
@@ -94,15 +94,14 @@
     font-size: 20px;
     color: #292929;
 }
-.pets_flip:hover, .page:hover{
+.pets_flip:hover, .page:hover{                             /*hover*/
     background: #FDDCC4;
     border: 2px solid #FDDCC4;
-    transition: 0.8s;
 }
 .flip-disabled .point {
     color: #CDCDCD;
 }
-.flip-disabled:hover {
+.flip-disabled:hover {                             /*hover*/
     background: none;
     border: 2px solid #CDCDCD;
 }
@@ -114,16 +113,24 @@
     margin-bottom: 10px;
     text-align: left;
 }
+.medium {
+    display: none;
+}
+.small {
+    display: none;
+}
+
+
 /*media*/
-@media screen and (min-width: 1080px) and (max-width: 1279px){
+@media screen and (min-width: 768px) and (max-width: 1279.9px){
     .our {
         padding-bottom: 75px;
     }
     .our .tittle-h2 {
-        margin-bottom: 0;
+        margin-bottom: 30px;
     }
     .our_slider {
-        padding: 30px 62px 40px 62px;
+        padding: 2px 2px;
         display: flex;
         flex-direction: row;
         gap: 30px 38px;
@@ -131,14 +138,13 @@
         align-items: center;
         flex-wrap: wrap;
         overflow-y: hidden;
-        height: 960px;
+        height: 1370px;
     }
     .our__window {
         margin: 0 auto;
-        padding: 0;
-        max-width: auto;  /*710px;*/
-        width: auto;
-        height: 960px;
+        padding: 0 60px;
+        max-width: 710px;
+        height: 1410px;
     }
     .buttons__container{
         display: flex;
@@ -189,115 +195,26 @@
     .modal .modal-tittle {
         margin-bottom: 10px;
     }
-    /*delete after week 2*/
-    .card-7, .card-8 {
+    .big {
         display: none;
     }
-    /*delete after week 2*/
-    .friends__card {
-        width:15vw;
-    }
-}
-@media screen and (min-width: 768px) and (max-width: 1080px){
-    .our {
-        padding-bottom: 75px;
-    }
-    .our .tittle-h2 {
-        margin-bottom: 0;
-    }
-    .our_slider {
-        padding: 30px 62px 40px 62px;
+    .medium {
         display: flex;
-        flex-direction: row;
-        gap: 30px 38px;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        overflow-y: hidden;
-        height: 1435px;
     }
-    .our__window {
-        margin: 0 auto;
-        padding: 0;
-        max-width: auto;  /*710px;*/
-        width: auto;
-        height: 1435px;
-    }
-    .buttons__container{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        gap: 20px;
-    }
-    .pets_flip {
-        width: 52px;
-        height: 52px;
-        border-radius: 100%;
-        border: 2px solid #F1CDB3;
-    }
-    .page {
-        background-color: #F1CDB3;
-    }
-    .page-number {
-        font-family: Georgia;
-        font-weight: 400;
-        font-size: 20px;
-        line-height: 23px;
-        color: #292929;
-        text-align: center;
-        padding-top: 13px;
-    }
-    .point{
-        font-family: Georgia;
-        text-align: center;
-        padding-top: 14px;
-        font-weight: 400;
-        font-size: 20px;
-        color: #292929;
-    }
-    .pets_flip:hover {                             /*hover*/
-        background: #FDDCC4;
-        border: 2px solid #FDDCC4;
-    }
-    .point-disabled {
-        color: #CDCDCD;
-    }
-    .flip-disabled:hover {                             /*hover*/
-        background: none;
-        border: 2px solid #CDCDCD;
-    }
-    .flip-disabled{
-        border: 2px solid #CDCDCD;
-    }
-    .modal .modal-tittle {
-        margin-bottom: 10px;
-    }
-    /*delete after week 2*/
-    .card-7, .card-8 {
+    .small {
         display: none;
     }
-    /*delete after week 2*/
 }
+
 @media screen and (max-width: 767.9px){
-    .burger-line {
-        width: 30px;
-        height: 2px;
-        background-color: #000000;
-        margin-bottom: 8px;
-    }
-    .burger-line-last {
-        width: 30px;
-        height: 2px;
-        background-color: #000000;
+    .burger {
+        background: url(../../assets/icons/Burger-pets.svg) no-repeat center;
     }
     .burger ~ .nav__list{
         background: #FFFFFF;
     }
     .logo-text {
         color: #292929;
-    }
-    .logo__container{
-        margin-left: 10px;
     }
     .modal .modal-tittle {
         text-align: center;
@@ -306,29 +223,25 @@
         padding: 42px 0 42px 0;
     }
     .our .tittle-h2 {
-        margin-bottom: 0;
+        margin-bottom: 42px;
     }
     .our_slider {
-        padding: 40px 5px 11px 5px;
+        padding: 2px 2px;
         display: flex;
         flex-direction: column;
         gap: 0;
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
+        overflow: hidden; /*добавила*/
     }
     .friends__card {
-        width: 50vw;
-        margin-bottom: 29px;
+        margin-bottom: 30px;
     }
     .our__window {
-        max-width: auto;
-        width: auto;  /*274*/
-        height: auto; /*1410*/
+        width: 274px;
+        height: 1417px;
         margin: 0 auto;
-    }
-    .buttons__container div:nth-child(-n+4) {
-        margin-right: 10px;
     }
     .modal__container-text .modal-tittle {
         margin-bottom: 10px;
@@ -336,9 +249,16 @@
     .buttons__container{
         gap: 0;
     }
-    .card-4, .card-5, .card-6, .card-7, .card-8 {
+    .pets_flip, .page {
+        margin-right: 10px;
+    }
+    .big {
         display: none;
     }
-
-
+    .medium {
+        display: none;
+    }
+    .small {
+        display: flex;
+    }
 }
