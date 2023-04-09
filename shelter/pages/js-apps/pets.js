@@ -32,9 +32,6 @@ window.addEventListener('load', function () {
     ourWindow.insertAdjacentHTML('afterbegin', slidersObjMedium[1].cards);
     ourWindow.insertAdjacentHTML('afterbegin', slidersObjSmall[1].cards);
 });
-
-
-
 //create arr(48 items) where each animal is repeated only 6 times(according to task);
 //animal shouldn't be repeated in the slide
 function shuffleArr() {
@@ -68,7 +65,6 @@ function createSlide(numCards, newData) {
     }
     return res;
 }
-
 //create html node for slider
 function createNextSlide(pets, size) {
     return `<div class="our_slider ${size}">
@@ -79,7 +75,6 @@ function createNextSlide(pets, size) {
 function pageNum(num) {
     return page += num;
 };
-
 window.addEventListener('resize', (e) => {
     let screenSize = window.outerWidth;
     if (screenSize >= 1280) {
@@ -97,7 +92,6 @@ window.addEventListener('resize', (e) => {
         maxPage = 16
     }
 });
-
 //add visual effects for buttons
 function checkPage(n) {
     if (page === maxPage){
@@ -143,7 +137,6 @@ function showNewWindow(actualPage) {
 btnNext.addEventListener('click', function () {
     if (page >= 1 && page < maxPage) {
         let actualPage = pageNum(1);
-        console.log(1111)
         showNewWindow(actualPage);
     }
 });
