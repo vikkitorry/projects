@@ -44,8 +44,8 @@ body {
     height: 100%;
     overflow-y: scroll;
 }
-::-webkit-scrollbar { 
-    display: none; 
+::-webkit-scrollbar {
+    display: none;
 }
 body.block {
     overflow-y: hidden;
@@ -304,9 +304,6 @@ li {
     position: absolute;
     animation: 1s ease-in-out;
 }
-
-
-
 .friends_slider {
     display: flex;
     flex-direction: row;
@@ -1027,7 +1024,7 @@ li {
         display: none;
         position: fixed;
         background: rgba(41, 41, 41, 1);
-        padding-top: 248px;
+        padding-top: 168px;
         width: 320px;
         height: 100%;
         top: 0;
@@ -1040,10 +1037,9 @@ li {
         z-index: 5;
         transition: all 0.5s ease;
     }
-
     .burger ~ .nav__list .cat {
         display: block;
-        margin-top: 50px;
+        margin-bottom: 30px;
     }
     .head {
         position: relative;
