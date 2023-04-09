@@ -1024,10 +1024,10 @@ li {
         display: none;
         position: fixed;
         background: rgba(41, 41, 41, 1);
-        padding-top: 168px;
         width: 320px;
         height: 100%;
         top: 0;
+        padding-top: 168px;
         right: -100%;
         display: flex;
         flex-direction: column;
