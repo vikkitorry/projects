@@ -236,7 +236,24 @@ main {
   width: 100px;
 }
 
-.reset:hover, .settings:hover {
+.save {
+  color: rgb(54, 196, 18);
+}
+
+.dark-theme .reset .desc {
+  color: rgb(255, 0, 0);
+}
+
+.dark-theme .reset .desc:hover {
+  color: rgb(103, 0, 0);
+}
+
+.save:hover {
+  cursor: pointer;
+  color: rgb(24, 120, 0);
+}
+
+.reset:hover, .settings .desc:hover {
   cursor: pointer;
   color: rgb(255, 0, 0);
 }
