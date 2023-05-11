@@ -1,5 +1,32 @@
-const createModal = function(result, isThemeLigth) {
+import {createElm} from './create-element.js';
+
+const createModal = function(result, isThemeLigth, game) {
   const body = document.querySelector('body');
+  const modal = createElm('div', ['modal'], body);
+  const container = createElm('div', ['container'], modal);
+  const containerLvl = createElm('div', ['container'], modal);
+  const containerModal = createElm('div', ['modal-container'], modal);
+  const settings = createElm('h1', [], modal);
+  const close = createElm('div', ['close'], modal);
+  createElm('div', ['results'], container);
+  createElm('div', [], container).textContent = 'Results';
+  const containerItems = createElm('div', ['container-items'], containerLvl)
+  createElm('div', ['hard-level', 'btn'], containerItems);
+  createElm('div', ['normal-level', 'btn'], containerItems);
+  createElm('div', ['easy-level', 'btn'], containerItems);
+  createElm('div', [], containerLvl).textContent = 'Change Level';
+  const bombs = createElm('div', ['container'], containerModal);
+  const changeTheme = createElm('div', ['container'], containerModal);
+  createElm('input', ['btn'], bombs).value = 10;
+  createElm('div', [], bombs).textContent = 'Bombs';
+  const containerBtn= createElm('div', ['container-items'], changeTheme);
+  // todo добавить 3 класс для кнопок, чтоб он выделял их (класс active-btn)
+  //для этого создать норм структуру для гейм и вытаскивать его
+  createElm('div', ['dark', 'btn', `${game}`], containerBtn)
+  createElm('div', ['light', 'btn', `${game}`], containerBtn)
+  createElm('div', [], changeTheme).textContent = 'Change Theme';
+
+  /*
   const modal =
   `<div class="modal">
     <div class="close"></div>
@@ -33,14 +60,13 @@ const createModal = function(result, isThemeLigth) {
     </div>
   </div>
   </div>`
-  body.insertAdjacentHTML('afterbegin', modal);
-  modalWindow();
+  body.insertAdjacentHTML('afterbegin', modal);*/
+  modalWindow(modal, close);
+
 }
 
-const modalWindow = function() {
-  const modal = document.querySelector('.modal');
-  const settings = document.querySelector('.settng');
-  const close = document.querySelector('.close');
+const modalWindow = function(modal, close) {
+  const settings = document.querySelector('.settings')
   settings.addEventListener('click', () => {
     modal.classList.toggle('modal-active');
   });

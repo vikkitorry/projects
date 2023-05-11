@@ -1,33 +1,24 @@
-const buildPage = function(level, isThemeLigth, isSoundOn) {
-  const body = document.querySelector('body');
-  const theme = isThemeLigth ? 'light-theme' : 'dark-theme'
-  body.classList.add(theme)
-  const main =
-  `
-  <main>
-  <div class="menu">
-    <div class="sound ${isSoundOn ? 'sound-on' : 'sound-off'}"></div>
-    <div class="moves">
-      <div class="counter">1</div>
-      <div class="desc">Steps</div>
-    </div>
-    <div class="time">
-      <div class="timer"></div>
-      <div class="desc">Time</div>
-    </div>
-    <div class="reset">
-      <div class="desc">Reset Game</div>
-    </div>
-    <div class="settings">
-      <div class="desc settng">Settings</div>
-      <div class="save">Save</div>
-    </div>
-  </div>
-  <div class="game ${localStorage.getItem(level)}">
-  </div>
-</main>`
-  body.insertAdjacentHTML('afterbegin', main);
-};
+import {createElm} from './create-element.js';
 
+const buildPage = function(level, isThemeLigth, isSoundOn) {
+  const theme = isThemeLigth ? 'light-theme' : 'dark-theme'
+  const body = document.querySelector('body');
+  body.classList.add(theme)
+  const main = createElm('main', [], body);
+  createElm('div', ['game', `${localStorage.getItem(level)}`], main);
+  const menu = createElm('div', ['menu'], main);
+  const settings = createElm('div', ['settings'], menu);
+  const reset = createElm('div', ['reset'], menu);
+  const times = createElm('div', ['time'], menu);
+  const moves = createElm('div', ['moves'], menu);
+  createElm('div', ['sound', `${isSoundOn ? 'sound-on' : 'sound-off'}`], menu);
+  createElm('div', ['desc'], moves);
+  createElm('div', ['counter'], moves);
+  createElm('div', ['desc'], times);
+  createElm('div', ['timer'], times);
+  createElm('div', ['desc'], reset);
+  createElm('div', ['save'], settings);
+  createElm('div', ['desc'], settings);
+};
 
 export {buildPage};

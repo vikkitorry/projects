@@ -3,10 +3,9 @@ import {changeTheme} from './theme.js';
 import {createBoard} from './create-board.js';
 import {changeLevel} from './level.js';
 import {buildPage} from './build-page.js';
-import {turnSound} from './sound.js';
+//import {turnSound} from './sound.js';
 import {playList} from './data-play-list.js';
-import {savedGame} from './save-game.js';
-
+//import {savedGame} from './save-game.js';
 
 
 function createPage(options) {
@@ -16,18 +15,18 @@ function createPage(options) {
   const isSoundOn = options[3];
   const results = options[4];
   buildPage(level, isThemeLigth, isSoundOn);
-  savedGame(game);
-  turnSound(isSoundOn);
+  //savedGame(game);
+  //turnSound(isSoundOn);
   //  if level is easy and game is not saved the game
   //  will start with default options
   if (!game && level === 'easy') {
-    createBoard(10, 'easy');
+    //createBoard(10, 'easy');
   } else {
-    createBoard(10, level, game);
+    //createBoard(10, level, game);
   }
-  createModal(results, isThemeLigth);
-  changeTheme();
-  changeLevel();
+  createModal(results, isThemeLigth, game);
+  //changeTheme();
+  //changeLevel();
 }
 
 function checkOptions() {

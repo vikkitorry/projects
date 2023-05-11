@@ -75,6 +75,10 @@ h1 {
   line-height: 2.5rem;
 }
 
+h1::after{
+  content: "Settings";
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -99,6 +103,26 @@ input {
   display: flex;
   align-items: center;
   gap: 50px;
+}
+
+.moves .desc::after {
+  content: "Steps";
+}
+
+.time .desc::after {
+  content: "Time";
+}
+
+.reset .desc::after {
+  content: "Reset Game";
+}
+
+.settings .desc::after {
+  content: "Settings";
+}
+
+.settings .save::after {
+  content: "Save";
 }
 
 .container-items {
