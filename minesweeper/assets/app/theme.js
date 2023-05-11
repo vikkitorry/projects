@@ -8,6 +8,7 @@ const changeTheme = function() {
       dark.classList.add('active-btn');
       body.classList.add('dark-theme');
       body.classList.remove('light-theme');
+      localStorage.setItem('theme', 'dark')
     }
   });
   light.addEventListener('click', () => {
@@ -16,6 +17,7 @@ const changeTheme = function() {
       light.classList.add('active-btn');
       body.classList.add('light-theme');
       body.classList.remove('dark-theme');
+      localStorage.setItem('theme', 'light')
     }
   });
 }

@@ -85,6 +85,22 @@ h1 {
   line-height: 1rem;
 }
 
+input {
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+.modal-container .container input:hover {
+  cursor: text;
+  background-color: rgba(255, 255, 255, 0.841);
+}
+
+.modal-container {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
 .container-items {
   margin-top: 20px;
   display: flex;
@@ -420,7 +436,7 @@ main {
     height: 170px;
     overflow-y: scroll;
   }
-  .container-items{
+  .container-items, .modal-container{
     gap: 20px;
   }
   .results p {
