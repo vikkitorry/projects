@@ -18,7 +18,7 @@ const buildPage = function(level, isThemeLigth, isSoundOn) {
   createElm('div', ['timer'], times);
   createElm('div', ['desc'], reset);
   createElm('div', ['save'], settings);
-  createElm('div', ['desc'], settings);
+  createElm('div', ['desc', 'open'], settings);
 };
 
 export {buildPage};

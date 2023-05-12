@@ -10,7 +10,9 @@ const createModal = function(result, isThemeLigth, game) {
   const close = createElm('div', ['close'], modal);
   createElm('div', ['results'], container);
   createElm('div', [], container).textContent = 'Results';
-  const containerItems = createElm('div', ['container-items'], containerLvl)
+  const containerItems = createElm('div', ['container-items'], containerLvl);
+    // todo добавить 3 класс для кнопок, чтоб он выделял их (класс active-btn)
+  //для этого создать норм структуру для гейм и вытаскивать его
   createElm('div', ['hard-level', 'btn'], containerItems);
   createElm('div', ['normal-level', 'btn'], containerItems);
   createElm('div', ['easy-level', 'btn'], containerItems);
@@ -20,60 +22,22 @@ const createModal = function(result, isThemeLigth, game) {
   createElm('input', ['btn'], bombs).value = 10;
   createElm('div', [], bombs).textContent = 'Bombs';
   const containerBtn= createElm('div', ['container-items'], changeTheme);
-  // todo добавить 3 класс для кнопок, чтоб он выделял их (класс active-btn)
-  //для этого создать норм структуру для гейм и вытаскивать его
-  createElm('div', ['dark', 'btn', `${game}`], containerBtn)
-  createElm('div', ['light', 'btn', `${game}`], containerBtn)
+  createElm('div', ['dark', 'btn', `${!isThemeLigth ? 'active-btn' : 'btn'}`], containerBtn);
+  createElm('div', ['light', 'btn', `${isThemeLigth ? 'active-btn' : 'btn'}`], containerBtn);
   createElm('div', [], changeTheme).textContent = 'Change Theme';
 
-  /*
-  const modal =
-  `<div class="modal">
-    <div class="close"></div>
-    <h1>Settings</h1>
-    <div class="modal-container">
-    <div class="container">
-      Change Theme
-      <div class="container-items">
-        <div class="dark btn
-        ${!isThemeLigth ? 'active-btn' : ''}"></div>
-        <div class="light btn
-        ${isThemeLigth ? 'active-btn' : ''}"></div>
-      </div>
-    </div>
-    <div class="container">
-      Bombs
-      <input class="btn" value = "10"></input>
-    </div>
-  </div>
-    <div class="container">
-        Change Level
-      <div class="container-items">
-        <div class="easy-level btn active-btn"></div>
-        <div class="normal-level btn"></div>
-        <div class="hard-level btn"></div>
-      </div>
-    </div>
-    <div class="container">
-      Results
-    <div class="results">
-    </div>
-  </div>
-  </div>`
-  body.insertAdjacentHTML('afterbegin', modal);*/
   modalWindow(modal, close);
-
 }
 
 const modalWindow = function(modal, close) {
-  const settings = document.querySelector('.settings')
+  const settings = document.querySelector('.open')
   settings.addEventListener('click', () => {
     modal.classList.toggle('modal-active');
   });
   close.addEventListener('click', () => {
     modal.classList.remove('modal-active');
   });
-}
+};
 
 export {createModal};
 

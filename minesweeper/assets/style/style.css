@@ -270,6 +270,10 @@ main {
   border: 1px solid rgb(34, 255, 0);
 }
 
+.timer {
+  width: 73px;
+}
+
 .reset {
   line-height: 2.3rem;
   text-align: center;

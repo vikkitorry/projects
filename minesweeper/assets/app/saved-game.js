@@ -1,3 +1,5 @@
+import {checkCells} from './create-board.js';
+
 let time;
 let saveBtn;
 let sec = 0;
@@ -17,11 +19,13 @@ function savedGame(game) {
 };
 
 function saveGame() {
+  let cells = checkCells();
   const lastGame = {
     sec: sec,
     min: min,
-    field: 'field'
+    field: cells
   }
+  //console.log(cells)
   localStorage.setItem('game', JSON.stringify(lastGame));
   console.log(JSON.parse(localStorage.getItem ("game")))
 };
@@ -43,6 +47,8 @@ function timer() {
 function startTime() {
   setInterval(timer, 1000);
 };
+
+
 
 
 
