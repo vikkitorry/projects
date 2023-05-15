@@ -1,4 +1,4 @@
-import {createBoard} from './create-board.js'
+import {createBoard} from './game.js'
 
 const changeLevel = function() {
   const easy = document.querySelector('.easy-level');

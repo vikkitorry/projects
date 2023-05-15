@@ -1,10 +1,10 @@
 import {createModal} from './modal.js';
 import {changeTheme} from './theme.js';
-import {createBoard} from './create-board.js';
+import {createBoard, savedGame} from './game.js';
 import {changeLevel} from './level.js';
 import {buildPage} from './build-page.js';
 import {turnSound} from './sound.js';
-import {savedGame} from './saved-game.js';
+
 
 
 function createPage(options) {
@@ -14,6 +14,8 @@ function createPage(options) {
   const isSoundOn = options[3];
   const results = options[4];
   buildPage(level, isThemeLigth, isSoundOn);
+// game from localstorage явл просто объектом
+//надо переделать, чтоб он принимал уровень
   createModal(results, isThemeLigth, game);
   savedGame(game);
   //  if level is easy and game is not saved the game

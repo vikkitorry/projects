@@ -19,22 +19,37 @@ const createModal = function(result, isThemeLigth, game) {
   createElm('div', [], containerLvl).textContent = 'Change Level';
   const bombs = createElm('div', ['container'], containerModal);
   const changeTheme = createElm('div', ['container'], containerModal);
-  createElm('input', ['btn'], bombs).value = 10;
+  //если сохранено значение добавь его в валие
+  createElm('input', ['btn'], bombs);
   createElm('div', [], bombs).textContent = 'Bombs';
   const containerBtn= createElm('div', ['container-items'], changeTheme);
   createElm('div', ['dark', 'btn', `${!isThemeLigth ? 'active-btn' : 'btn'}`], containerBtn);
   createElm('div', ['light', 'btn', `${isThemeLigth ? 'active-btn' : 'btn'}`], containerBtn);
   createElm('div', [], changeTheme).textContent = 'Change Theme';
-
+  inputSettings();
   modalWindow(modal, close);
 }
 
+function inputSettings() {
+  const input = document.querySelector('input');
+  input.value =  || 10;
+  input.type = 'number'
+}
+
 const modalWindow = function(modal, close) {
-  const settings = document.querySelector('.open')
+  const settings = document.querySelector('.open');
+  let inputBefore;
   settings.addEventListener('click', () => {
+    inputBefore = document.querySelector('input').value;
     modal.classList.toggle('modal-active');
   });
   close.addEventListener('click', () => {
+    const inputAfter = document.querySelector('input');
+    if (inputBefore === inputAfter.value) {
+      console.log('eeeeeeeeeee')
+    } else {
+      console.log('nnnnnnnnnnn')
+    }
     modal.classList.remove('modal-active');
   });
 };
