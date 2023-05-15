@@ -10,7 +10,7 @@ let flags = [];
 
 // gameOpt приходит с корня и явл просто объектом game from localstorage
 //надо переделать, чтоб он принимал уровень
-function createBoard(num, className, gameOpt) {
+function createBoard(num, className, numBombs, isSaved) {
   cell.length = 0;
   stepCounter = document.querySelector('.counter');
   //todo добавить изменение кол-ва шагов если созранено в game.steps
@@ -19,8 +19,9 @@ function createBoard(num, className, gameOpt) {
 
   const gameContainer = document.querySelector('.game');
   const prevLevel = gameContainer.classList[1];
-  gameContainer.classList.add(className);
   gameContainer.classList.remove(prevLevel);
+  gameContainer.classList.add(`${className}`);
+  //console.log(gameContainer.classList)
   gameContainer.innerHTML = '';
   for (let i = 0; i < num * num; i++) {
     const item = document.createElement('div');
@@ -30,35 +31,37 @@ function createBoard(num, className, gameOpt) {
   }
   //  if player save game, gameOpt will contain
   //  info about game, else === false
-  if (gameOpt) {
-    savedGame(cell, gameOpt);
+  if (isSaved) {
+    savedGame(cell, isSaved);
   } else {
-    savedGame(cell, gameOpt);
+    //savedGame(cell, isSaved);
   }
-  const bombs = [...Array(cell.length).keys()]
-                .sort(() => Math.random() - 0.5)
-                //вместо 10 в слайс добавить значение из инпута
-                .slice(0,20)
-  cellAction(cell, num, num, bombs);
+  cellAction(cell, num, num, numBombs);
 }
 
 
 //добавить считыватель с инпута сколько бомб bombsCount
-function cellAction(cells, width, height, bombs) {
+function cellAction(cells, width, height, numBombs) {
   const cellsCount = width * height
   let closedCount = cellsCount;
+  let isFirstClick = true;
+  let bombsArr;
   cells.forEach((e, index) => {
     e.addEventListener('mousedown', (evt) => {
       evt.preventDefault();
       if (evt.button === 2) {
+        const flagCounter = document.querySelector('.flag-counter');
+        const bombCounter = document.querySelector('.bomb-counter');
         if (e.classList.contains('flag')) {
           e.classList.remove('flag');
           flags.filter((elm) => elm === index)
-          console.log('flags', flags)
+          bombCounter.textContent++
+          flagCounter.textContent--
         } else {
           e.classList.add('flag');
           flags.push(index);
-          console.log('flags222', flags)
+          bombCounter.textContent--
+          flagCounter.textContent++
         }
         if (!!document.querySelector('.sound-on')) {
           let audioFlag = new Audio();
@@ -79,7 +82,16 @@ function cellAction(cells, width, height, bombs) {
           }
           closedCount--;
           //bombsCount=10 временно после считывателя, убрать кол-во
-          addGameLogic(width, height, bombs, index, closedCount)
+          if (isFirstClick) {
+            bombsArr = [...Array(cell.length).keys()]
+                          .filter((el) => el !== index)
+                          .sort(() => Math.random() - 0.5)
+                          .slice(0, numBombs)
+
+          addGameLogic(width, height, bombsArr, index, closedCount)
+          }
+          addGameLogic(width, height, bombsArr, index, closedCount)
+          isFirstClick = false;
           //console.log(cell[0])
         }
       }
@@ -96,7 +108,7 @@ function savedGame(game) {
   if (lastGame.saved) {
     //console.log(1111)
   }
-  startTime(time);
+  //startTime(time);
   saveBtn.addEventListener('click', () => {
     saveGame()
   })
@@ -117,6 +129,9 @@ function saveGame() {
   //console.log(JSON.parse(localStorage.getItem ("game")))
 };
 
+
+//есть глюк при каждой смене настроек он запускает время и время летит
+/*
 function timer() {
   sec++;
   if (sec === 60) {
@@ -132,7 +147,7 @@ function timer() {
 
 function startTime() {
   setInterval(timer, 1000);
-};
+};*/
 
 
 

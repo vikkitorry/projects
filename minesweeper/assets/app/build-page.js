@@ -8,15 +8,12 @@ const buildPage = function(level, isThemeLigth, isSoundOn) {
   createElm('div', ['game', `${localStorage.getItem(level)}`], main);
   const menu = createElm('div', ['menu'], main);
   const counters = createElm('div', ['counters'], body);
-
   const flagsCounter = createElm('div', ['flags'],counters);
   const bomsCounter = createElm('div', ['bombs'], counters);
   createElm('div', ['flag-counter'], flagsCounter);
   createElm('div', ['flag-item'], flagsCounter);
-
-  createElm('div', ['bomb-counter'], bomsCounter);
+  createElm('div', ['bomb-counter'], bomsCounter).textContent = 10;
   createElm('div', ['bomb-item'], bomsCounter);
-
   const settings = createElm('div', ['settings'], menu);
   const reset = createElm('div', ['reset'], menu);
   const times = createElm('div', ['time'], menu);
