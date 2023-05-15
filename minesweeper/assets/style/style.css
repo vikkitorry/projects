@@ -399,6 +399,7 @@ main {
 .hard {
   grid-template-columns: repeat(25, 1fr);
   grid-template-rows: repeat(25, 1fr);
+  height: 500px;
 }
 
 /*light-theme start*/
@@ -595,6 +596,9 @@ main {
   .light-theme .bomb:hover, .dark-theme .bomb:hover {
     background: url(../img/bomb-24.png) center no-repeat;
   }
+  .hard {
+    height: 600px;
+  }
 }
 
 @media (max-width: 678px){
@@ -643,5 +647,13 @@ main {
     padding-left: 15px;
     color: black;
     margin: 15px 0;
+  }
+  #color1, #color2, #color3, #color4, #color5, #color6 {
+    font-size: 15px;
+  }
+
+  .hard {
+    grid-template-rows: repeat(25, 1fr);
+    height: 425px;
   }
 }

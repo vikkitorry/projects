@@ -14,6 +14,7 @@ function createBoard(num, className, numBombs, isSaved) {
   cell.length = 0;
   stepCounter = document.querySelector('.counter');
   //todo добавить изменение кол-ва шагов если созранено в game.steps
+  step = 0;
   stepCounter.textContent = step;
   //аналогично с таймом
 
@@ -57,7 +58,7 @@ function cellAction(cells, width, height, numBombs) {
           flags.filter((elm) => elm === index)
           bombCounter.textContent++
           flagCounter.textContent--
-        } else {
+        } else if (!e.classList.contains('active')) {
           e.classList.add('flag');
           flags.push(index);
           bombCounter.textContent--
@@ -83,14 +84,16 @@ function cellAction(cells, width, height, numBombs) {
           closedCount--;
           //bombsCount=10 временно после считывателя, убрать кол-во
           if (isFirstClick) {
+            step = 1;
+            stepCounter.textContent = 1;
             bombsArr = [...Array(cell.length).keys()]
                           .filter((el) => el !== index)
                           .sort(() => Math.random() - 0.5)
                           .slice(0, numBombs)
 
-          addGameLogic(width, height, bombsArr, index, closedCount)
+          addGameLogic(width, height, bombsArr, index)
           }
-          addGameLogic(width, height, bombsArr, index, closedCount)
+          addGameLogic(width, height, bombsArr, index)
           isFirstClick = false;
           //console.log(cell[0])
         }
@@ -155,114 +158,93 @@ function startTime() {
 
 
 
-function addGameLogic(width, height, bombs, index, closedCount) {
-  //console.log(cell)
-  //add logic for cell add options? bombs and so on
-  /*
-  for (let i = 0; i < num * num; i++) {
-    const item = document.createElement('div');
-    item.classList.add('cell');
-    game.appendChild(item)
-  }*/
-  startGame(width, height, bombs, index, closedCount)
-  function startGame(width, height, bombs, index, closedCount) {
+function addGameLogic(width, height, bombs, index) {
+  const column = index % width;
+  const row = Math.floor(index/width);
+  openCell(row, column);
 
-    
-    const column = index % width;
-    const row = Math.floor(index/width)
-    open(row, column)
-
-    function isValid(row, column) {
-      return row >= 0
+  function isValid(row, column) {
+    return row >= 0
       && row < height
       && column >= 0
       && column < width
-    }
-  
-    //считает количество бомб и пишет циферку
-    function getCount(row, column) {
-      let count = 0;
-      for(let x = -1; x <= 1; x++) {
-        for(let y = -1; y <= 1; y++) {
-          if (isBomb(row + y, column + x)) {
-            count++
-          }
-        }
-      }
-      return count;
-    }
-    function open(row, column) {
-      if (!isValid(row, column)) return;
-  //index  записывает индексы всех открытых кнопок
-  // и на которую нажал и которые автоматом открылись
-      const index = row * width + column;
-  //cell содержит в себе кнопки  которые открылись и была нажата
-  //со ссылкой на них
-      const btn = cell[index]
-  
-      if (btn.classList.contains('active')) return;
-  
-      //cell.disabled = true;
-      btn.classList.add('active')
-  //проигрыш
-      if(isBomb(row, column)) {
-        const final = document.querySelector('.final');
-        final.classList.add('final-active');
-        final.textContent = 'YOU ARE LOOSER :('
-        if (!!document.querySelector('.sound-on')) {
-          const bombAudio = new Audio();
-          bombAudio.preload = 'auto';
-          bombAudio.src = './assets/sound/loser.mp3';
-          bombAudio.play();
-        }
-        for (let i = 0; i < bombs.length; i++) {
-          const bomb = bombs[i];
-          cell[bomb].classList.add('bomb')
-        }
-        return;
-      }
-      const active = document.querySelectorAll('.active');
-      //const flag = document.querySelectorAll('.flag')
-      //console.log(flag)
-      const result = active.length
-      if (result === cell.length - bombs.length) {
-        const final = document.querySelector('.final');
-        final.classList.add('final-active');
-        final.textContent = 'YOU ARE WINNER!!!'
-        if (!!document.querySelector('.sound-on')) {
-          const winAudio = new Audio();
-          winAudio.preload = 'auto';
-          winAudio.src = './assets/sound/win.mp3';
-          winAudio.play();
-        }
-        return;
-      }
-  
-      const count = getCount(row, column)
-      if(count != 0) {
-        if (count > 6) {
-          btn.id = 'color6'
-        } else {
-          btn.id = `color${count}`
-        }
-        btn.textContent = count
-        return;
-      }
-      //открывает ячейки до циферок
-      for(let x = -1; x <= 1; x++) {
-        for(let y = -1; y <= 1; y++) {
-          open(row + y, column + x)
-        }
-      }
-    }
-  
-    function isBomb(row, column) {
-      if (!isValid(row, column)) return false;
-      const index = row * width + column;
-      return bombs.includes(index)
-    }
   }
-}
+
+  function getCount(row, column) {
+    let count = 0;
+    for(let x = -1; x <= 1; x++) {
+      for(let y = -1; y <= 1; y++) {
+        if (isBomb(row + y, column + x)) {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
+
+  function openCell(row, column) {
+    if (!isValid(row, column)) return;
+    const index = row * width + column;
+    const btn = cell[index];
+    if (btn.classList.contains('active')) return;
+    btn.classList.add('active');
+
+    if(isBomb(row, column)) {
+      const final = document.querySelector('.final');
+      final.classList.add('final-active');
+      final.textContent = 'YOU ARE LOOSER :('
+      if (!!document.querySelector('.sound-on')) {
+        const bombAudio = new Audio();
+        bombAudio.preload = 'auto';
+        bombAudio.src = './assets/sound/loser.mp3';
+        bombAudio.play();
+      }
+      for (let i = 0; i < bombs.length; i++) {
+        const bomb = bombs[i];
+        cell[bomb].classList.add('bomb');
+      }
+        return;
+    }
+
+    const active = document.querySelectorAll('.active');
+    const result = active.length
+    if (result === cell.length - bombs.length) {
+      const final = document.querySelector('.final');
+      final.classList.add('final-active');
+      final.textContent = 'YOU ARE WINNER!!!'
+      if (!!document.querySelector('.sound-on')) {
+        const winAudio = new Audio();
+        winAudio.preload = 'auto';
+        winAudio.src = './assets/sound/win.mp3';
+        winAudio.play();
+      }
+      return;
+    }
+
+    const count = getCount(row, column)
+    if(count != 0) {
+      if (count > 6) {
+        btn.id = 'color6'
+      } else {
+        btn.id = `color${count}`
+      }
+      btn.textContent = count
+      return;
+    }
+
+    for(let x = -1; x <= 1; x++) {
+      for(let y = -1; y <= 1; y++) {
+        openCell(row + y, column + x)
+      }
+    }
+    }
+
+  function isBomb(row, column) {
+    if (!isValid(row, column)) return false;
+    const index = row * width + column;
+    return bombs.includes(index);
+  }
+};
 
 
 
