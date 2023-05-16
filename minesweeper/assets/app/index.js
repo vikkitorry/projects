@@ -1,6 +1,6 @@
 import {createModal} from './modal.js';
 import {changeTheme} from './theme.js';
-import {createBoard} from './game.js';
+import {createBoard, loadSavedGame, saveGame, resetGame} from './game.js';
 import {buildPage} from './build-page.js';
 import {turnSound} from './sound.js';
 
@@ -18,6 +18,9 @@ function createPage() {
   createBoard(10, 'easy', 10);
   turnSound(isSoundOn);
   changeTheme();
+  resetGame();
+  saveGame();
+  loadSavedGame();
 }
 
 

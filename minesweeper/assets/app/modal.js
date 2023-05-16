@@ -4,9 +4,7 @@ import {createBoard} from './game.js';
 const createModal = function(result, isThemeLigth) {
   const body = document.querySelector('body');
   const modal = createElm('div', ['modal'], body);
-
   const containerSaved = createElm('div', ['container', 'tttttttttt'], modal);
-
   const container = createElm('div', ['container'], modal);
   const containerLvl = createElm('div', ['container'], modal);
   const containerModal = createElm('div', ['modal-container'], modal);
@@ -15,22 +13,18 @@ const createModal = function(result, isThemeLigth) {
   createElm('div', ['results'], container);
   createElm('div', [], container).textContent = 'Results';
   const containerItems = createElm('div', ['container-items'], containerLvl);
-    // todo добавить 3 класс для кнопок, чтоб он выделял их (класс active-btn)
-  //для этого создать норм структуру для гейм и вытаскивать его
   const hard = createElm('div', ['hard-level', 'btn'], containerItems);
   const normal = createElm('div', ['normal-level', 'btn'], containerItems);
   const easy = createElm('div', ['easy-level', 'btn'], containerItems);
-
-  createElm('div', ['load', 'btn'], containerSaved).textContent = 'Load Saved Game';
+  const load = createElm('div', ['load', 'btn'], containerSaved)
+  load.textContent = 'Load Saved Game';
   createElm('div', [], containerLvl).textContent = 'Change Level';
   const bombs = createElm('div', ['container'], containerModal);
   const changeTheme = createElm('div', ['container'], containerModal);
-
   const input = createElm('div', ['btn', 'input'], bombs);
   const arrows =   createElm('div', ['arrows'], input);
   const bombsDownBtn = createElm('div', ['arrow-down'], arrows);
   const bombsUpBtn =createElm('div', ['arrow-up'], arrows);
-    //если сохранено значение добавь его в валие а точнее текстконтент
   const numOfBombs = createElm('div', ['bombs-num'], input);
   numOfBombs.textContent = 10
   createElm('div', [], bombs).textContent = 'Bombs';
@@ -39,7 +33,7 @@ const createModal = function(result, isThemeLigth) {
   createElm('div', ['light', 'btn', `${isThemeLigth ? 'active-btn' : 'btn'}`], containerBtn);
   createElm('div', [], changeTheme).textContent = 'Change Theme';
   bombsSettings(numOfBombs, bombsUpBtn, bombsDownBtn);
-  modalWindow(modal, close, numOfBombs, hard, normal, easy);
+  modalWindow(modal, close, numOfBombs, hard, normal, easy, load);
 }
 
 function bombsSettings(numOfBombs, up, down) {
@@ -55,17 +49,21 @@ function bombsSettings(numOfBombs, up, down) {
   });
 };
 
-const modalWindow = function(modal, close, bombs, hard, normal, easy) {
+const modalWindow = function(modal, close, bombs, hard, normal, easy, load) {
   const settings = document.querySelector('.open');
   let bombsBefore;
   let levelBefore;
-  //добавить что уровень завит от сахранения
   let level = 'easy';
   easy.classList.add('active-btn')
-  //добавить что число завит от сахранения
   let num = 10;
   let bomb = 10;
+  let isLoadPressed;
+
+  load.addEventListener('click', () => {
+    isLoadPressed = true;
+  });
   settings.addEventListener('click', () => {
+    isLoadPressed = false;
     bombsBefore = +bombs.textContent;
     levelBefore = level;
     modal.classList.toggle('modal-active');
@@ -73,7 +71,7 @@ const modalWindow = function(modal, close, bombs, hard, normal, easy) {
   close.addEventListener('click', () => {
     const bombsAfter = +bombs.textContent;
     bomb = bombsAfter;
-    if (bombsBefore !== bombsAfter || levelBefore !== level) {
+    if (!isLoadPressed && (bombsBefore !== bombsAfter || levelBefore !== level)) {
       const counter = document.querySelector('.bomb-counter');
       counter.textContent = bomb;
       createBoard(num, level, bomb)
@@ -113,13 +111,5 @@ export {createModal};
 
     /*
     <p>${localStorage.getItem(result[9]) || 'Date: 22.05.23 Steps: 05 Time: 01:14 Win: No'}</p>
-    <p>${localStorage.getItem(result[8]) || 'Date: 21.05.23 Steps: 31 Time: 04:02 Win: No'}</p>
-    <p>${localStorage.getItem(result[7]) || 'Date: 19.05.23 Steps: 17 Time: 05:32 Win: No'}</p>
-    <p>${localStorage.getItem(result[6]) || 'Date: 19.05.23 Steps: 14 Time: 03:46 Win: No'}</p>
-    <p>${localStorage.getItem(result[5]) || 'Date: 17.05.23 Steps: 08 Time: 02:15 Win: No'}</p>
-    <p>${localStorage.getItem(result[4]) || 'Date: 15.05.23 Steps: 12 Time: 01:25 Win: No'}</p>
-    <p>${localStorage.getItem(result[3]) || 'Date: 15.05.23 Steps: 28 Time: 10:28 Win: Yes'}</p>
-    <p>${localStorage.getItem(result[2]) || 'Date: 15.05.23 Steps: 10 Time: 03:38 Win: No'}</p>
-    <p>${localStorage.getItem(result[1]) || 'Date: 15.05.23 Steps: 21 Time: 02:35 Win: No'}</p>
-    <p>${localStorage.getItem(result[0]) || 'Date: 14.05.23 Steps: 11 Time: 01:31 Win: No'}</p>
+    <p>${localStorage.getItem(result[9]) || 'Date: 22.05.23 Steps: 05 Time: 01:14 Win: No'}</p>
     */

@@ -5,47 +5,92 @@ let sec = 0;
 let min = 0;
 let step = 0;
 let stepCounter;
+let gameContainer;
 let flags = [];
+let allBombs;
 
 
-// gameOpt приходит с корня и явл просто объектом game from localstorage
-//надо переделать, чтоб он принимал уровень
-function createBoard(num, className, numBombs, isSaved) {
+function createBoard(num, className, numBombs, lastGameOpt) {
   cell.length = 0;
   stepCounter = document.querySelector('.counter');
-  //todo добавить изменение кол-ва шагов если созранено в game.steps
-  step = 0;
-  stepCounter.textContent = step;
-  //аналогично с таймом
-
-  const gameContainer = document.querySelector('.game');
+  gameContainer = document.querySelector('.game');
+  gameContainer.innerHTML = '';
   const prevLevel = gameContainer.classList[1];
   gameContainer.classList.remove(prevLevel);
+  if (lastGameOpt) {
+    console.log('load')
+    createLoadField(lastGameOpt);
+    cellAction(cell, num, num, numBombs, false);
+  } else {
+    console.log('new')
+    createNewGame(num, className);
+    cellAction(cell, num, num, numBombs, true);
+  }
+};
+
+function createLoadField(lastGameOpt) {
+  /*
+  cell.forEach((el, i) => {
+  let chunk = {};
+  chunk.id = el.id || 0;
+  chunk.className = el.classList[1] || 0;
+  chunk.num = el.textContent || 0;
+  gameField.push(chunk)
+  })*/
+
+  const level = lastGameOpt.level;
+  const bombs = lastGameOpt.bombs;
+  const bombsWindow = lastGameOpt.bombsWindow;
+  const steps = lastGameOpt.steps;
+  //todo
+  const seconds = lastGameOpt.seconds;
+  const minutes = lastGameOpt.minutes;
+  const сells = lastGameOpt.сells;
+
+  gameContainer.classList.add(level);
+  document.querySelector('.bombs-num').textContent = bombsWindow;
+  step = steps;
+  stepCounter.textContent = step;
+
+  for (let i = 0; i < сells.length; i++) {
+    const item = document.createElement('div');
+    item.classList.add('cell');
+    const cellId = сells[i].id;
+    const cellClass = сells[i].className;
+    const cellText = сells[i].num;
+    if (cellClass !== 0) {
+      item.classList.add(cellClass);
+    }
+    if (cellId !== 0) {
+      item.id = cellId;
+      item.textContent = cellText;
+    }
+    gameContainer.appendChild(item);
+    cell.push(item);
+  }
+  console.log('сells[0]', сells[0])
+  console.log('сells[0].id', сells[0].id)
+  console.log('', )
+}
+
+function createNewGame(num, className) {
+  step = 0;
+  stepCounter.textContent = step;
   gameContainer.classList.add(`${className}`);
-  //console.log(gameContainer.classList)
-  gameContainer.innerHTML = '';
   for (let i = 0; i < num * num; i++) {
     const item = document.createElement('div');
     item.classList.add('cell');
     gameContainer.appendChild(item);
     cell.push(item);
   }
-  //  if player save game, gameOpt will contain
-  //  info about game, else === false
-  if (isSaved) {
-    savedGame(cell, isSaved);
-  } else {
-    //savedGame(cell, isSaved);
-  }
-  cellAction(cell, num, num, numBombs);
 }
 
 
-//добавить считыватель с инпута сколько бомб bombsCount
-function cellAction(cells, width, height, numBombs) {
+function cellAction(cells, width, height, numBombs, isNewGame) {
   const cellsCount = width * height
   let closedCount = cellsCount;
-  let isFirstClick = true;
+  //внимательно с isNewGame для первого клика что то могло поломаться
+  let isFirstClick = isNewGame;
   let bombsArr;
   cells.forEach((e, index) => {
     e.addEventListener('mousedown', (evt) => {
@@ -82,81 +127,98 @@ function cellAction(cells, width, height, numBombs) {
             audioCell.play();
           }
           closedCount--;
-          //bombsCount=10 временно после считывателя, убрать кол-во
           if (isFirstClick) {
             step = 1;
             stepCounter.textContent = 1;
             bombsArr = [...Array(cell.length).keys()]
                           .filter((el) => el !== index)
                           .sort(() => Math.random() - 0.5)
-                          .slice(0, numBombs)
-
+                          .slice(0, numBombs);
+            allBombs = bombsArr;
           addGameLogic(width, height, bombsArr, index)
           }
           addGameLogic(width, height, bombsArr, index)
           isFirstClick = false;
-          //console.log(cell[0])
         }
       }
     });
   });
 };
 
-//при запуске игры достает прошлую если сохранена
-function savedGame(game) {
-  saveBtn = document.querySelector('.save');
-  time = document.querySelector('.timer');
-  const lastGame = JSON.parse(localStorage.getItem ("game"));
 
-  if (lastGame.saved) {
-    //console.log(1111)
-  }
-  //startTime(time);
-  saveBtn.addEventListener('click', () => {
-    saveGame()
+function loadSavedGame() {
+  time = document.querySelector('.timer');
+  const loadBtn = document.querySelector('.load');
+  loadBtn.addEventListener('click', () => {
+    const loadGame = JSON.parse(localStorage.getItem ("game"));
+    createBoard(0, 0, 0, loadGame)
   })
 };
 
 function saveGame() {
-  //console.log(cell[0].dataset.game)
-  const lastGame = {
-    level: '',
-    bombs: bombs, //передаю массив с бомбами
-    steps: step,
-    sec: sec,
-    min: min,
-    saved: true,
-    сells: cell// надо передавать весь массив с открытыми и закрытыми ячейками
-  }
-  localStorage.setItem('game', JSON.stringify(lastGame));
+  saveBtn = document.querySelector('.save');
+  saveBtn.addEventListener('click', () => {
+    const savedLevel = gameContainer.classList[1];
+    const bombsNum = +document.querySelector('.bombs-num').textContent;
+    let gameField = [];
+    cell.forEach((el, i) => {
+      let chunk = {};
+      chunk.id = el.id || 0;
+      chunk.className = el.classList[1] || 0;
+      chunk.num = el.textContent || 0;
+      gameField.push(chunk);
+    })
+    const lastGame = {
+      level: savedLevel,
+      bombsWindow: bombsNum,
+      bombsCells: allBombs,
+      steps: step,
+      //raw with timer
+      seconds: sec,
+      minutes: min,
+      сells: gameField,
+    }
+    localStorage.setItem('game', JSON.stringify(lastGame));
+  })
   //console.log(JSON.parse(localStorage.getItem ("game")))
 };
 
 
-//есть глюк при каждой смене настроек он запускает время и время летит
-/*
-function timer() {
-  sec++;
-  if (sec === 60) {
-    min++;
-    sec = 0;
+function startTime() {
+  
+  function timer() {
+    sec++;
+    if (sec === 60) {
+      min++;
+      sec = 0;
+    }
+    if (min === 99) {
+      min = 0;
+      sec = 0;
+    }
+    time.textContent = [min, sec].map((e) => (e < 10 ? `0${e}` : e)).join(':');
   }
-  if (min === 99) {
-    min = 0;
-    sec = 0;
-  }
-  time.textContent = [min, sec].map((e) => (e < 10 ? `0${e}` : e)).join(':');
+
+  function startTime() {
+    setInterval(timer, 1000);
+  };
 }
 
-function startTime() {
-  setInterval(timer, 1000);
-};*/
 
-
-
-
-
-
+function resetGame() {
+  const reset = document.querySelector('.reset');
+  reset.addEventListener('click', () => {
+    stepCounter.textContent = 0;
+    step = 0;
+    const final = document.querySelector('.final');
+    if (final.classList.contains('final-active')) {
+      final.classList.remove(`${final.classList[1]}`)
+    }
+    let level = gameContainer.classList[1];
+    let bombsNum = +document.querySelector('.bombs-num').textContent;
+    createBoard(Math.sqrt(cell.length) || 10, level || 'easy', bombsNum || 10);
+  })
+}
 
 function addGameLogic(width, height, bombs, index) {
   const column = index % width;
@@ -248,4 +310,4 @@ function addGameLogic(width, height, bombs, index) {
 
 
 
-export {createBoard, savedGame};
+export {createBoard, loadSavedGame, saveGame, resetGame};
