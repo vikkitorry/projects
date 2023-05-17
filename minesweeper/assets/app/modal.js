@@ -1,7 +1,7 @@
 import {createElm} from './create-element.js';
 import {createBoard} from './game.js';
 
-const createModal = function(result, isThemeLigth) {
+const createModal = function(isThemeLigth) {
   const body = document.querySelector('body');
   const modal = createElm('div', ['modal'], body);
   const containerSaved = createElm('div', ['container', 'tttttttttt'], modal);
@@ -16,7 +16,7 @@ const createModal = function(result, isThemeLigth) {
   const hard = createElm('div', ['hard-level', 'btn'], containerItems);
   const normal = createElm('div', ['normal-level', 'btn'], containerItems);
   const easy = createElm('div', ['easy-level', 'btn'], containerItems);
-  const load = createElm('div', ['load', 'btn'], containerSaved)
+  const load = createElm('div', ['load', 'btn'], containerSaved);
   load.textContent = 'Load Saved Game';
   createElm('div', [], containerLvl).textContent = 'Change Level';
   const bombs = createElm('div', ['container'], containerModal);
@@ -26,7 +26,7 @@ const createModal = function(result, isThemeLigth) {
   const bombsDownBtn = createElm('div', ['arrow-down'], arrows);
   const bombsUpBtn =createElm('div', ['arrow-up'], arrows);
   const numOfBombs = createElm('div', ['bombs-num'], input);
-  numOfBombs.textContent = 10
+  numOfBombs.textContent = 10;
   createElm('div', [], bombs).textContent = 'Bombs';
   const containerBtn= createElm('div', ['container-items'], changeTheme);
   createElm('div', ['dark', 'btn', `${!isThemeLigth ? 'active-btn' : 'btn'}`], containerBtn);
@@ -66,15 +66,21 @@ const modalWindow = function(modal, close, bombs, hard, normal, easy, load) {
     isLoadPressed = false;
     bombsBefore = +bombs.textContent;
     levelBefore = level;
+    const final = document.querySelector('.final');
+    if (final.classList.contains('final-active')) {
+      final.classList.remove(`${final.classList[1]}`)
+    }
     modal.classList.toggle('modal-active');
   });
   close.addEventListener('click', () => {
     const bombsAfter = +bombs.textContent;
     bomb = bombsAfter;
     if (!isLoadPressed && (bombsBefore !== bombsAfter || levelBefore !== level)) {
-      const counter = document.querySelector('.bomb-counter');
-      counter.textContent = bomb;
-      createBoard(num, level, bomb)
+      const counterBomb = document.querySelector('.bomb-counter');
+      const counterFlag = document.querySelector('.flag-counter');
+      counterBomb.textContent = bomb;
+      counterFlag.textContent = 0;
+      createBoard(num, level, bomb);
     }
     modal.classList.remove('modal-active');
   });
@@ -108,8 +114,3 @@ const modalWindow = function(modal, close, bombs, hard, normal, easy, load) {
 };
 
 export {createModal};
-
-    /*
-    <p>${localStorage.getItem(result[9]) || 'Date: 22.05.23 Steps: 05 Time: 01:14 Win: No'}</p>
-    <p>${localStorage.getItem(result[9]) || 'Date: 22.05.23 Steps: 05 Time: 01:14 Win: No'}</p>
-    */

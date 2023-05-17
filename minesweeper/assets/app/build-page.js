@@ -10,7 +10,7 @@ const buildPage = function(level, isThemeLigth, isSoundOn) {
   const counters = createElm('div', ['counters'], body);
   const flagsCounter = createElm('div', ['flags'],counters);
   const bomsCounter = createElm('div', ['bombs'], counters);
-  createElm('div', ['flag-counter'], flagsCounter);
+  createElm('div', ['flag-counter'], flagsCounter).textContent = 0;
   createElm('div', ['flag-item'], flagsCounter);
   createElm('div', ['bomb-counter'], bomsCounter).textContent = 10;
   createElm('div', ['bomb-item'], bomsCounter);
@@ -22,7 +22,7 @@ const buildPage = function(level, isThemeLigth, isSoundOn) {
   createElm('div', ['desc'], moves);
   createElm('div', ['counter'], moves);
   createElm('div', ['desc'], times);
-  createElm('div', ['timer'], times);
+  createElm('div', ['timer'], times).textContent = '00:00';
   createElm('div', ['desc'], reset);
   createElm('div', ['save'], settings);
   createElm('div', ['desc', 'open'], settings);

@@ -8,6 +8,7 @@ let stepCounter;
 let gameContainer;
 let flags = [];
 let allBombs;
+let actualLevel;
 
 
 function createBoard(num, className, numBombs, lastGameOpt) {
@@ -18,37 +19,35 @@ function createBoard(num, className, numBombs, lastGameOpt) {
   const prevLevel = gameContainer.classList[1];
   gameContainer.classList.remove(prevLevel);
   if (lastGameOpt) {
-    console.log('load')
-    createLoadField(lastGameOpt);
-    cellAction(cell, num, num, numBombs, false);
+    const bombs = lastGameOpt.bombs;
+    const сells = lastGameOpt.сells;
+    const row = Math.round(Math.sqrt(сells.length + 1));
+    createLoadField(lastGameOpt, сells);
+    cellAction(cell, row, row, 0, false, bombs);
   } else {
-    console.log('new')
+    actualLevel = className;
     createNewGame(num, className);
     cellAction(cell, num, num, numBombs, true);
+    //если новая игра запиши результат старой
+    addResults()
   }
 };
 
-function createLoadField(lastGameOpt) {
-  /*
-  cell.forEach((el, i) => {
-  let chunk = {};
-  chunk.id = el.id || 0;
-  chunk.className = el.classList[1] || 0;
-  chunk.num = el.textContent || 0;
-  gameField.push(chunk)
-  })*/
-
+function createLoadField(lastGameOpt, сells) {
   const level = lastGameOpt.level;
-  const bombs = lastGameOpt.bombs;
   const bombsWindow = lastGameOpt.bombsWindow;
   const steps = lastGameOpt.steps;
   //todo
   const seconds = lastGameOpt.seconds;
   const minutes = lastGameOpt.minutes;
-  const сells = lastGameOpt.сells;
-
+  const flagsCount = lastGameOpt.flagsCount;
+  const bombCounter = lastGameOpt.bombsCount;
   gameContainer.classList.add(level);
+  actualLevel = level;
   document.querySelector('.bombs-num').textContent = bombsWindow;
+  document.querySelector('.flag-counter').textContent = flagsCount;
+  document.querySelector('.bomb-counter').textContent = bombCounter;
+
   step = steps;
   stepCounter.textContent = step;
 
@@ -68,9 +67,6 @@ function createLoadField(lastGameOpt) {
     gameContainer.appendChild(item);
     cell.push(item);
   }
-  console.log('сells[0]', сells[0])
-  console.log('сells[0].id', сells[0].id)
-  console.log('', )
 }
 
 function createNewGame(num, className) {
@@ -86,12 +82,16 @@ function createNewGame(num, className) {
 }
 
 
-function cellAction(cells, width, height, numBombs, isNewGame) {
+function cellAction(cells, width, height, numBombs, isNewGame, bombs) {
   const cellsCount = width * height
   let closedCount = cellsCount;
   //внимательно с isNewGame для первого клика что то могло поломаться
   let isFirstClick = isNewGame;
   let bombsArr;
+  if (!isNewGame) {
+    bombsArr = bombs;
+    allBombs = bombs;
+  }
   cells.forEach((e, index) => {
     e.addEventListener('mousedown', (evt) => {
       evt.preventDefault();
@@ -103,13 +103,17 @@ function cellAction(cells, width, height, numBombs, isNewGame) {
           flags.filter((elm) => elm === index)
           bombCounter.textContent++
           flagCounter.textContent--
+          step++;
+          stepCounter.textContent = step;
         } else if (!e.classList.contains('active')) {
           e.classList.add('flag');
           flags.push(index);
           bombCounter.textContent--
           flagCounter.textContent++
+          step++;
+          stepCounter.textContent = step;
         }
-        if (!!document.querySelector('.sound-on')) {
+        if (!!document.querySelector('.sound-on') && !e.classList.contains('active')) {
           let audioFlag = new Audio();
           audioFlag.preload = 'auto';
           audioFlag.src = './assets/sound/item-click2.mp3';
@@ -117,9 +121,9 @@ function cellAction(cells, width, height, numBombs, isNewGame) {
         }
       }
       if (evt.button === 0) {
-        if (!e.classList.contains('flag')) {
+        if (!e.classList.contains('flag') && !e.classList.contains('active')) {
           step++;
-          stepCounter.textContent = step
+          stepCounter.textContent = step;
           if (!!document.querySelector('.sound-on')) {
             let audioCell = new Audio();
             audioCell.preload = 'auto';
@@ -135,10 +139,12 @@ function cellAction(cells, width, height, numBombs, isNewGame) {
                           .sort(() => Math.random() - 0.5)
                           .slice(0, numBombs);
             allBombs = bombsArr;
-          addGameLogic(width, height, bombsArr, index)
+            addGameLogic(width, height, bombsArr, index);
+            isFirstClick = false;
+            startTime(true);
+          } else {
+            addGameLogic(width, height, bombsArr, index)
           }
-          addGameLogic(width, height, bombsArr, index)
-          isFirstClick = false;
         }
       }
     });
@@ -147,7 +153,6 @@ function cellAction(cells, width, height, numBombs, isNewGame) {
 
 
 function loadSavedGame() {
-  time = document.querySelector('.timer');
   const loadBtn = document.querySelector('.load');
   loadBtn.addEventListener('click', () => {
     const loadGame = JSON.parse(localStorage.getItem ("game"));
@@ -158,73 +163,90 @@ function loadSavedGame() {
 function saveGame() {
   saveBtn = document.querySelector('.save');
   saveBtn.addEventListener('click', () => {
-    const savedLevel = gameContainer.classList[1];
-    const bombsNum = +document.querySelector('.bombs-num').textContent;
-    let gameField = [];
-    cell.forEach((el, i) => {
-      let chunk = {};
-      chunk.id = el.id || 0;
-      chunk.className = el.classList[1] || 0;
-      chunk.num = el.textContent || 0;
-      gameField.push(chunk);
-    })
-    const lastGame = {
-      level: savedLevel,
-      bombsWindow: bombsNum,
-      bombsCells: allBombs,
-      steps: step,
-      //raw with timer
-      seconds: sec,
-      minutes: min,
-      сells: gameField,
+    if (!allBombs) {
+      const final = document.querySelector('.final');
+      final.classList.add('final-active');
+      final.textContent = 'Nothing to save :( Make first move.'
+    } else {
+      const savedLevel = gameContainer.classList[1];
+      const bombsNum = +document.querySelector('.bombs-num').textContent;
+      const flagsCounter = +document.querySelector('.flag-counter').textContent;
+      const bombCounter = document.querySelector('.bomb-counter').textContent;
+      let gameField = [];
+      cell.forEach((el, i) => {
+        let chunk = {};
+        chunk.id = el.id || 0;
+        chunk.className = el.classList[1] || 0;
+        chunk.num = el.textContent || 0;
+        gameField.push(chunk);
+      })
+      const lastGame = {
+        level: savedLevel,
+        bombsWindow: bombsNum,
+        bombs: allBombs,
+        steps: step,
+        //raw with timer
+        seconds: sec,
+        minutes: min,
+        сells: gameField,
+        flagsCount: flagsCounter,
+        bombsCount: bombCounter,
+      }
+      console.log(11111, allBombs)
+      localStorage.setItem('game', JSON.stringify(lastGame));
     }
-    localStorage.setItem('game', JSON.stringify(lastGame));
   })
   //console.log(JSON.parse(localStorage.getItem ("game")))
 };
 
 
-function startTime() {
-  
-  function timer() {
-    sec++;
-    if (sec === 60) {
-      min++;
-      sec = 0;
+function startTime(isWork) {
+  const timeAmount = document.querySelector('.timer');
+  let timeInterval;
+  if (isWork) {
+    function timer() {
+      sec++;
+      if (sec === 60) {
+        min++;
+        sec = 0;
+      }
+      if (min === 99) {
+        min = 0;
+        sec = 0;
+      }
+      timeAmount.textContent = [min, sec].map((e) => (e < 10 ? `0${e}` : e)).join(':');
+      time = timeAmount;
     }
-    if (min === 99) {
-      min = 0;
-      sec = 0;
-    }
-    time.textContent = [min, sec].map((e) => (e < 10 ? `0${e}` : e)).join(':');
+    timeInterval = setInterval(timer, 1000);
+  } else {
+    console.log(111111111115555)
+    timeAmount.textContent = '00:00'
+    console.log(timeInterval)
+    clearInterval(timeInterval);
   }
-
-  function startTime() {
-    setInterval(timer, 1000);
-  };
 }
 
 
 function resetGame() {
   const reset = document.querySelector('.reset');
+  startTime(false);
   reset.addEventListener('click', () => {
     stepCounter.textContent = 0;
     step = 0;
     const final = document.querySelector('.final');
     if (final.classList.contains('final-active')) {
-      final.classList.remove(`${final.classList[1]}`)
+      final.classList.remove(`${final.classList[1]}`);
     }
     let level = gameContainer.classList[1];
     let bombsNum = +document.querySelector('.bombs-num').textContent;
-    createBoard(Math.sqrt(cell.length) || 10, level || 'easy', bombsNum || 10);
+    createBoard(Math.round(Math.sqrt(cell.length + 1)) || 10, level || 'easy', bombsNum || 10);
   })
 }
 
 function addGameLogic(width, height, bombs, index) {
   const column = index % width;
-  const row = Math.floor(index/width);
+  const row = Math.floor(index / width);
   openCell(row, column);
-
   function isValid(row, column) {
     return row >= 0
       && row < height
@@ -260,10 +282,14 @@ function addGameLogic(width, height, bombs, index) {
         bombAudio.preload = 'auto';
         bombAudio.src = './assets/sound/loser.mp3';
         bombAudio.play();
+
       }
       for (let i = 0; i < bombs.length; i++) {
         const bomb = bombs[i];
         cell[bomb].classList.add('bomb');
+        console.log('bomb', bomb)
+        console.log('cell', cell)
+        console.log('cell[bomb]', cell[bomb])
       }
         return;
     }
@@ -308,6 +334,43 @@ function addGameLogic(width, height, bombs, index) {
   }
 };
 
+function createLocalResults() {
+  //проверить длину объукта и записать новое если 10
+  //то перезаписать все результаты подняв на один
+  //проблема с бомбами
+  const res = JSON.parse(localStorage.getItem ("results"));
+  const numOfRes = res.length;
+  const finalTable = [];
+  const gameRes =
+    {
+      win: 'No',
+      time: time,
+      level: actualLevel,
+      bombs: allBombs ? allBombs.length : document.querySelector('.bomb-counter').textContent,
+    }
+  if (res) {
+    finalTable.push(gameRes);
+  }
+  if (numOfRes === 10) {
+
+  }
+
+  localStorage.setItem('results', JSON.stringify(finalTable));
+  //console.log(JSON.parse(localStorage.getItem ("results")));
+  //console.log(numOfRes);
+  addResults();
+}
+
+function addResults() {
+  const resContainer = document.querySelector('.results');
+  const results = localStorage.getItem('results');
+  resContainer.innerHTML = '';
+  for (let i = 0; i < 10; i++) {
+    const res = document.createElement('p');
+    res.textContent = `${i + 1}. Win: ${i}, Time: ${i}, Level: ${i}, Bombs: ${i}`
+    resContainer.appendChild(res);
+  }
+};
 
 
-export {createBoard, loadSavedGame, saveGame, resetGame};
+export {createBoard, loadSavedGame, saveGame, resetGame, createLocalResults};
