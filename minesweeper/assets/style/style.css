@@ -125,7 +125,7 @@ h1::after{
 }
 
 .reset .desc::after {
-  content: "Reset Game";
+  content: "New Game";
 }
 
 .settings .desc::after {
@@ -215,6 +215,7 @@ h1::after{
 
 .results p {
   padding-left: 5px;
+  font-size: 18px;
   text-align: start;
   color: black;
   margin: 15px 0;
@@ -644,7 +645,8 @@ main {
     gap: 20px;
   }
   .results p {
-    padding-left: 15px;
+    padding-left: 5px;
+    font-size: 14px;
     color: black;
     margin: 15px 0;
   }

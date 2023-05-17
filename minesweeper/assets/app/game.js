@@ -1,18 +1,21 @@
 let cell = [];
-let time;
 let saveBtn;
-let sec = 0;
-let min = 0;
 let step = 0;
 let stepCounter;
 let gameContainer;
 let flags = [];
 let allBombs;
 let actualLevel;
-
+//time settings
+let timerId;
+let sec = 0;
+//let min = 0;
+let time;
+let timeContainer;
 
 function createBoard(num, className, numBombs, lastGameOpt) {
   cell.length = 0;
+  timeContainer = document.querySelector('.timer');
   stepCounter = document.querySelector('.counter');
   gameContainer = document.querySelector('.game');
   gameContainer.innerHTML = '';
@@ -27,9 +30,9 @@ function createBoard(num, className, numBombs, lastGameOpt) {
   } else {
     actualLevel = className;
     createNewGame(num, className);
+    startTime(false);
+    startTime(true);
     cellAction(cell, num, num, numBombs, true);
-    //если новая игра запиши результат старой
-    addResults()
   }
 };
 
@@ -37,9 +40,8 @@ function createLoadField(lastGameOpt, сells) {
   const level = lastGameOpt.level;
   const bombsWindow = lastGameOpt.bombsWindow;
   const steps = lastGameOpt.steps;
-  //todo
   const seconds = lastGameOpt.seconds;
-  const minutes = lastGameOpt.minutes;
+  //const minutes = lastGameOpt.minutes;
   const flagsCount = lastGameOpt.flagsCount;
   const bombCounter = lastGameOpt.bombsCount;
   gameContainer.classList.add(level);
@@ -85,7 +87,6 @@ function createNewGame(num, className) {
 function cellAction(cells, width, height, numBombs, isNewGame, bombs) {
   const cellsCount = width * height
   let closedCount = cellsCount;
-  //внимательно с isNewGame для первого клика что то могло поломаться
   let isFirstClick = isNewGame;
   let bombsArr;
   if (!isNewGame) {
@@ -95,55 +96,53 @@ function cellAction(cells, width, height, numBombs, isNewGame, bombs) {
   cells.forEach((e, index) => {
     e.addEventListener('mousedown', (evt) => {
       evt.preventDefault();
-      if (evt.button === 2) {
-        const flagCounter = document.querySelector('.flag-counter');
-        const bombCounter = document.querySelector('.bomb-counter');
-        if (e.classList.contains('flag')) {
-          e.classList.remove('flag');
-          flags.filter((elm) => elm === index)
-          bombCounter.textContent++
-          flagCounter.textContent--
-          step++;
-          stepCounter.textContent = step;
-        } else if (!e.classList.contains('active')) {
-          e.classList.add('flag');
-          flags.push(index);
-          bombCounter.textContent--
-          flagCounter.textContent++
-          step++;
-          stepCounter.textContent = step;
-        }
-        if (!!document.querySelector('.sound-on') && !e.classList.contains('active')) {
-          let audioFlag = new Audio();
-          audioFlag.preload = 'auto';
-          audioFlag.src = './assets/sound/item-click2.mp3';
-          audioFlag.play();
-        }
-      }
-      if (evt.button === 0) {
-        if (!e.classList.contains('flag') && !e.classList.contains('active')) {
-          step++;
-          stepCounter.textContent = step;
-          if (!!document.querySelector('.sound-on')) {
-            let audioCell = new Audio();
-            audioCell.preload = 'auto';
-            audioCell.src = './assets/sound/item-click.mp3';
-            audioCell.play();
+      if (!document.querySelector('.final-active')) {
+        evt.preventDefault();
+        if (evt.button === 2) {
+          const flagCounter = document.querySelector('.flag-counter');
+          const bombCounter = document.querySelector('.bomb-counter');
+          if (e.classList.contains('flag')) {
+            e.classList.remove('flag');
+            flags.filter((elm) => elm === index)
+            bombCounter.textContent++
+            flagCounter.textContent--
+          } else if (!e.classList.contains('active')) {
+            e.classList.add('flag');
+            flags.push(index);
+            bombCounter.textContent--
+            flagCounter.textContent++
           }
-          closedCount--;
-          if (isFirstClick) {
-            step = 1;
-            stepCounter.textContent = 1;
-            bombsArr = [...Array(cell.length).keys()]
-                          .filter((el) => el !== index)
-                          .sort(() => Math.random() - 0.5)
-                          .slice(0, numBombs);
-            allBombs = bombsArr;
-            addGameLogic(width, height, bombsArr, index);
-            isFirstClick = false;
-            startTime(true);
-          } else {
-            addGameLogic(width, height, bombsArr, index)
+          if (!!document.querySelector('.sound-on') && !e.classList.contains('active')) {
+            let audioFlag = new Audio();
+            audioFlag.preload = 'auto';
+            audioFlag.src = './assets/sound/item-click2.mp3';
+            audioFlag.play();
+          }
+        }
+        if (evt.button === 0) {
+          if (!e.classList.contains('flag') && !e.classList.contains('active')) {
+            step++;
+            stepCounter.textContent = step;
+            if (!!document.querySelector('.sound-on')) {
+              let audioCell = new Audio();
+              audioCell.preload = 'auto';
+              audioCell.src = './assets/sound/item-click.mp3';
+              audioCell.play();
+            }
+            closedCount--;
+            if (isFirstClick) {
+              step = 1;
+              stepCounter.textContent = 1;
+              bombsArr = [...Array(cell.length).keys()]
+                            .filter((el) => el !== index)
+                            .sort(() => Math.random() - 0.5)
+                            .slice(0, numBombs);
+              allBombs = bombsArr;
+              addGameLogic(width, height, bombsArr, index);
+              isFirstClick = false;
+            } else {
+              addGameLogic(width, height, bombsArr, index)
+            }
           }
         }
       }
@@ -155,7 +154,7 @@ function cellAction(cells, width, height, numBombs, isNewGame, bombs) {
 function loadSavedGame() {
   const loadBtn = document.querySelector('.load');
   loadBtn.addEventListener('click', () => {
-    const loadGame = JSON.parse(localStorage.getItem ("game"));
+    const loadGame = JSON.parse(localStorage.getItem ("gameVikkiTorry"));
     createBoard(0, 0, 0, loadGame)
   })
 };
@@ -163,8 +162,11 @@ function loadSavedGame() {
 function saveGame() {
   saveBtn = document.querySelector('.save');
   saveBtn.addEventListener('click', () => {
+    const final = document.querySelector('.final');
+    if (!!final) {
+      final.textContent = 'Nothing To Save. You End Game!'
+    }
     if (!allBombs) {
-      const final = document.querySelector('.final');
       final.classList.add('final-active');
       final.textContent = 'Nothing to save :( Make first move.'
     } else {
@@ -185,27 +187,25 @@ function saveGame() {
         bombsWindow: bombsNum,
         bombs: allBombs,
         steps: step,
-        //raw with timer
         seconds: sec,
-        minutes: min,
+        //minutes: min,
         сells: gameField,
         flagsCount: flagsCounter,
         bombsCount: bombCounter,
       }
-      console.log(11111, allBombs)
-      localStorage.setItem('game', JSON.stringify(lastGame));
+      localStorage.setItem('gameVikkiTorry', JSON.stringify(lastGame));
     }
   })
-  //console.log(JSON.parse(localStorage.getItem ("game")))
+  //console.log(JSON.parse(localStorage.getItem ("gameVikkiTorry")))
 };
 
 
 function startTime(isWork) {
-  const timeAmount = document.querySelector('.timer');
-  let timeInterval;
   if (isWork) {
-    function timer() {
+    timerId = setInterval(() => {
       sec++;
+      /*
+      feature: time in min and sec
       if (sec === 60) {
         min++;
         sec = 0;
@@ -214,23 +214,25 @@ function startTime(isWork) {
         min = 0;
         sec = 0;
       }
-      timeAmount.textContent = [min, sec].map((e) => (e < 10 ? `0${e}` : e)).join(':');
-      time = timeAmount;
-    }
-    timeInterval = setInterval(timer, 1000);
-  } else {
-    console.log(111111111115555)
-    timeAmount.textContent = '00:00'
-    console.log(timeInterval)
-    clearInterval(timeInterval);
+      timeContainer.textContent = [min, sec].map((e) => (e < 10 ? `0${e}` : e)).join(':');
+      */
+      timeContainer.textContent = sec;
+      time = timeContainer.textContent;
+    }, 1000) ;
+  }
+  if (!isWork) {
+    //min = 0;
+    sec = 0;
+    clearInterval(timerId);
+    timeContainer.textContent = '00';
   }
 }
 
 
 function resetGame() {
   const reset = document.querySelector('.reset');
-  startTime(false);
   reset.addEventListener('click', () => {
+    startTime(false);
     stepCounter.textContent = 0;
     step = 0;
     const final = document.querySelector('.final');
@@ -271,35 +273,34 @@ function addGameLogic(width, height, bombs, index) {
     const index = row * width + column;
     const btn = cell[index];
     if (btn.classList.contains('active')) return;
+    if (btn.classList.contains('flag')) return;
     btn.classList.add('active');
 
     if(isBomb(row, column)) {
       const final = document.querySelector('.final');
       final.classList.add('final-active');
-      final.textContent = 'YOU ARE LOOSER :('
+      final.textContent = 'Game over. Try again'
+      createLocalResults(false)
       if (!!document.querySelector('.sound-on')) {
         const bombAudio = new Audio();
         bombAudio.preload = 'auto';
         bombAudio.src = './assets/sound/loser.mp3';
         bombAudio.play();
-
       }
       for (let i = 0; i < bombs.length; i++) {
         const bomb = bombs[i];
         cell[bomb].classList.add('bomb');
-        console.log('bomb', bomb)
-        console.log('cell', cell)
-        console.log('cell[bomb]', cell[bomb])
       }
         return;
     }
 
     const active = document.querySelectorAll('.active');
-    const result = active.length
+    const result = active.length;
     if (result === cell.length - bombs.length) {
       const final = document.querySelector('.final');
       final.classList.add('final-active');
-      final.textContent = 'YOU ARE WINNER!!!'
+      final.textContent = `Hooray! You found all mines in ${sec} seconds and ${step} moves!`
+      createLocalResults(true);
       if (!!document.querySelector('.sound-on')) {
         const winAudio = new Audio();
         winAudio.preload = 'auto';
@@ -316,13 +317,13 @@ function addGameLogic(width, height, bombs, index) {
       } else {
         btn.id = `color${count}`
       }
-      btn.textContent = count
+      btn.textContent = count;
       return;
     }
 
     for(let x = -1; x <= 1; x++) {
       for(let y = -1; y <= 1; y++) {
-        openCell(row + y, column + x)
+        openCell(row + y, column + x);
       }
     }
     }
@@ -334,43 +335,46 @@ function addGameLogic(width, height, bombs, index) {
   }
 };
 
-function createLocalResults() {
-  //проверить длину объукта и записать новое если 10
-  //то перезаписать все результаты подняв на один
-  //проблема с бомбами
-  const res = JSON.parse(localStorage.getItem ("results"));
-  const numOfRes = res.length;
-  const finalTable = [];
+function createLocalResults(isWin) {
+  let res = JSON.parse(localStorage.getItem("resultsVikkiTorry"));
   const gameRes =
     {
-      win: 'No',
-      time: time,
+      win: isWin? 'Yes' : 'No',
+      time: time || 10,
+      steps: step,
       level: actualLevel,
       bombs: allBombs ? allBombs.length : document.querySelector('.bomb-counter').textContent,
     }
   if (res) {
-    finalTable.push(gameRes);
+    res.push(gameRes);
+    const numOfRes = res.length;
+    if (numOfRes === 10) {
+      res.slice(-10);
+    }
   }
-  if (numOfRes === 10) {
-
+  if (!res) {
+    res = [];
+    res.push(gameRes);
   }
-
-  localStorage.setItem('results', JSON.stringify(finalTable));
-  //console.log(JSON.parse(localStorage.getItem ("results")));
-  //console.log(numOfRes);
+  localStorage.setItem('resultsVikkiTorry', JSON.stringify(res));
   addResults();
 }
 
 function addResults() {
   const resContainer = document.querySelector('.results');
-  const results = localStorage.getItem('results');
+  const results = JSON.parse(localStorage.getItem ("resultsVikkiTorry")) || false;
   resContainer.innerHTML = '';
   for (let i = 0; i < 10; i++) {
     const res = document.createElement('p');
-    res.textContent = `${i + 1}. Win: ${i}, Time: ${i}, Level: ${i}, Bombs: ${i}`
+    const info = results[i]
+    if (info && results) {
+      res.textContent = `${i + 1}. Win: ${info.win}, Sec: ${info.time || 10}, Level: ${info.level}, Bombs: ${info.bombs}, Steps: ${info.steps}`
+    } else {
+      res.textContent = `${i + 1}. Еще нет данных, надо сначала поиграть :)`
+    }
     resContainer.appendChild(res);
   }
 };
 
 
-export {createBoard, loadSavedGame, saveGame, resetGame, createLocalResults};
+export {createBoard, loadSavedGame, saveGame, resetGame, addResults};

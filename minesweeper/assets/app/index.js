@@ -1,7 +1,7 @@
 import {createModal} from './modal.js';
 import {changeTheme} from './theme.js';
-import {createBoard, loadSavedGame, saveGame, resetGame, createLocalResults} from './game.js';
 import {buildPage} from './build-page.js';
+import {createBoard, loadSavedGame, saveGame, resetGame, addResults} from './game.js';
 import {turnSound} from './sound.js';
 
 
@@ -16,7 +16,7 @@ function createPage() {
   resetGame();
   saveGame();
   loadSavedGame();
-  createLocalResults();
+  addResults();
 }
 
 
