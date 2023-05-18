@@ -359,12 +359,22 @@ main {
   width: 100px;
 }
 
+.open {
+  margin-top: 5px;
+}
+
 .save {
   color: rgb(54, 196, 18);
 }
 
 .dark-theme .reset .desc {
   color: rgb(255, 0, 0);
+}
+
+.reset .desc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .dark-theme .reset .desc:hover {
@@ -385,6 +395,7 @@ main {
   width: 100%;
   height: 100%;
   display: grid;
+  user-select: none;
 }
 
 .easy {
@@ -607,6 +618,14 @@ main {
     width: 400px;
     height: 500px;
   }
+  .menu {
+    height: 60px;
+  }
+  div .counter, div .timer {
+    height: 25px;
+    font-size: 1.2rem;
+    line-height: 100%;
+  }
   .light-theme .flag, .dark-theme .flag {
     background: url(../img/flag-16.png) center no-repeat;
   }
@@ -620,11 +639,10 @@ main {
     background: url(../img/bomb-15.png) center no-repeat;
   }
   .moves, .time, .reset, .settings{
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     line-height: 2rem;
   }
   .reset {
-    padding-top: 7px;
     width: 85px;
   }
   .moves {
@@ -653,7 +671,6 @@ main {
   #color1, #color2, #color3, #color4, #color5, #color6 {
     font-size: 15px;
   }
-
   .hard {
     grid-template-rows: repeat(25, 1fr);
     height: 425px;

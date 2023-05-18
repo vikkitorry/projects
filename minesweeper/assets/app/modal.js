@@ -62,6 +62,7 @@ const modalWindow = function(modal, close, bombs, hard, normal, easy, load) {
   load.addEventListener('click', () => {
     isLoadPressed = true;
   });
+
   settings.addEventListener('click', () => {
     isLoadPressed = false;
     bombsBefore = +bombs.textContent;
@@ -72,6 +73,7 @@ const modalWindow = function(modal, close, bombs, hard, normal, easy, load) {
     }
     modal.classList.toggle('modal-active');
   });
+
   close.addEventListener('click', () => {
     const bombsAfter = +bombs.textContent;
     bomb = bombsAfter;
@@ -84,6 +86,7 @@ const modalWindow = function(modal, close, bombs, hard, normal, easy, load) {
     }
     modal.classList.remove('modal-active');
   });
+
   easy.addEventListener('click', () => {
     if (!easy.classList.contains('active-btn')) {
       easy.classList.add('active-btn');
@@ -93,6 +96,7 @@ const modalWindow = function(modal, close, bombs, hard, normal, easy, load) {
       num = 10;
     }
   });
+
   normal.addEventListener('click', () => {
     if (!normal.classList.contains('active-btn')) {
       normal.classList.add('active-btn');
@@ -102,6 +106,7 @@ const modalWindow = function(modal, close, bombs, hard, normal, easy, load) {
       num = 15;
     }
   });
+
   hard.addEventListener('click', () => {
     if (!hard.classList.contains('active-btn')) {
       hard.classList.add('active-btn');
@@ -111,6 +116,7 @@ const modalWindow = function(modal, close, bombs, hard, normal, easy, load) {
       num = 25;
     }
   });
+
 };
 
 export {createModal};

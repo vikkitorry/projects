@@ -32,13 +32,33 @@ const turnSound = function(isSoundOn) {
         audio.src = './assets/sound/menu-click.mp3';
         audio.play();
       }
+      //if modal is open
       if (el.closest('.open')) {
         ismodalOpen = !ismodalOpen
         if (ismodalOpen && isSoundOn) {
-          audioMenu.preload = 'auto';
-          audioMenu.src = './assets/sound/open-modal.mp3';
-          audioMenu.play();
+          if (document.querySelector('body').classList.contains('light-theme')) {
+            audioMenu.preload = 'auto';
+            audioMenu.src = './assets/sound/open-modal.mp3';
+            audioMenu.play();
+          } else {
+            audioMenu.preload = 'auto';
+            audioMenu.src = './assets/sound/open-modal2.mp3';
+            audioMenu.play();
+          }
         }
+      }
+      // if change theme in modal window
+      if (el.closest('.dark') && isSoundOn) {
+        audioMenu.currentTime = 0;
+        audioMenu.pause();
+        audioMenu.src = './assets/sound/open-modal2.mp3';
+        audioMenu.play();
+      }
+      if (el.closest('.light') && isSoundOn) {
+        audioMenu.currentTime = 0;
+        audioMenu.pause();
+        audioMenu.src = './assets/sound/open-modal.mp3';
+        audioMenu.play();
       }
       if (el.closest('.close')) {
         ismodalOpen = !ismodalOpen
