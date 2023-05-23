@@ -417,11 +417,11 @@ function addResults() {
 
   for (let i = 0; i < 10; i++) {
     const res = document.createElement('p');
-    if (results) {
+    if (!!results) {
       const info = results[results.length - 1 - i]
-      res.textContent = `${i + 1}. Win: ${info ? info.win : 'Yes'}, Sec: ${info ? info.time : 10}, Level: ${info ? info.level : 'easy'}, Bombs: ${info? info.bombs : 10}, Steps: ${info ? info.steps : 7}`
+      res.textContent = `${i + 1}. Win: ${info ? info.win : 'XX'}, Sec: ${info ? info.time : 'XX'}, Level: ${info ? info.level : 'XX'}, Bombs: ${info? info.bombs : 'XX'}, Steps: ${info ? info.steps : 'XX'}`
     } else {
-      res.textContent = `${i + 1}. No data. You should lose or win :)`
+      res.textContent = `${i + 1}. No data. You should win :)`
     }
     resContainer.appendChild(res);
   }
