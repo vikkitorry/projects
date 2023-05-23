@@ -416,7 +416,7 @@ function addResults() {
     const res = document.createElement('p');
     if (results) {
       const info = results[results.length - 1 - i]
-      res.textContent = `${i + 1}. Win: ${info.win}, Sec: ${info.time || 10}, Level: ${info.level}, Bombs: ${info.bombs}, Steps: ${info.steps}`
+      res.textContent = `${i + 1}. Win: ${info.win || 'Yes'}, Sec: ${info.time || 10}, Level: ${info.level || 'easy'}, Bombs: ${info.bombs || 10}, Steps: ${info.steps || 7}`
     } else {
       res.textContent = `${i + 1}. No data. You should lose or win :)`
     }
