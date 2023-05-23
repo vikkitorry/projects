@@ -178,9 +178,12 @@ function loadSavedGame() {
 
   loadBtn.addEventListener('click', () => {
     const loadGame = JSON.parse(localStorage.getItem ("gameVikkiTorry"));
-    createBoard(0, 0, 0, loadGame);
+    if (!!loadGame) {
+      createBoard(0, 0, 0, loadGame);
+    } else {
+      createBoard(10, 'easy', 10);
+    }
   });
-
 };
 
 function saveGame() {
