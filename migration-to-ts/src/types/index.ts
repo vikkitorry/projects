@@ -4,8 +4,8 @@ export enum Endpoints {
 }
 
 export interface Options {
-  apiKey: string;
-  sources: string;
+  apiKey?: string;
+  sources?: string;
 };
 
 export interface Article {
