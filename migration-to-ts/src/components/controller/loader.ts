@@ -1,4 +1,4 @@
-import type { Options, Endpoints, CallbackData} from '../../types/index';
+import type { Options, Endpoints, CallbackData } from '../../types/index';
 
 class Loader {
   public baseLink: string;

@@ -15,13 +15,39 @@ body {
 
 main {
   flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 header {
-  padding: 10px 30px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 10px 0;
+  gap: 20px;
 }
 
-header h1 {
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.search-icon {
+  margin-right: 10px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+
+.input {
+  height: 35px;
+  padding: 5px;
+}
+
+h1 {
   font-size: 40px;
   font-weight: 800;
 }
@@ -70,4 +96,14 @@ header h1 {
 
 .footer a:hover{
   transform: scale(0.9);
+}
+
+@media (max-width: 780px){
+  h1 {
+    font-size: 30px;
+    text-align: center;
+  }
+  .input {
+    width: 130px;
+  }
 }

@@ -10,7 +10,7 @@ class App {
     this.view = new AppView();
   }
 
-  public start() {
+  async start() {
     const getSource = document.querySelector('.sources') as HTMLElement;
     getSource.addEventListener('click', (e) =>
       this.controller.getNews(e, (data) => {
@@ -19,7 +19,8 @@ class App {
     );
 
     this.controller.getSources((data) => {
-      return this.view.drawSources(data);
+      this.view.drawSources(data);
+      this.controller.findNews();
     });
   }
 }
