@@ -4,9 +4,9 @@ export enum Endpoints {
 }
 
 export interface Options {
-  apiKey?: string;
-  sources?: string;
-};
+  apiKey: string;
+  sources: string;
+}
 
 export interface Article {
   source: {
@@ -35,6 +35,9 @@ export interface Source {
 export interface ArticleData {
   status: string;
   totalResults: number;
-  articles: Array<Article>;
-  sources: Array<Source>;
+  articles: Article[];
+  sources: Source[];
 }
+
+export type CallbackData = (data: ArticleData) => void;
+export type Callback = (data?: ArticleData) => void;
