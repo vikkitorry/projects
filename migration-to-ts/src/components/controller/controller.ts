@@ -50,9 +50,10 @@ class AppController extends AppLoader {
           if (value === article.slice(0, value.length).toUpperCase()) {
             btns[i].classList.add('active');
             setTimeout(() => {
-              btns[i].classList.remove('active')
+              btns[i].classList.remove('active');
             }, 4000)
             btns[i].scrollIntoView({
+              block: 'end',
               behavior: 'smooth',
               inline: 'center'
             });
@@ -60,7 +61,6 @@ class AppController extends AppLoader {
           }
         }
       }
-
     });
   }
 }

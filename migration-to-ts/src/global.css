@@ -48,8 +48,44 @@ header {
 }
 
 h1 {
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 800;
+  color: #FFF;
+  text-transform: uppercase;
+  animation: neon 5s ease-in-out infinite alternate;
+}
+
+@keyframes neon {
+  0% {
+      text-shadow: 0 0 2px rgba(202, 228, 225, 0.92), 0 0 1px rgba(202, 228, 225, 0.34),
+      0 0 1px rgba(191, 226, 255, 0.52), 0 0 1px rgba(191, 226, 255, 0.92),
+      0 0 1px rgba(191, 226, 255, 0.78), 0 0 1px rgba(191, 226, 255, 0.92);
+  }
+  20% {
+    text-shadow: 0 0 2px rgba(202, 228, 225, 0.92), 0 0 1px rgba(202, 228, 225, 0.34),
+    0 0 1px rgba(191, 226, 255, 0.52), 0 0 1px rgba(191, 226, 255, 0.92),
+    0 0 1px rgba(191, 226, 255, 0.78), 0 0 1px rgba(191, 226, 255, 0.92);
+  }
+  100% {
+      text-shadow: 0 0 3px rgba(202, 228, 225, 0.98),
+      0 0 10px rgba(202, 228, 225, 0.42), 0 0 6px rgba(191, 226, 255, 0.58),
+      0 0 10px rgba(191, 226, 255, 0.84), 0 0 10px rgba(191, 226, 255, 0.88), 0 0 20px #FFF;
+  }
+}
+
+.world-icon {
+  width: 30px;
+  height: auto;
+  animation: world 2s infinite ease-in-out;
+}
+
+@keyframes world {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .footer {
@@ -71,7 +107,7 @@ h1 {
 }
 
 .footer__img-rsschool {
-  width: 70px;
+  width: 65px;
   height: auto;
 }
 
@@ -98,12 +134,13 @@ h1 {
   transform: scale(0.9);
 }
 
-@media (max-width: 780px){
+@media (max-width: 640px){
   h1 {
-    font-size: 30px;
-    text-align: center;
+    margin-left: 10px;
+    font-size: 18px;
+    text-align: left;
   }
   .input {
-    width: 130px;
+    width: 120px;
   }
 }
