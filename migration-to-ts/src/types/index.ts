@@ -45,3 +45,18 @@ export enum Method {
   GET = 'GET',
 }
 
+export enum StatusCode {
+  NotFound = 404,
+  Unauthorized = 401
+}
+/*
+export const getElement = <T extends HTMLElement>(root: HTMLElement, selector: string): T => {
+    const element = root.querySelector<T>(selector);
+
+    if (!element) {
+        throw new TypeError(`Element not found: ${selector}`)
+    }
+
+    return element;
+};
+*/

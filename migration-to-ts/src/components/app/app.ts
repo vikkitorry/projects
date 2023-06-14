@@ -11,12 +11,15 @@ class App {
   }
 
   async start() {
-    const getSource = document.querySelector('.sources') as HTMLElement;
-    getSource.addEventListener('click', (e) =>
-      this.controller.getNews(e, (data) => {
-        return this.view.drawNews(data);
-      })
-    );
+    const getSource: HTMLElement | null = document.querySelector('.sources');
+
+    if (getSource instanceof HTMLElement) {
+      getSource.addEventListener('click', (e) =>
+        this.controller.getNews(e, (data) => {
+          return this.view.drawNews(data);
+        })
+      );
+    }
 
     this.controller.getSources((data) => {
       this.view.drawSources(data);

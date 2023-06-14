@@ -13,56 +13,58 @@ class AppController extends AppLoader {
   }
 
   public getNews(e: MouseEvent, callback: GetApiDataHandler ): void {
-    let target = e.target as HTMLElement;
-    const newsContainer = e.currentTarget as HTMLElement;
-    while (target !== newsContainer) {
+    let target: EventTarget | null = e.target;
+    const newsContainer: EventTarget | null = e.currentTarget;
+    while (target !== newsContainer && target instanceof HTMLElement && newsContainer instanceof HTMLElement ) {
       if (target.classList.contains('source__item')) {
-        const sourceId = target.getAttribute('data-source-id') as string;
-
-        if (newsContainer.getAttribute('data-source') !== sourceId) {
-          newsContainer.setAttribute('data-source', sourceId);
-          super.getResp(
-            {
-              endpoint: Endpoints.Everything,
-              options: {
-                sources: sourceId,
-                },
-            },
-            callback
-          );
+        const sourceId: string | null = target.getAttribute('data-source-id');
+        if (sourceId) {
+          if (newsContainer.getAttribute('data-source') !== sourceId) {
+            newsContainer.setAttribute('data-source', sourceId);
+            super.getResp(
+              {
+                endpoint: Endpoints.Everything,
+                options: {
+                  sources: sourceId,
+                  },
+              },
+              callback
+            );
+          }
         }
 
         return;
       }
-        target = target.parentNode as HTMLElement;
+        target = target.parentNode;
     }
   }
 
   public findNews():void {
-    const searchInput = document.querySelector('.input') as HTMLInputElement;
-    const sourcesButtons = document.querySelectorAll('.source__item-name') as NodeListOf<HTMLElement>;
-    const searchButton = document.querySelector('.search-icon') as HTMLInputElement;
+    const searchInput: HTMLInputElement | null = document.querySelector('.input');
+    const sourcesButtons: NodeListOf<HTMLElement> = document.querySelectorAll('.source__item-name');
+    const searchButton: HTMLInputElement | null  = document.querySelector('.search-icon');
 
-    searchButton.addEventListener('click', () => {
-      const value = searchInput?.value.trim().toUpperCase();
-      if (value) {
-        sourcesButtons.forEach((button) => {
-          const article = button.textContent as string;
-          if (value === article.slice(0, value.length).toUpperCase()) {
-            button.classList.add('active');
-            setTimeout(() => {
-              button.classList.remove('active');
-            }, 4000)
-            button.scrollIntoView({
-              block: 'end',
-              behavior: 'smooth',
-              inline: 'center'
-            });
-          }
-        })
-
-      }
-    });
+    if (searchButton instanceof HTMLInputElement) {
+      searchButton.addEventListener('click', () => {
+        const value = searchInput?.value.trim().toUpperCase();
+        if (value) {
+          sourcesButtons.forEach((button) => {
+            const article: string | null = button.textContent;
+            if (article && value === article.slice(0, value.length).toUpperCase()) {
+              button.classList.add('active');
+              setTimeout(() => {
+                button.classList.remove('active');
+              }, 4000)
+              button.scrollIntoView({
+                block: 'end',
+                behavior: 'smooth',
+                inline: 'center'
+              });
+            }
+          })
+        }
+      });
+    }
   }
 }
 
