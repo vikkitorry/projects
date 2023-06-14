@@ -9,9 +9,7 @@ class Sources {
     data.forEach((item) => {
       if ( sourceItemTemp instanceof HTMLTemplateElement ) {
         const sourceClone: Node = sourceItemTemp.content.cloneNode(true);
-        if (!(sourceClone instanceof DocumentFragment)) {
-          throw new Error();
-        } else {
+        if (sourceClone instanceof DocumentFragment) {
 
           const sourceItemName = sourceClone.querySelector('.source__item-name');
           const sourceItem = sourceClone.querySelector('.source__item');
@@ -26,10 +24,9 @@ class Sources {
 
       }
     });
+
     const sources: HTMLElement | null = document.querySelector('.sources');
-    if ( sources instanceof HTMLElement ) {
-      sources.append(fragment);
-    }
+    sources?.append(fragment);
   }
 }
 
