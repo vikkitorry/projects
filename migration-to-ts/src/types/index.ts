@@ -4,32 +4,32 @@ export enum Endpoints {
 }
 
 export interface Options {
-  apiKey: string;
-  sources: string;
+  apiKey?: string;
+  sources?: string;
 }
 
 export interface Article {
-  source: {
+  source?: {
     id: string;
     name: string
   };
-  author: string;
-  title: string;
-  description: string;
-  url: string;
-  urlToImage: string;
-  publishedAt: string;
-  content: string;
+  author?: string;
+  title?: string;
+  description?: string;
+  url?: string;
+  urlToImage?: string;
+  publishedAt?: string;
+  content?: string;
 }
 
 export interface Source {
-  category: string;
-  language: string;
-  country: string;
-  id: string;
-  name: string;
-  description: string;
-  url: string;
+  category?: string;
+  language?: string;
+  country?: string;
+  id?: string;
+  name?: string;
+  description?: string;
+  url?: string;
 }
 
 export interface ArticleData {
@@ -39,5 +39,9 @@ export interface ArticleData {
   sources: Source[];
 }
 
-export type CallbackData = (data: ArticleData) => void;
-export type Callback = (data?: ArticleData) => void;
+export type GetApiDataHandler = (data?: ArticleData) => void;
+
+export enum Method {
+  GET = 'GET',
+}
+

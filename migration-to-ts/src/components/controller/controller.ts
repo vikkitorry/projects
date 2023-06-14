@@ -1,17 +1,18 @@
 import AppLoader from './appLoader';
-import { Endpoints, Callback } from '../../types/index';
+import { Endpoints, GetApiDataHandler } from '../../types/index';
 
 class AppController extends AppLoader {
-  public getSources(callback: Callback): void {
+  public getSources(callback: GetApiDataHandler): void {
     super.getResp(
       {
         endpoint: Endpoints.Sources,
+        options: {}
       },
       callback
     );
   }
 
-  public getNews(e: MouseEvent, callback: Callback ): void {
+  public getNews(e: MouseEvent, callback: GetApiDataHandler ): void {
     let target = e.target as HTMLElement;
     const newsContainer = e.currentTarget as HTMLElement;
     while (target !== newsContainer) {
@@ -38,28 +39,28 @@ class AppController extends AppLoader {
   }
 
   public findNews():void {
-    const input = document.querySelector('.input') as HTMLInputElement;
-    const btns = document.querySelectorAll('.source__item-name') as NodeListOf<HTMLElement>;
-    const search = document.querySelector('.search-icon') as HTMLInputElement;
+    const searchInput = document.querySelector('.input') as HTMLInputElement;
+    const sourcesButtons = document.querySelectorAll('.source__item-name') as NodeListOf<HTMLElement>;
+    const searchButton = document.querySelector('.search-icon') as HTMLInputElement;
 
-    search.addEventListener('click', () => {
-      const value = input?.value.toUpperCase();
+    searchButton.addEventListener('click', () => {
+      const value = searchInput?.value.trim().toUpperCase();
       if (value) {
-        for (let i = 0; i < btns.length; i++) {
-          const article = btns[i].textContent as string;
+        sourcesButtons.forEach((button) => {
+          const article = button.textContent as string;
           if (value === article.slice(0, value.length).toUpperCase()) {
-            btns[i].classList.add('active');
+            button.classList.add('active');
             setTimeout(() => {
-              btns[i].classList.remove('active');
+              button.classList.remove('active');
             }, 4000)
-            btns[i].scrollIntoView({
+            button.scrollIntoView({
               block: 'end',
               behavior: 'smooth',
               inline: 'center'
             });
-            break;
           }
-        }
+        })
+
       }
     });
   }
