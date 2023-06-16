@@ -1,6 +1,5 @@
 import { ElementParams } from '../../../types/types';
 import { ElementCreator } from '../elementCreator'
-import { levelsArticles } from '../../data/data'
 
 export class Articles {
 
@@ -14,9 +13,9 @@ export class Articles {
 
     data.forEach((elmOptions) => {
       if (articlesContainer) {
-        const article = new ElementCreator(elmOptions, articlesContainer)
+        new ElementCreator(elmOptions, articlesContainer)
+        //проверка из локал на то, пройден и уровень, добавление эффектов
       }
-
     })
   }
 }

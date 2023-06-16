@@ -1,4 +1,4 @@
-import { ElementParams } from '../../types/types'
+import { ElementParams, ILevelOptions } from '../../types/types'
 
 /*
 01. plate
@@ -86,12 +86,147 @@ export const levelsArticles: Array<ElementParams> = [
 ]
 
 
-/*
+
 export const levelsData: Array<ILevelOptions> = [
   {
-  level: 0,
-  prompt: "Try to use 'plate'",
-  descriptiom: "Select the moving object.",
-  boardMarkup: [],
+    level: 1,
+    solution: 'plate',
+    prompt:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Try to use 'plate'",
+      },
+    description:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Select the moving object.",
+      },
+    boardMarkup:
+    [
+      {
+        tag: 'span',
+        classNames: [],
+        textContent: "< plate >",
+      },
+      {
+        tag: 'span',
+        classNames: ['second'],
+        textContent: "< bento / >",
+      },
+      {
+        tag: 'span',
+        classNames: [],
+        textContent: "< / plate >",
+      },
+    ],
+  },
+  {
+    level: 2,
+    solution: 'plate',
+    prompt:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Try to use 'plate'",
+      },
+    description:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Select the moving object.",
+      },
+    boardMarkup:
+    [
+      {
+        tag: 'span',
+        classNames: [],
+        textContent: "< plate >",
+      },
+      {
+        tag: 'span',
+        classNames: ['second'],
+        textContent: "< bento / >",
+      },
+      {
+        tag: 'span',
+        classNames: ['second'],
+        textContent: "< aaaa / >",
+      },
+      {
+        tag: 'span',
+        classNames: [],
+        textContent: "< / plate >",
+      },
+    ],
+  },
+  {
+    level: 3,
+    solution: 'plate',
+    prompt:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Try to use 'plate'",
+      },
+    description:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Select the moving object.",
+      },
+    boardMarkup:
+    [
+      {
+        tag: 'span',
+        classNames: [],
+        textContent: "<plate>",
+      },
+      {
+        tag: 'span',
+        classNames: ['second'],
+        textContent: "<bento />",
+      },
+      {
+        tag: 'span',
+        classNames: [],
+        textContent: "</plate>",
+      },
+    ],
+  },
+  {
+    level: 4,
+    solution: 'plate',
+    prompt:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Try to use 'plate'",
+      },
+    description:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Select the moving object.",
+      },
+    boardMarkup:
+    [
+      {
+        tag: 'span',
+        classNames: [],
+        textContent: "<plate>",
+      },
+      {
+        tag: 'span',
+        classNames: ['second'],
+        textContent: "<bento />",
+      },
+      {
+        tag: 'span',
+        classNames: [],
+        textContent: "</plate>",
+      },
+    ],
   }
-]*/
+]

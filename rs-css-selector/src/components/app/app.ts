@@ -1,10 +1,27 @@
+import {AppController}  from '../controller/controller'
+import {AppView}  from '../view/appView'
 
-import {Articles}  from '../view/levelArticles/levelArticles'
-import {levelsArticles}  from '../data/data'
 
 class App {
-  start() {
-    const arrrr = new Articles(levelsArticles)
+  private controller : AppController;
+  public view : AppView;
+
+  constructor() {
+    this.controller = new AppController();
+    this.view = new AppView();
+  }
+
+  async start() {
+    const getLevel: HTMLElement | null = document.querySelector('.levels');
+
+    getLevel?.addEventListener('click', (e) =>
+     this.view.drawGame(e)
+    );
+/*
+    this.controller.getSources((data) => {
+      this.view.drawSources(data);
+      this.controller.findNews();
+    });*/
   }
 }
 

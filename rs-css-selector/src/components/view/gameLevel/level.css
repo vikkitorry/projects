@@ -1,0 +1,25 @@
+.level {
+  color: rgba(255,255,255,.6);
+  font-weight: 600;
+  padding: 8px 0 8px 30px;
+  cursor: pointer;
+}
+
+.level:hover {
+  background-color: #2e2922;
+}
+
+.task-desc {
+  padding: 20px;
+  text-align: center;
+  font-size: 18px;
+  color:  #2e2922;
+}
+
+.second {
+  padding-left: 10px;
+}
+
+.third {
+  padding-left: 10px;
+}

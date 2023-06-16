@@ -1,8 +1,9 @@
 export type ILevelOptions = {
   level: number;
-  prompt: string;
-  descriptiom: string;
-  boardMarkup: Array<HTMLElement>;
+  solution: string;
+  prompt: ElementParams;
+  description: ElementParams;
+  boardMarkup: Array<ElementParams>;
 }
 /*
 export type LevelArticle = {
