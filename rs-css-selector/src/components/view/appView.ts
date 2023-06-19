@@ -1,4 +1,4 @@
-import {GameLevel}  from '../view/gameLevel/level'
+import {GameLevel}  from './level/level'
 import {Articles}  from '../view/levelArticles/levelArticles'
 import {levelsArticles, levelsData }  from '../data/data'
 

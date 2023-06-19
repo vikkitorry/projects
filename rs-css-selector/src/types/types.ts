@@ -4,6 +4,7 @@ export type ILevelOptions = {
   prompt: ElementParams;
   description: ElementParams;
   boardMarkup: Array<ElementParams>;
+  node: Array<Node>;
 }
 /*
 export type LevelArticle = {

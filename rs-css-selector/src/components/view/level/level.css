@@ -23,3 +23,20 @@
 .third {
   padding-left: 10px;
 }
+
+cat {
+  display: block;
+  width: 60px;
+  height: 60px;
+  background-image: url(./img/duck.png);
+  animation: 1s choosenItem infinite;
+}
+
+@keyframes choosenItem {
+  0% {
+    transform: rotate(10deg);
+  }
+  80% {
+    transform: rotate(-10deg);
+  }
+}
