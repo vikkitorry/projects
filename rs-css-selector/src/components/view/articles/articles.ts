@@ -18,4 +18,22 @@ export class Articles {
       }
     })
   }
+
+  highlightLevel(level: number) {
+    const levelsArticles: NodeListOf<HTMLElement> = document.querySelectorAll('.level')
+    const previousLevel: HTMLElement | null = document.querySelector('.active')
+    if (previousLevel) {
+      previousLevel.classList.remove('active')
+    }
+    if (levelsArticles[level] instanceof HTMLElement) {
+      levelsArticles[level].classList.add('active')
+    }
+  }
+
+  passLevelEffect() {
+    const actualLevel: HTMLElement | null = document.querySelector('.active')
+    if (actualLevel) {
+      actualLevel.classList.add('completed')
+    }
+  }
 }

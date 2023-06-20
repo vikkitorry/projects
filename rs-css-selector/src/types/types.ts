@@ -4,7 +4,7 @@ export type ILevelOptions = {
   prompt: ElementParams;
   description: ElementParams;
   boardMarkup: Array<ElementParams>;
-  node: Array<Node>;
+  codeNode: string;
 }
 /*
 export type LevelArticle = {
@@ -16,7 +16,14 @@ export interface ElementParams {
   tag: string,
   classNames: Array<string>,
   textContent: string,
+  id?: string,
+  child?: ElementParams,
 }
-
+/*
+export enum Description {
+  tag = 'p',
+  classNames = ['task-desc'],
+  textContent = "Select the moving object.",
+}*/
 
 export type GetLevelDataHandler = (data?: ILevelOptions) => void;

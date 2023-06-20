@@ -9,24 +9,26 @@ export class GameLevel {
   }
 
   draw(levelData: ILevelOptions): void {
-    console.log(document.querySelector('.html-window'))
+
     const taskDescription: Element | null = document.querySelector('.task-desc-container')
     const gethtmlWindow: Element | null = document.querySelector('.html-window')
     const getGameWindow: Element | null = document.querySelector('.game__window')
-    console.log()
+
     if (taskDescription && gethtmlWindow && levelData && getGameWindow) {
       gethtmlWindow.innerHTML = ''
       taskDescription.innerHTML = ''
       getGameWindow.innerHTML = ''
       new ElementCreator(levelData.description, taskDescription)
-      levelData.boardMarkup.forEach((tags) => {
-        new ElementCreator(tags, gethtmlWindow)
+      //const aa:Array<ElementParams> = levelData.boardMarkup
+      //this.addElements(aa)
+
+      levelData.boardMarkup.forEach((element) => {
+        new ElementCreator(element, getGameWindow)
       })
         //проверка из локал на то, пройден и уровень, добавление эффектов
-        const element = document.createElement('cat')
-        getGameWindow.append(element );
+        gethtmlWindow.innerHTML = levelData.codeNode;
+
 
     }
-
   }
 }

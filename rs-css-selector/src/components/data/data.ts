@@ -90,12 +90,12 @@ export const levelsArticles: Array<ElementParams> = [
 export const levelsData: Array<ILevelOptions> = [
   {
     level: 1,
-    solution: 'cat',
+    solution: 'catBlack',
     prompt:
       {
         tag: 'p',
         classNames: ['task-desc'],
-        textContent: "Try to use 'plate'",
+        textContent: "Try to use 'catBlack'",
       },
     description:
       {
@@ -106,21 +106,183 @@ export const levelsData: Array<ILevelOptions> = [
     boardMarkup:
     [
       {
-        tag: 'span',
-        classNames: [],
-        textContent: "< div >",
-      },
-      {
-        tag: 'span',
-        classNames: ['second'],
-        textContent: "< cat / >",
-      },
-      {
-        tag: 'span',
-        classNames: [],
-        textContent: "< / div >",
+        tag: 'catBlack',
+        classNames: ['animate', 'animal'],
+        textContent: "",
       },
     ],
-    node: []
+    codeNode: `
+    <div class='container'> &#60; game &#62
+    <div class='second'>&#60; catBlack / &#62;</div>
+    &#60; game / &#62
+    </div>`,
   },
+  {
+    level: 2,
+    solution: 'catBlack',
+    prompt:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Try to use 'catBlack'",
+      },
+    description:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Select the moving object.",
+      },
+    boardMarkup:
+    [
+      {
+        tag: 'catBlack',
+        classNames: ['animate', 'animal'],
+        textContent: "",
+      },
+      {
+        tag: 'catWhite',
+        classNames: ['animal'],
+        textContent: "",
+      },
+      {
+        tag: 'catBlack',
+        classNames: ['animate', 'animal'],
+        textContent: "",
+      },
+    ],
+    codeNode: `
+    <div class='container'> &#60; game &#62
+    <div class='second'>&#60; catBlack / &#62;</div>
+    <div class='second'>&#60; catWhite / &#62;</div>
+    <div class='second'>&#60; catBlack / &#62;</div>
+    &#60; game / &#62
+    </div>`,
+  },
+  {
+    level: 3,
+    solution: '#cat',
+    prompt:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Try to use '#cat'",
+      },
+    description:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Select the moving object.",
+      },
+    boardMarkup:
+    [
+      {
+        tag: 'catBlack',
+        classNames: ['animate', 'animal'],
+        textContent: "",
+        id: "cat"
+      },
+      {
+        tag: 'catWhite',
+        classNames: ['animal'],
+        textContent: "",
+      },
+      {
+        tag: 'catWhite',
+        classNames: ['animal'],
+        textContent: "",
+      },
+    ],
+    codeNode: `
+    <div class='container'> &#60; game &#62
+    <div class='second'>&#60; catBlack <span class = 'id'>id = 'cat'</span> / &#62; </div>
+    <div class='second'>&#60; catWhite / &#62;</div>
+    <div class='second'>&#60; catWhite / &#62;</div>
+    &#60; game / &#62
+    </div>`,
+  },
+
+  {
+    level: 4,
+    solution: 'cat',
+    prompt:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Try to use 'catBlack'",
+      },
+    description:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Select the moving object.",
+      },
+    boardMarkup:
+    [
+      {
+        tag: 'catBlack',
+        classNames: ['animal'],
+        textContent: "",
+      },
+      {
+        tag: 'house',
+        classNames: [],
+        textContent: "",
+        child: {
+          tag: 'catWhite',
+          classNames: ['animate', 'animal'],
+          textContent: "",
+        },
+      },
+      {
+        tag: 'catWhite',
+        classNames: ['animal'],
+        textContent: "",
+      },
+    ],
+    codeNode: `
+    <div class='container'> &#60; game &#62
+    <div class='second'>&#60; catBlack / &#62;</div>
+    <div class='second'>&#60; house / &#62;
+    <div class='third'>&#60; catWhite / &#62;</div>
+    &#60; house / &#62 </div>
+    <div class='second'>&#60; catWhite / &#62;</div>
+    &#60; game / &#62
+    </div>`,
+  },
+  {
+    level: 5,
+    solution: 'cat',
+    prompt:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Try to use 'catBlack'",
+      },
+    description:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Select the moving object.",
+      },
+    boardMarkup:
+    [
+      {
+        tag: 'catBlack',
+        classNames: ['animate', 'animal'],
+        textContent: "",
+      },
+      {
+        tag: 'catWhite',
+        classNames: ['animal'],
+        textContent: "",
+      },
+    ],
+    codeNode: `
+    <div class='container'> &#60; game &#62
+    <div class='second'>&#60; catBlack / &#62;</div>
+    <div class='second'>&#60; catWhite / &#62;</div>
+    &#60; game / &#62
+    </div>`,
+  },
+
 ]

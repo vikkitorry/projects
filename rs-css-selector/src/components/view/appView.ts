@@ -1,15 +1,13 @@
 import {GameLevel}  from './level/level'
-import {Articles}  from '../view/levelArticles/levelArticles'
+import {Articles}  from './articles/articles'
 import {levelsArticles, levelsData }  from '../data/data'
 
 export class AppView {
 
-  constructor() {
-    this.start()
-  }
+  articles: Articles
 
-  start() {
-    new Articles(levelsArticles)
+  constructor() {
+    this.articles = new Articles(levelsArticles)
   }
 
   drawGame(e: MouseEvent) {
@@ -19,6 +17,24 @@ export class AppView {
     if (level) {
       const levelAsNumber = Number(level);
       new GameLevel(levelsData[levelAsNumber - 1])
+      this.articles.highlightLevel(levelAsNumber - 1)
+    }
+  }
+
+  addVisualEffects(isSolutionCorrect: boolean) {
+    const gameContainer: HTMLElement | null = document.querySelector('.game')
+    if (!isSolutionCorrect) {
+      if (gameContainer) {
+        gameContainer.classList.add('shake');
+        gameContainer.addEventListener('animationend', () => {
+          gameContainer.classList.remove('shake');
+        });
+      }
+    }
+    if (isSolutionCorrect) {
+      if (gameContainer) {
+        this.articles.passLevelEffect()
+      }
     }
   }
 }
