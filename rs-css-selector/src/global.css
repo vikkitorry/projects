@@ -75,12 +75,17 @@ body {
   background-color: #221e18;
 }
 
+/*prompt window*/
+
 .prompt {
   position: absolute;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   padding: 1% 0;
   bottom: -50%;
   width: 60%;
-  height: 30%;
+  height: auto;
   border-radius: 10px;
   background: rgba(38, 255, 0, 0.489);
   border: 1px solid rgb(38, 255, 0);
@@ -91,10 +96,22 @@ body {
   bottom: 10%;
 }
 
-.prompt-tittle {
+.prompt p {
   color: #221e18;
+  margin-bottom: 5px;
+}
+
+.prompt-text {
   text-align: center;
-  text-transform: uppercase;
+  color: rgb(84, 2, 2);
+  font-size: 20px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.prompt-active .prompt-text {
+  animation: animated-text 2s steps(30,end) 0.5s 1 normal both;
 }
 
 /*footer*/
@@ -168,9 +185,6 @@ body {
   white-space: nowrap;
   overflow: hidden;
   font-size: 18px;
-}
-
-.task-desc {
   animation: animated-text 1s steps(30,end) 0.5s 1 normal both;
 }
 

@@ -12,16 +12,19 @@
 }
 
 .active, .active:hover {
-  background-color: #4e3006;
+  background-color: #81796b39;
 }
 
 .completed::after {
   content: '';
-  /*добавить галочку (поменять картинку)*/
-  background: url(./img/cat-light.png) no-repeat center;
+  background: url(./img/complete.png) no-repeat center;
   width: 15px;
   height: 15px;
   margin-left: 10px;
+}
+
+.completed {
+  color: #65E04D;
 }
 
 .task-desc {
@@ -84,7 +87,6 @@ house * {
   z-index: 100;
   height: 60px;
   width: 60px;
-  transform: translate(-50%, -40%);
 }
 houseDark {
   background: url(./img/houseDark.png) no-repeat center;
@@ -96,24 +98,16 @@ houseDark {
   animation: 1s jerking infinite;
 }
 
-
-/*
-catBlack{
-  filter: drop-shadow(2px 0px 2px currentColor) drop-shadow(-2px 0px 2px currentColor);
-}*/
-
 /*highlight code*/
 
 .container:hover {
   color: rgb(238, 232, 232);
-  cursor: pointer;
 }
 .container:hover * {
   color: rgba(255,255,255,.6);
 }
 .second:hover, .third:hover {
   color: rgb(238, 232, 232);
-  cursor: pointer;
 }
 .container:has(.second:hover){
   color: rgba(255,255,255,.6);

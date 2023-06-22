@@ -3,11 +3,21 @@ import { AppView }  from '../view/appView'
 
 class App {
   private controller : AppController
-  public view : AppView
+  private view : AppView
 
   constructor() {
     this.controller = new AppController();
     this.view = new AppView();
+  }
+
+
+  private getItemFromLocalStorage() {
+    JSON.parse(localStorage.getItem("teeMeasuresAverages") || "")
+  }
+
+  private setItemToLocalStorage() {
+    
+    localStorage.setItem("teeMeasuresAverages", '1')
   }
 
   async start() {
@@ -32,7 +42,7 @@ class App {
         promptBlock.classList.add('prompt-active')
       }
     });
-
+//убрать дублирование кода
     enterButton?.addEventListener('click', () => {
       const value = solutionInput?.value.trim()
       if (value) {

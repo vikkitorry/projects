@@ -1,7 +1,6 @@
 export type ILevelOptions = {
   level: number;
   solution: string;
-  prompt: ElementParams;
   description: ElementParams;
   boardMarkup: Array<ElementParams>;
   codeNode: string;
@@ -11,6 +10,21 @@ export type LevelArticle = {
   levelName: string;
   done: boolean;
 }*/
+
+export enum LevelState {
+  active = 'active',
+  done = 'done',
+  available = 'available'
+}
+
+export interface IlocalStorage {
+  levels: Array<IlocalStorageLevel>,
+}
+
+export interface IlocalStorageLevel {
+  level: LevelState,
+}
+
 
 export interface ElementParams {
   tag: string,

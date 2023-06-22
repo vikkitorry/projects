@@ -13,14 +13,14 @@ export class GameLevel {
     const taskDescription: Element | null = document.querySelector('.task-desc-container')
     const gethtmlWindow: Element | null = document.querySelector('.html-window')
     const getGameWindow: Element | null = document.querySelector('.game__window')
+    const promptText: Element | null = document.querySelector('.prompt-text')
 
-    if (taskDescription && gethtmlWindow && levelData && getGameWindow) {
+    if (taskDescription && gethtmlWindow && levelData && getGameWindow && promptText ) {
       gethtmlWindow.innerHTML = ''
       taskDescription.innerHTML = ''
       getGameWindow.innerHTML = ''
+      promptText.textContent = levelData.solution
       new ElementCreator(levelData.description, taskDescription)
-      //const aa:Array<ElementParams> = levelData.boardMarkup
-      //this.addElements(aa)
 
       levelData.boardMarkup.forEach((element) => {
         new ElementCreator(element, getGameWindow)
