@@ -1,6 +1,7 @@
-import {GameLevel}  from './level/level'
-import {Articles}  from './articles/articles'
-import { levelsData }  from '../data/data'
+import { GameLevel } from './level/level'
+import { Articles } from './articles/articles'
+import { levelsData } from '../data/data'
+import { IlocalStorage } from '../../types/types'
 
 export class AppView {
 
@@ -12,8 +13,9 @@ export class AppView {
     this.game = new GameLevel()
   }
 
-  drawGameOnLoad(loadedLevelOpt: number) {
-    this.game.draw(levelsData[loadedLevelOpt])
+  drawGameOnLoad(loadedLevel: number, loadedData: IlocalStorage) {
+    this.articles.createArticlesArray(loadedData)
+    this.game.draw(levelsData[loadedLevel])
   }
 
   drawGame(e: MouseEvent) {

@@ -8,14 +8,11 @@ export class Articles {
 
   constructor () {
     this.localStorageMethod = new LocalStorage
-    this.createArticlesArray()
   }
 
-  createArticlesArray() {
-    const localData: IlocalStorage | null = this.localStorageMethod.getDataFromLocalStorage()
-    if (localData !== null) {
-      const levelProgressData = localData.levels
-      const articlesArr: Array<ElementParams> = [...Array(NumberOfLevels.number)]
+  createArticlesArray(localData: IlocalStorage) {
+    const levelProgressData = localData.levels
+    const articlesArr: Array<ElementParams> = [...Array(NumberOfLevels.number)]
       .map((element: ElementParams, i: number) => {
         return element = {
           tag: 'div',
@@ -24,7 +21,6 @@ export class Articles {
         }
       })
     this.draw(articlesArr)
-    }
   }
 
   draw(data: Array<ElementParams>): void {
@@ -42,7 +38,6 @@ export class Articles {
     this.localStorageMethod.changeLocalStorage(level, LevelState.active)
     if (previousLevel) {
       previousLevel.classList.remove('active')
-      //this.localStorageMethod.changeLocalStorage(level, LevelState.available)
     }
     if (levelsArticles[level] instanceof HTMLElement) {
       levelsArticles[level].classList.add('active')
@@ -52,7 +47,7 @@ export class Articles {
   passLevelEffect() {
     const actualLevel: HTMLElement | null = document.querySelector('.active')
     if (actualLevel) {
-      actualLevel.classList.add('completed')
+      actualLevel.classList.add('done')
     }
   }
 }

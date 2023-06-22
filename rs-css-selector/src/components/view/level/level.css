@@ -15,7 +15,7 @@
   background-color: #81796b39;
 }
 
-.completed::after {
+.done::after {
   content: '';
   background: url(./img/complete.png) no-repeat center;
   width: 15px;
@@ -23,7 +23,7 @@
   margin-left: 10px;
 }
 
-.completed {
+.done {
   color: #65E04D;
 }
 

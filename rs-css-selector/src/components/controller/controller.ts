@@ -1,6 +1,3 @@
-//import {GameLevel}  from '../view/gameLevel/level'
-//import {Articles}  from '../view/levelArticles/levelArticles'
-//import { Input }  from './input/input'
 import './input/input.css'
 
 export class AppController {
@@ -27,7 +24,6 @@ export class AppController {
           correctSolutionElements,
           userSolutionElements
         )
-        
       }
     } catch {
       isCorrect = false

@@ -1,7 +1,7 @@
-import { AppController }  from '../controller/controller'
-//import { LocalStorage } from '../data/data';
-import { AppView }  from '../view/appView'
-import { LocalStorage }  from './localStorage'
+import { AppController } from '../controller/controller'
+import { AppView } from '../view/appView'
+import { LocalStorage } from './localStorage'
+import { LevelState } from '../../types/types'
 
 class App {
   private controller : AppController
@@ -15,11 +15,8 @@ class App {
   }
 
   start() {
-    const checkStorage = this.localStorageOpt.getDataFromLocalStorage()
-    if (!checkStorage) {
-      this.localStorageOpt.setNewLocalStorage()
-    }
-    this.view.drawGameOnLoad(this.localStorageOpt.getLevelOnLoad())
+    const localData = this.localStorageOpt.getDataFromLocalStorage()
+    this.view.drawGameOnLoad(this.localStorageOpt.getLevelOnLoad(), localData )
     this.addListeners()
   }
 
@@ -48,12 +45,20 @@ class App {
 
     enterButton?.addEventListener('click', () => {
       const [isSolutionCorrect, level] = this.controller.checkInput(solutionInput)
+      console.log(111, this.localStorageOpt.getDataFromLocalStorage())
+      if (isSolutionCorrect) {
+        this.localStorageOpt.changeLocalStorage(level, LevelState.done)
+        console.log(222,this.localStorageOpt.getDataFromLocalStorage())
+      }
       this.view.addVisualEffects(isSolutionCorrect, level)
     });
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
         const [isSolutionCorrect, level] = this.controller.checkInput(solutionInput)
+        if (isSolutionCorrect) {
+          this.localStorageOpt.changeLocalStorage(level, LevelState.done)
+        }
         this.view.addVisualEffects(isSolutionCorrect, level)
       }
     });

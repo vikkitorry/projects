@@ -1,3 +1,7 @@
+export enum LocalStorageName {
+  name = 'aqw'
+}
+
 export type ILevelOptions = {
   level: number;
   solution: string;
@@ -13,7 +17,7 @@ export enum LevelState {
 }
 
 export interface IlocalStorage {
-  levels: string[]
+  levels: LevelState[]
 }
 
 export enum NumberOfLevels {
