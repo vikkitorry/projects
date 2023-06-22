@@ -1,26 +1,29 @@
 import { AppController }  from '../controller/controller'
+//import { LocalStorage } from '../data/data';
 import { AppView }  from '../view/appView'
+import { LocalStorage }  from './localStorage'
 
 class App {
   private controller : AppController
   private view : AppView
+  private localStorageOpt: LocalStorage
 
   constructor() {
     this.controller = new AppController();
     this.view = new AppView();
+    this.localStorageOpt = new LocalStorage()
   }
 
-
-  private getItemFromLocalStorage() {
-    JSON.parse(localStorage.getItem("teeMeasuresAverages") || "")
+  start() {
+    const checkStorage = this.localStorageOpt.getDataFromLocalStorage()
+    if (!checkStorage) {
+      this.localStorageOpt.setNewLocalStorage()
+    }
+    this.view.drawGameOnLoad(this.localStorageOpt.getLevelOnLoad())
+    this.addListeners()
   }
 
-  private setItemToLocalStorage() {
-    
-    localStorage.setItem("teeMeasuresAverages", '1')
-  }
-
-  async start() {
+  addListeners() {
     const levelsArticles: HTMLElement | null = document.querySelector('.levels');
     const solutionInput: HTMLInputElement | null = document.querySelector('.input');
     const enterButton: HTMLInputElement | null  = document.querySelector('.enter');
@@ -42,22 +45,16 @@ class App {
         promptBlock.classList.add('prompt-active')
       }
     });
-//убрать дублирование кода
+
     enterButton?.addEventListener('click', () => {
-      const value = solutionInput?.value.trim()
-      if (value) {
-        const isSolutionCorrect = this.controller.checkSolution(value)
-        this.view.addVisualEffects(isSolutionCorrect)
-      }
+      const [isSolutionCorrect, level] = this.controller.checkInput(solutionInput)
+      this.view.addVisualEffects(isSolutionCorrect, level)
     });
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
-        const value = solutionInput?.value.trim()
-        if (value) {
-          const isSolutionCorrect = this.controller.checkSolution(value)
-          this.view.addVisualEffects(isSolutionCorrect)
-        }
+        const [isSolutionCorrect, level] = this.controller.checkInput(solutionInput)
+        this.view.addVisualEffects(isSolutionCorrect, level)
       }
     });
   }

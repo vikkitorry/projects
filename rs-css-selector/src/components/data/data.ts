@@ -1,108 +1,4 @@
-import { ElementParams, ILevelOptions, IlocalStorage, LevelState} from '../../types/types'
-
-export const LocalStorage: IlocalStorage = {
-  levels: [
-    {
-      level: LevelState.available
-    },
-    {
-      level: LevelState.available
-    },
-    {
-      level: LevelState.available
-    },
-    {
-      level: LevelState.available
-    },
-    {
-      level: LevelState.available
-    },
-    {
-      level: LevelState.available
-    },
-    {
-      level: LevelState.available
-    },
-    {
-      level: LevelState.available
-    },
-    {
-      level: LevelState.available
-    },
-    {
-      level: LevelState.available
-    },
-    {
-      level: LevelState.available
-    },
-    {
-      level: LevelState.available
-    }
-  ]
-}
-
-export const levelsArticles: Array<ElementParams> = [
-  {
-    tag: 'div',
-    classNames: ['level'],
-    textContent: 'Level 1',
-  },
-  {
-    tag: 'div',
-    classNames: ['level'],
-    textContent: 'Level 2',
-  },
-  {
-    tag: 'div',
-    classNames: ['level'],
-    textContent: 'Level 3',
-  },
-  {
-    tag: 'div',
-    classNames: ['level'],
-    textContent: 'Level 4',
-  },
-  {
-    tag: 'div',
-    classNames: ['level'],
-    textContent: 'Level 5',
-  },
-  {
-    tag: 'div',
-    classNames: ['level'],
-    textContent: 'Level 6',
-  },
-  {
-    tag: 'div',
-    classNames: ['level'],
-    textContent: 'Level 7',
-  },
-  {
-    tag: 'div',
-    classNames: ['level'],
-    textContent: 'Level 8',
-  },
-  {
-    tag: 'div',
-    classNames: ['level'],
-    textContent: 'Level 9',
-  },
-  {
-    tag: 'div',
-    classNames: ['level'],
-    textContent: 'Level 10',
-  },
-  {
-    tag: 'div',
-    classNames: ['level'],
-    textContent: 'Level 11',
-  },
-  {
-    tag: 'div',
-    classNames: ['level'],
-    textContent: 'Level 12',
-  }
-]
+import { ILevelOptions } from '../../types/types'
 
 export const levelsData: Array<ILevelOptions> = [
   {
@@ -157,9 +53,9 @@ export const levelsData: Array<ILevelOptions> = [
     ],
     codeNode: `
     <div class='container'> &#60; game &#62
-    <div class='second'>&#60; catBlack / &#62;</div>
     <div class='second'>&#60; catWhite / &#62;</div>
     <div class='second'>&#60; catBlack / &#62;</div>
+    <div class='second'>&#60; catWhite / &#62;</div>
     &#60; game / &#62
     </div>`,
   },

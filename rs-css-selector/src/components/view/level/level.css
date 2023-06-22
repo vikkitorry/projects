@@ -48,10 +48,14 @@
 /*special selectors*/
 
 .animal {
+  position: relative;
+  top: 0;
+  left: 0;
   display: block;
   width: 60px;
   height: 60px;
   cursor: pointer;
+  transition: 2s ease;
 }
 
 catBlack {
@@ -72,6 +76,8 @@ dogWhite {
 
 house {
   position: relative;
+  top: 0;
+  left: 0;
   display: block;
   background: url(./img/house.png) no-repeat center;
   width: 100px;
@@ -80,7 +86,7 @@ house {
   opacity: 0.8;
 }
 
-house * {
+house .animal {
   position: absolute;
   top: 30%;
   left: 20%;
@@ -88,6 +94,7 @@ house * {
   height: 60px;
   width: 60px;
 }
+
 houseDark {
   background: url(./img/houseDark.png) no-repeat center;
   width: 100px;
@@ -96,6 +103,10 @@ houseDark {
 
 .animate {
   animation: 1s jerking infinite;
+}
+
+.fly {
+  top: -500%;
 }
 
 /*highlight code*/

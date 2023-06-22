@@ -5,11 +5,6 @@ export type ILevelOptions = {
   boardMarkup: Array<ElementParams>;
   codeNode: string;
 }
-/*
-export type LevelArticle = {
-  levelName: string;
-  done: boolean;
-}*/
 
 export enum LevelState {
   active = 'active',
@@ -18,13 +13,12 @@ export enum LevelState {
 }
 
 export interface IlocalStorage {
-  levels: Array<IlocalStorageLevel>,
+  levels: string[]
 }
 
-export interface IlocalStorageLevel {
-  level: LevelState,
+export enum NumberOfLevels {
+  number = 12
 }
-
 
 export interface ElementParams {
   tag: string,
@@ -33,11 +27,5 @@ export interface ElementParams {
   id?: string,
   child?: ElementParams,
 }
-/*
-export enum Description {
-  tag = 'p',
-  classNames = ['task-desc'],
-  textContent = "Select the moving object.",
-}*/
 
 export type GetLevelDataHandler = (data?: ILevelOptions) => void;
