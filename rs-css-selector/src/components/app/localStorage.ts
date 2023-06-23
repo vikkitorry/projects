@@ -4,7 +4,7 @@ export class LocalStorage {
 
   getLevelOnLoad() {
     const data = this.getDataFromLocalStorage()
-    return data.levels.indexOf(LevelState.active)
+    return data.currentLevel
   }
 
   getDataFromLocalStorage(): IlocalStorage {
@@ -20,17 +20,17 @@ export class LocalStorage {
   changeLocalStorage(level: number, status: string ) {
     const getLocalStorage = JSON.parse(localStorage.getItem(LocalStorageName.name) || "")
     if (status === LevelState.active) {
-      const previousActiveLevel = getLocalStorage.levels.indexOf(LevelState.active)
-      getLocalStorage.levels[previousActiveLevel] = LevelState.available
+      getLocalStorage.currentLevel = level
+    } else {
+      getLocalStorage.levels[level - 1] = status
     }
-    getLocalStorage.levels[level] = status
     localStorage.setItem(LocalStorageName.name, JSON.stringify(getLocalStorage))
   }
 
   setNewLocalStorage() {
     const LocalStorageData: IlocalStorage = {
       levels: [
-        LevelState.active,
+        LevelState.available,
         LevelState.available,
         LevelState.available,
         LevelState.available,
@@ -43,6 +43,7 @@ export class LocalStorage {
         LevelState.available,
         LevelState.available,
       ],
+      currentLevel: 0
     }
     localStorage.setItem(LocalStorageName.name, JSON.stringify(LocalStorageData))
   }

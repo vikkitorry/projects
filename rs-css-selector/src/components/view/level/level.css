@@ -74,19 +74,18 @@ dogWhite {
   background-image: url(./img/dog-light.png);
 }
 
-house {
+house, houseDark {
   position: relative;
   top: 0;
   left: 0;
   display: block;
-  background: url(./img/house.png) no-repeat center;
   width: 100px;
   height: 100px;
   z-index: 1;
   opacity: 0.8;
 }
 
-house .animal {
+house .animal, houseDark .animal {
   position: absolute;
   top: 30%;
   left: 20%;
@@ -95,10 +94,12 @@ house .animal {
   width: 60px;
 }
 
+house {
+  background: url(./img/house.png) no-repeat center;
+}
+
 houseDark {
   background: url(./img/houseDark.png) no-repeat center;
-  width: 100px;
-  height: 100px;
 }
 
 .animate {

@@ -12,11 +12,15 @@ export class Articles {
 
   createArticlesArray(localData: IlocalStorage) {
     const levelProgressData = localData.levels
+    const activeLevel = localData.currentLevel
     const articlesArr: Array<ElementParams> = [...Array(NumberOfLevels.number)]
       .map((element: ElementParams, i: number) => {
         return element = {
           tag: 'div',
-          classNames: ['level', `${levelProgressData[i]}`],
+          classNames: [
+            'level',
+            `${levelProgressData[i]}`,
+            `${activeLevel === i ? LevelState.active : levelProgressData[i]}`],
           textContent: `Level ${i + 1}`
         }
       })

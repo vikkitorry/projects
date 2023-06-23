@@ -17,6 +17,7 @@ class App {
   start() {
     const localData = this.localStorageOpt.getDataFromLocalStorage()
     this.view.drawGameOnLoad(this.localStorageOpt.getLevelOnLoad(), localData )
+    console.log(this.localStorageOpt.getLevelOnLoad())
     this.addListeners()
   }
 
@@ -44,21 +45,33 @@ class App {
     });
 
     enterButton?.addEventListener('click', () => {
+
       const [isSolutionCorrect, level] = this.controller.checkInput(solutionInput)
-      console.log(111, this.localStorageOpt.getDataFromLocalStorage())
       if (isSolutionCorrect) {
         this.localStorageOpt.changeLocalStorage(level, LevelState.done)
-        console.log(222,this.localStorageOpt.getDataFromLocalStorage())
+        if (solutionInput && promptBlock) {
+          promptBlock.classList.contains('prompt-active')? promptBlock.classList.remove('prompt-active') : 0
+          solutionInput.value = ''
+        }
       }
+
       this.view.addVisualEffects(isSolutionCorrect, level)
     });
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
+
+
         const [isSolutionCorrect, level] = this.controller.checkInput(solutionInput)
         if (isSolutionCorrect) {
           this.localStorageOpt.changeLocalStorage(level, LevelState.done)
+          if (solutionInput && promptBlock) {
+            promptBlock.classList.contains('prompt-active')? promptBlock.classList.remove('prompt-active') : 0
+            solutionInput.value = ''
+          }
         }
+
+
         this.view.addVisualEffects(isSolutionCorrect, level)
       }
     });

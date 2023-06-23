@@ -5,7 +5,7 @@ export class AppController {
   checkInput(inputElement: HTMLInputElement | null): [boolean, number] {
     const level = this.getActualLevel()
     const value = inputElement?.value.trim()
-    if (value) {
+    if (value && inputElement) {
       const isSolutionCorrect = this.checkSolution(value)
       return [isSolutionCorrect, level]
     }

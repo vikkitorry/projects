@@ -3,7 +3,19 @@ import { ILevelOptions } from '../../../types/types';
 import { ElementCreator } from '../elementCreator'
 
 export class GameLevel {
+/*
+  promptText: Element | null
+  taskDescription: Element | null
+  gethtmlWindow: Element | null
+  getGameWindow: Element | null
 
+  constructor() {
+    this.promptText = document.querySelector('.prompt-text')
+    this.taskDescription = document.querySelector('.task-desc-container')
+    this.gethtmlWindow = document.querySelector('.html-window')
+    this.getGameWindow = document.querySelector('.game__window')
+  }
+*/
   draw(levelData: ILevelOptions): void {
     const taskDescription: Element | null = document.querySelector('.task-desc-container')
     const gethtmlWindow: Element | null = document.querySelector('.html-window')
@@ -20,7 +32,7 @@ export class GameLevel {
       levelData.boardMarkup.forEach((element) => {
         new ElementCreator(element, getGameWindow)
       })
-        gethtmlWindow.innerHTML = levelData.codeNode;
+      gethtmlWindow.innerHTML = levelData.codeNode;
     }
   }
 
