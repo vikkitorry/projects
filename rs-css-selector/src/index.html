@@ -4,8 +4,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPz8JBQTtKOm1x82iUKrRG1EF4NGGJgJAE_Q&usqp=CAU">
-    <title>RS-CSS</title>
     <meta charset="utf-8" />
+<!--
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/shades-of-purple.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+-->
+
+    <title>RS-CSS</title>
+
+
+
   </head>
 <body>
 
@@ -21,7 +30,15 @@
       </game>
       <div class="game__code">
         <div class="input-window">
-          <input type="text" class="input" placeholder="Add Your Solution">
+
+
+          <input type="text" class="input">
+          <pre class="input-highlight-container">
+            <code class="highlight-input"></code>
+          </pre>
+
+
+
           <div class="btns-container">
             <button class="btn enter">Enter</button>
             <button class="btn help">Help</button>
@@ -35,11 +52,7 @@
         </div>
         <div class="html-window"></div>
       </div>
-
-
     </section>
-
-
     <section class="levels"></section>
   </main>
   <footer class="footer">

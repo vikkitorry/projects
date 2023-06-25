@@ -1,3 +1,4 @@
+import 'highlight.js/styles/default.css';
 import './input/input.css'
 
 export class AppController {
@@ -14,11 +15,11 @@ export class AppController {
 
   private checkSolution(value : string): boolean {
     const gameWindow: HTMLElement | null = document.querySelector('.game__window')
-    const userSolutionElements: NodeListOf<Element> | undefined = gameWindow?.querySelectorAll(value)
     const correctSolutionElements: NodeListOf<Element> | undefined = gameWindow?.querySelectorAll('.animate')
     let isCorrect = false
 
     try {
+      const userSolutionElements: NodeListOf<Element> | undefined = gameWindow?.querySelectorAll(value)
       if(correctSolutionElements && userSolutionElements) {
         isCorrect = this.isNodeListsEqual(
           correctSolutionElements,

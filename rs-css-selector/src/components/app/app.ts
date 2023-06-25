@@ -2,6 +2,8 @@ import { AppController } from '../controller/controller'
 import { AppView } from '../view/appView'
 import { LocalStorage } from './localStorage'
 import { LevelState } from '../../types/types'
+import hljs from 'highlight.js';
+
 
 class App {
   private controller : AppController
@@ -28,6 +30,18 @@ class App {
     const helpButton: HTMLInputElement | null  = document.querySelector('.help');
     const promptBlock: HTMLInputElement | null  = document.querySelector('.prompt');
 
+   const userSolution: HTMLInputElement | null  = document.querySelector('.highlight-input');
+
+//добавить слушателя на инпут и на каждое введенное валие кидать в userSolution
+
+solutionInput?.addEventListener('input', () => {
+  if (userSolution) {
+    userSolution.innerHTML = `${hljs.highlight(solutionInput.value, {language: 'css'}).value}`
+  }
+
+})
+
+
     levelsArticles?.addEventListener('click', (e) => {
       if (promptBlock) {
         promptBlock.classList.remove('prompt-active')
@@ -50,7 +64,7 @@ class App {
       if (isSolutionCorrect) {
         this.localStorageOpt.changeLocalStorage(level, LevelState.done)
         if (solutionInput && promptBlock) {
-          promptBlock.classList.contains('prompt-active')? promptBlock.classList.remove('prompt-active') : 0
+          promptBlock.classList.contains('prompt-active') ? promptBlock.classList.remove('prompt-active') : 0
           solutionInput.value = ''
         }
       }
