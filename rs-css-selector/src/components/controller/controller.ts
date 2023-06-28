@@ -3,9 +3,9 @@ import './input/input.css'
 
 export class AppController {
 
-  checkInput(inputElement: HTMLInputElement | null): [boolean, number] {
+  checkInputValue(inputElement: HTMLInputElement | null): [boolean, number] {
     const level = this.getActualLevel()
-    const value = inputElement?.value.trim()
+    const value = inputElement?.value.split(/\s+/).join('').trim()
     if (value && inputElement) {
       const isSolutionCorrect = this.checkSolution(value)
       return [isSolutionCorrect, level]
@@ -20,13 +20,15 @@ export class AppController {
 
     try {
       const userSolutionElements: NodeListOf<Element> | undefined = gameWindow?.querySelectorAll(value)
+      console.log('correct',correctSolutionElements)
+      console.log('my',userSolutionElements)
       if(correctSolutionElements && userSolutionElements) {
         isCorrect = this.isNodeListsEqual(
           correctSolutionElements,
           userSolutionElements
         )
       }
-    } catch {
+    } catch(err){
       isCorrect = false
     }
     return isCorrect
@@ -44,4 +46,5 @@ export class AppController {
     const levelAsNumber = Number(level)
     return levelAsNumber
   }
+
 }

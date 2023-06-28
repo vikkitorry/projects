@@ -34,61 +34,47 @@ class App {
 
 //добавить слушателя на инпут и на каждое введенное валие кидать в userSolution
 
-solutionInput?.addEventListener('input', () => {
-  if (userSolution) {
-    userSolution.innerHTML = `${hljs.highlight(solutionInput.value, {language: 'css'}).value}`
-  }
-
-})
-
+    solutionInput?.addEventListener('input', () => {
+      if (userSolution) {
+        userSolution.innerHTML = `${hljs.highlight(solutionInput.value, {language: 'css'}).value}`
+      }
+    })
 
     levelsArticles?.addEventListener('click', (e) => {
-      if (promptBlock) {
-        promptBlock.classList.remove('prompt-active')
-      }
+      promptBlock?.classList.remove('prompt-active')
       this.view.drawGame(e)
-      if (solutionInput) {
+      if (solutionInput && userSolution) {
         solutionInput.value = ''
+        userSolution.innerHTML = ''
       }
     })
 
     helpButton?.addEventListener('click', () => {
-      if (promptBlock) {
-        promptBlock.classList.add('prompt-active')
-      }
+        promptBlock?.classList.add('prompt-active')
     });
 
     enterButton?.addEventListener('click', () => {
-
-      const [isSolutionCorrect, level] = this.controller.checkInput(solutionInput)
-      if (isSolutionCorrect) {
-        this.localStorageOpt.changeLocalStorage(level, LevelState.done)
-        if (solutionInput && promptBlock) {
-          promptBlock.classList.contains('prompt-active') ? promptBlock.classList.remove('prompt-active') : 0
-          solutionInput.value = ''
-        }
-      }
-
-      this.view.addVisualEffects(isSolutionCorrect, level)
+      inputActionsAfterEnter(this.controller, this.localStorageOpt, this.view)
     });
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
-
-
-        const [isSolutionCorrect, level] = this.controller.checkInput(solutionInput)
-        if (isSolutionCorrect) {
-          this.localStorageOpt.changeLocalStorage(level, LevelState.done)
-          if (solutionInput && promptBlock) {
-            promptBlock.classList.contains('prompt-active')? promptBlock.classList.remove('prompt-active') : 0
-            solutionInput.value = ''
-          }
-        }
-
-
-        this.view.addVisualEffects(isSolutionCorrect, level)
+        inputActionsAfterEnter(this.controller, this.localStorageOpt, this.view)
       }
     });
+
+    function inputActionsAfterEnter(controller: AppController, localStorageOpt: LocalStorage, view: AppView) {
+      const [isSolutionCorrect, level] = controller.checkInputValue(solutionInput)
+      if (isSolutionCorrect) {
+        localStorageOpt.changeLocalStorage(level, LevelState.done)
+        if (solutionInput && promptBlock && userSolution) {
+          promptBlock.classList.contains('prompt-active')? promptBlock.classList.remove('prompt-active') : 0
+          solutionInput.value = ''
+          userSolution.innerHTML = ''
+        }
+      }
+      view.addVisualEffects(isSolutionCorrect, level)
+    }
   }
 }
 
