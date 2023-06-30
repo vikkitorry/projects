@@ -133,7 +133,7 @@ houseDark {
 }
 
 .animate {
-  animation: 1s jerking infinite;
+  animation: 1.5s jerking infinite;
 }
 
 .fly {
@@ -160,7 +160,6 @@ houseDark {
 .second:hover .id {
   color: rgb(58, 108, 72);
 }
-
 
 @keyframes jerking {
   0% {
@@ -193,43 +192,37 @@ houseDark {
 body:has(.one:hover) .one {
   box-shadow: 0px 5px 10px -10px #000, 0px 0px 10px 5px #fff;
   transition: 1s ease;
-}
-body:has(.one:hover) .one .tooltip {
   display: block;
 }
+
 body:has(.two:hover) .two {
   box-shadow: 0px 5px 10px -10px #000, 0px 0px 10px 5px #fff;
   transition: 1s ease;
-}
-body:has(.two:hover) .two .tooltip {
   display: block;
 }
+
+
 body:has(.three:hover) .three {
   box-shadow: 0px 5px 10px -10px #000, 0px 0px 10px 5px #fff;
   transition: 1s ease;
-}
-body:has(.three:hover) .three .tooltip {
   display: block;
 }
+
 body:has(.four:hover) .four {
   box-shadow: 0px 5px 10px -10px #000, 0px 0px 10px 5px #fff;
   transition: 1s ease;
-}
-body:has(.four:hover) .four .tooltip {
   display: block;
 }
+
 body:has(.five:hover) .five {
   box-shadow: 0px 5px 10px -10px #000, 0px 0px 10px 5px #fff;
   transition: 1s ease;
-}
-body:has(.five:hover) .five .tooltip {
   display: block;
 }
+
 body:has(.six:hover) .six {
   box-shadow: 0px 5px 10px -10px #000, 0px 0px 10px 5px #fff;
   transition: 1s ease;
-}
-body:has(.six:hover) .six .tooltip {
   display: block;
 }
 
@@ -238,8 +231,16 @@ body:has(.six:hover) .six .tooltip {
   position: relative;
   top: -50px;
   display: none;
-  width: 200px;
+  text-align: center;
+  width: 170px;
   font-size: 15px;
   transition: none;
   font-weight: 600;
+  background-color: #2e2922;
+  z-index: 15;
+}
+
+bigHouse .one {
+  position: fixed;
+  top: 50px;
 }
