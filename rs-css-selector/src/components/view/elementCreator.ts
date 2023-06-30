@@ -3,29 +3,31 @@ import { ElementParams } from '../../types/types';
 
 export class ElementCreator {
 
-  //element: HTMLElement
-
-  constructor(params: ElementParams, parent: Element) {
+  constructor(params: ElementParams, parent: Element, isNeedClue: boolean) {
     //this.element = document.createElement(params.tag)
-    this.createAndAddElement(params, parent);
+    this.createAndAddElement(params, parent, isNeedClue);
   }
 
-  createAndAddElement(params: ElementParams, parent: Element) {
+  createAndAddElement(params: ElementParams, parent: Element, isNeedClue: boolean) {
     const element = document.createElement(params.tag)
     element.textContent = params.textContent;
     params.classNames.map((cssClass) => element.classList.add(cssClass));
     params.id ? element.id = params.id : ''
-    parent.append(element);
+    parent.append(element)
+
+    if (isNeedClue) {
+      this.createClueForItem(params.tag, element)
+    }
+
     if (params.child) {
-      this.createAndAddElement(params.child, element)
+      params.child.forEach((child) => this.createAndAddElement(child, element, isNeedClue))
     }
   }
-/*
-  addChild(params: ElementParams, parent: Element) {
-    console.log(params.tag)
-    const child: HTMLElement = document.createElement(params.tag)
-    child.textContent = params.textContent;
-    parent.append(child);
+
+  createClueForItem(tagName: string, parent: Element): void {
+    const clue = document.createElement('div')
+    clue.textContent = `<${tagName}> <${tagName}/>`;
+    clue.classList.add('tooltip');
+    parent.append(clue);
   }
-*/
 }

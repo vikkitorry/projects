@@ -30,7 +30,7 @@ export interface ElementParams {
   classNames: Array<string>,
   textContent: string,
   id?: string,
-  child?: ElementParams,
+  child?: Array<ElementParams>,
 }
 
 export type GetLevelDataHandler = (data?: ILevelOptions) => void;

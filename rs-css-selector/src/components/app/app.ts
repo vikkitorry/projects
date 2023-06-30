@@ -18,33 +18,40 @@ class App {
 
   start() {
     const localData = this.localStorageOpt.getDataFromLocalStorage()
-    this.view.drawGameOnLoad(this.localStorageOpt.getLevelOnLoad(), localData )
-    console.log(this.localStorageOpt.getLevelOnLoad())
+    const levelOnLoad = this.localStorageOpt.getLevelOnLoad()
+    this.view.drawGameOnLoad(levelOnLoad, localData)
     this.addListeners()
   }
 
   addListeners() {
     const levelsArticles: HTMLElement | null = document.querySelector('.levels');
-    const solutionInput: HTMLInputElement | null = document.querySelector('.input');
+    const inputWindow: HTMLInputElement | null = document.querySelector('.input');
     const enterButton: HTMLInputElement | null  = document.querySelector('.enter');
     const helpButton: HTMLInputElement | null  = document.querySelector('.help');
     const promptBlock: HTMLInputElement | null  = document.querySelector('.prompt');
+    const userSolution: HTMLInputElement | null  = document.querySelector('.highlight-input');
+    const resetGameButton: HTMLInputElement | null  = document.querySelector('.reset');
 
-   const userSolution: HTMLInputElement | null  = document.querySelector('.highlight-input');
+    resetGameButton?.addEventListener('click', () => {
+      this.localStorageOpt.setNewLocalStorage()
+      if (levelsArticles) {
+        levelsArticles.innerHTML = ''
+      }
+      const localData = this.localStorageOpt.getDataFromLocalStorage()
+      this.view.drawGameOnLoad(this.localStorageOpt.getLevelOnLoad(), localData )
+    })
 
-//добавить слушателя на инпут и на каждое введенное валие кидать в userSolution
-
-    solutionInput?.addEventListener('input', () => {
+    inputWindow?.addEventListener('input', () => {
       if (userSolution) {
-        userSolution.innerHTML = `${hljs.highlight(solutionInput.value, {language: 'css'}).value}`
+        userSolution.innerHTML = `${hljs.highlight(inputWindow.value, {language: 'css'}).value}`
       }
     })
 
     levelsArticles?.addEventListener('click', (e) => {
       promptBlock?.classList.remove('prompt-active')
       this.view.drawGame(e)
-      if (solutionInput && userSolution) {
-        solutionInput.value = ''
+      if (inputWindow && userSolution) {
+        inputWindow.value = ''
         userSolution.innerHTML = ''
       }
     })
@@ -64,12 +71,12 @@ class App {
     });
 
     function inputActionsAfterEnter(controller: AppController, localStorageOpt: LocalStorage, view: AppView) {
-      const [isSolutionCorrect, level] = controller.checkInputValue(solutionInput)
+      const [isSolutionCorrect, level] = controller.checkInputValue(inputWindow)
       if (isSolutionCorrect) {
         localStorageOpt.changeLocalStorage(level, LevelState.done)
-        if (solutionInput && promptBlock && userSolution) {
+        if (inputWindow && promptBlock && userSolution) {
           promptBlock.classList.contains('prompt-active')? promptBlock.classList.remove('prompt-active') : 0
-          solutionInput.value = ''
+          inputWindow.value = ''
           userSolution.innerHTML = ''
         }
       }

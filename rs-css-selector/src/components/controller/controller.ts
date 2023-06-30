@@ -5,9 +5,10 @@ export class AppController {
 
   checkInputValue(inputElement: HTMLInputElement | null): [boolean, number] {
     const level = this.getActualLevel()
-    const value = inputElement?.value.split(/\s+/).join('').trim()
-    if (value && inputElement) {
-      const isSolutionCorrect = this.checkSolution(value)
+    const value1 = inputElement?.value.split(/\s+/).join('').trim()
+    const value2 = inputElement?.value.replace(/\s+/g, ' ').trim()
+    if (value1 && value2 && inputElement) {
+      const isSolutionCorrect = this.checkSolution(value1) || this.checkSolution(value2)
       return [isSolutionCorrect, level]
     }
     return [false, level]
@@ -17,18 +18,15 @@ export class AppController {
     const gameWindow: HTMLElement | null = document.querySelector('.game__window')
     const correctSolutionElements: NodeListOf<Element> | undefined = gameWindow?.querySelectorAll('.animate')
     let isCorrect = false
-
     try {
       const userSolutionElements: NodeListOf<Element> | undefined = gameWindow?.querySelectorAll(value)
-      console.log('correct',correctSolutionElements)
-      console.log('my',userSolutionElements)
       if(correctSolutionElements && userSolutionElements) {
         isCorrect = this.isNodeListsEqual(
           correctSolutionElements,
           userSolutionElements
         )
       }
-    } catch(err){
+    } catch{
       isCorrect = false
     }
     return isCorrect

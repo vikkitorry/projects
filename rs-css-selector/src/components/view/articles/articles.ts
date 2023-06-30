@@ -31,7 +31,7 @@ export class Articles {
     const articlesContainer: Element | null = document.querySelector('.levels')
     data.forEach((elmOptions) => {
       if (articlesContainer) {
-        new ElementCreator(elmOptions, articlesContainer)
+        new ElementCreator(elmOptions, articlesContainer, false)
       }
     })
   }

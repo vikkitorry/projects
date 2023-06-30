@@ -14,13 +14,13 @@ export const levelsData: Array<ILevelOptions> = [
     [
       {
         tag: 'catBlack',
-        classNames: ['animate', 'animal'],
+        classNames: ['one', 'animate', 'animal'],
         textContent: "",
       },
     ],
     codeNode: `
     <div class='container'> &#60; game &#62
-    <div class='second'>&#60; catBlack / &#62;</div>
+    <div class='second one'>&#60; catBlack / &#62;</div>
     &#60; game / &#62
     </div>`,
   },
@@ -36,26 +36,26 @@ export const levelsData: Array<ILevelOptions> = [
     boardMarkup:
     [
       {
-        tag: 'catWhite',
-        classNames: ['animate', 'animal'],
+        tag: 'hedgehog',
+        classNames: ['one', 'animate', 'animal'],
         textContent: "",
       },
       {
-        tag: 'catBlack',
-        classNames: ['animal'],
+        tag: 'hare',
+        classNames: ['two', 'animal'],
         textContent: "",
       },
       {
-        tag: 'catWhite',
-        classNames: ['animate', 'animal'],
+        tag: 'hedgehog',
+        classNames: ['three','animate', 'animal'],
         textContent: "",
       },
     ],
     codeNode: `
     <div class='container'> &#60; game &#62
-    <div class='second'>&#60; catWhite / &#62;</div>
-    <div class='second'>&#60; catBlack / &#62;</div>
-    <div class='second'>&#60; catWhite / &#62;</div>
+    <div class='second one'>&#60; hedgehog / &#62;</div>
+    <div class='second two'>&#60; hare / &#62;</div>
+    <div class='second three'>&#60; hedgehog / &#62;</div>
     &#60; game / &#62
     </div>`,
   },
@@ -72,26 +72,26 @@ export const levelsData: Array<ILevelOptions> = [
     [
       {
         tag: 'catBlack',
-        classNames: ['animate', 'animal'],
+        classNames: ['one', 'animate', 'animal'],
         textContent: "",
         id: "cat"
       },
       {
         tag: 'dogWhite',
-        classNames: ['animal'],
+        classNames: ['two', 'animal'],
         textContent: "",
       },
       {
         tag: 'dogWhite',
-        classNames: ['animal'],
+        classNames: ['three', 'animal'],
         textContent: "",
       },
     ],
     codeNode: `
     <div class='container'> &#60; game &#62
-    <div class='second'>&#60; catBlack <span class = 'id'>id = 'cat'</span> / &#62; </div>
-    <div class='second'>&#60; dogWhite / &#62;</div>
-    <div class='second'>&#60; dogWhite / &#62;</div>
+    <div class='second one'>&#60; catBlack <span class = 'id'>id = 'cat'</span> / &#62; </div>
+    <div class='second two'>&#60; dogWhite / &#62;</div>
+    <div class='second three'>&#60; dogWhite / &#62;</div>
     &#60; game / &#62
     </div>`,
   },
@@ -109,32 +109,32 @@ export const levelsData: Array<ILevelOptions> = [
     [
       {
         tag: 'catBlack',
-        classNames: ['animal'],
+        classNames: ['one', 'animal'],
         textContent: "",
       },
       {
         tag: 'house',
-        classNames: [],
+        classNames: ['two'],
         textContent: "",
-        child: {
+        child: [{
           tag: 'catWhite',
-          classNames: ['animate', 'animal'],
+          classNames: ['three', 'animate', 'animal'],
           textContent: "",
-        },
+        },]
       },
       {
         tag: 'catWhite',
-        classNames: ['animal'],
+        classNames: ['four', 'animal'],
         textContent: "",
       },
     ],
     codeNode: `
     <div class='container'> &#60; game &#62
-    <div class='second'>&#60; catBlack / &#62;</div>
-    <div class='second'>&#60; house &#62;
-    <div class='third'>&#60; catWhite / &#62;</div>
+    <div class='second one'>&#60; catBlack / &#62;</div>
+    <div class='second two'>&#60; house &#62;
+    <div class='third three'>&#60; catWhite / &#62;</div>
     &#60; house / &#62 </div>
-    <div class='second'>&#60; catWhite / &#62;</div>
+    <div class='second four'>&#60; catWhite / &#62;</div>
     &#60; game / &#62
     </div>`,
   },
@@ -152,47 +152,45 @@ export const levelsData: Array<ILevelOptions> = [
     [
       {
         tag: 'catWhite',
-        classNames: ['animal', 'cat', 'animate'],
+        classNames: ['one', 'animal', 'cat', 'animate'],
         textContent: "",
       },
       {
-        tag: 'dogBlack',
-        classNames: ['animal'],
+        tag: 'elk',
+        classNames: ['two', 'animal'],
         textContent: "",
       },
       {
         tag: 'house',
-        classNames: [],
+        classNames: ['three'],
         textContent: "",
         id: 'house',
-        child: {
+        child: [{
           tag: 'catWhite',
-          classNames: ['animate', 'animal', 'cat'],
+          classNames: ['four', 'animate', 'animal', 'cat'],
           textContent: "",
-        },
+        },]
       },
       {
-        tag: 'houseDark',
-        classNames: [],
+        tag: 'house',
+        classNames: ['five'],
         textContent: "",
       },
     ],
     codeNode: `
     <div class='container'> &#60; game &#62
-    <div class='second'>&#60; catWhite <span class = 'id'>class = 'cat' </span>/ &#62;</div>
-    <div class='second'>&#60; dogBlack / &#62;</div>
-    <div class='second'>&#60; house &#62;
-    <div class='third'>&#60; catWhite <span class = 'id'>class = 'cat' </span>/ &#62;</div>
+    <div class='second one'>&#60; catWhite <span class = 'id'>class = 'cat' </span>/ &#62;</div>
+    <div class='second two'>&#60; elk / &#62;</div>
+    <div class='second three'>&#60; house &#62;
+    <div class='third four'>&#60; catWhite <span class = 'id'>class = 'cat' </span>/ &#62;</div>
     &#60; house / &#62 </div>
-    <div class='second'>&#60; houseDark / &#62 </div>
+    <div class='second five'>&#60; house / &#62 </div>
     &#60; game / &#62
     </div>`,
   },
-
-  //не работает уровень проверить что сравнивается
   {
     level: 6,
-    solution: 'catWhite .cat',
+    solution: 'catWhite .sweet',
     description:
       {
         tag: 'p',
@@ -203,47 +201,285 @@ export const levelsData: Array<ILevelOptions> = [
     [
       {
         tag: 'catWhite',
-        classNames: ['animal', 'sweet', 'animate'],
+        classNames: ['one', 'animal', 'sweet', 'animate'],
         textContent: "",
       },
       {
         tag: 'dogWhite',
-        classNames: ['animal', 'sweet'],
+        classNames: ['two', 'animal', 'sweet'],
         textContent: "",
       },
       {
         tag: 'house',
-        classNames: [],
+        classNames: ['three'],
         textContent: "",
         id: 'house',
-        child: {
+        child: [{
           tag: 'catWhite',
-          classNames: ['animate', 'animal', 'sweet'],
+          classNames: ['four','animate', 'animal', 'sweet'],
           textContent: "",
-        },
+        },]
       },
       {
         tag: 'houseDark',
-        classNames: [],
+        classNames: ['five'],
         textContent: "",
         id: 'house',
-        child: {
+        child: [{
           tag: 'catWhite',
-          classNames: ['animal'],
+          classNames: ['six','animal'],
           textContent: "",
-        },
+        },]
       },
     ],
     codeNode: `
     <div class='container'> &#60; game &#62
-    <div class='second'>&#60; catWhite <span class = 'id'>class = 'sweet' </span>/ &#62;</div>
-    <div class='second'>&#60; dogWhite <span class = 'id'>class = 'sweet' </span> / &#62;</div>
-    <div class='second'>&#60; house &#62;
-    <div class='third'>&#60; catWhite <span class = 'id'>class = 'sweet' </span>/ &#62;</div>
+    <div class='second one'>&#60; catWhite <span class = 'id'>class = 'sweet' </span>/ &#62;</div>
+    <div class='second two'>&#60; dogWhite <span class = 'id'>class = 'sweet' </span> / &#62;</div>
+    <div class='second three'>&#60; house &#62;
+    <div class='third four'>&#60; catWhite <span class = 'id'>class = 'sweet' </span>/ &#62;</div>
     &#60; house / &#62 </div>
-    <div class='second'>&#60; houseDark &#62;
-    <div class='third'>&#60; catWhite / &#62;</div>
+    <div class='second five'>&#60; houseDark &#62;
+    <div class='third six'>&#60; catWhite / &#62;</div>
     &#60; houseDark / &#62 </div>
+    &#60; game / &#62
+    </div>`,
+  },
+  {
+    level: 7,
+    solution: 'catWhite, dogWhite',
+    description:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Select the moving object.",
+      },
+      boardMarkup:
+      [
+        {
+          tag: 'dogBlack',
+          classNames: ['one','animal'],
+          textContent: "",
+        },
+        {
+          tag: 'catBlack',
+          classNames: ['two','animal'],
+          textContent: "",
+        },
+        {
+          tag: 'catWhite',
+          classNames: ['three','animate', 'animal'],
+          textContent: "",
+        },
+        {
+          tag: 'dogWhite',
+          classNames: ['four','animate', 'animal'],
+          textContent: "",
+        },
+      ],
+      codeNode: `
+      <div class='container'> &#60; game &#62
+      <div class='second one'>&#60; dogBlack / &#62;</div>
+      <div class='second two'>&#60; catBlack / &#62;</div>
+      <div class='second three'>&#60; catWhite / &#62;</div>
+      <div class='second four'>&#60; dogWhite / &#62;</div>
+      &#60; game / &#62
+      </div>`,
+    },
+  {
+    level: 8,
+    solution: '*',
+    description:
+    {
+      tag: 'p',
+      classNames: ['task-desc'],
+      textContent: "Select the moving object.",
+      },
+    boardMarkup:
+    [
+      {
+        tag: 'elk',
+        classNames: ['one','animate', 'animal'],
+        textContent: "",
+      },
+      {
+        tag: 'catBlack',
+        classNames: ['two','animate', 'animal'],
+        textContent: "",
+      },
+      {
+        tag: 'catWhite',
+        classNames: ['three','animate', 'animal'],
+        textContent: "",
+      },
+      {
+        tag: 'dogWhite',
+        classNames: ['four','animate', 'animal'],
+        textContent: "",
+      },
+    ],
+    codeNode: `
+    <div class='container'> &#60; game &#62
+    <div class='second one'>&#60; elk / &#62;</div>
+    <div class='second two'>&#60; catBlack / &#62;</div>
+    <div class='second three'>&#60; catWhite / &#62;</div>
+    <div class='second four'>&#60; dogWhite / &#62;</div>
+    &#60; game / &#62
+    </div>`,
+  },
+  {
+    level: 9,
+    solution: 'bigHouse *',
+    description:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Select the moving object.",
+      },
+    boardMarkup:
+    [
+      {
+        tag: 'bigHouse',
+        classNames: ['one',],
+        textContent: "",
+        child: [
+          {
+            tag: 'catWhite',
+            classNames: ['two','animate', 'animal', 'cat'],
+            textContent: "",
+          },
+          {
+            tag: 'catblack',
+            classNames: ['three','animate', 'animal', 'cat'],
+            textContent: "",
+          },
+          {
+            tag: 'dogblack',
+            classNames: ['four','animate', 'animal', 'right-animal'],
+            textContent: "",
+          },
+          {
+            tag: 'dogWhite',
+            classNames: ['five','animate', 'animal', 'right-animal'],
+            textContent: "",
+          },
+      ]
+      },
+    ],
+    codeNode: `
+    <div class='container'> &#60; game &#62
+    <div class='second one'>&#60; bigHouse &#62;
+    <div class='third two'>&#60; catWhite / &#62;</div>
+    <div class='third three'>&#60; catblack / &#62;</div>
+    <div class='third four'>&#60; dogblack / &#62;</div>
+    <div class='third five'>&#60; dogWhite / &#62;</div>
+    &#60; bigHouse / &#62 </div>
+    &#60; game / &#62
+    </div>`,
+  },
+  {
+    level: 10,
+    solution: 'bigHouse .cat',
+    description:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Select the moving object.",
+      },
+    boardMarkup:
+    [
+      {
+        tag: 'bigHouse',
+        classNames: ['one',],
+        textContent: "",
+        child: [
+          {
+            tag: 'catWhite',
+            classNames: ['two','animate', 'animal', 'cat'],
+            textContent: "",
+          },
+          {
+            tag: 'catblack',
+            classNames: ['three','animate', 'animal', 'cat'],
+            textContent: "",
+          },
+          {
+            tag: 'elk',
+            classNames: ['four','animal', 'right-animal'],
+            textContent: "",
+          },
+          {
+            tag: 'hare',
+            classNames: ['five','animal', 'right-animal'],
+            textContent: "",
+          },
+        ]
+      },
+      {
+        tag: 'catBlack',
+        classNames: ['six','animal', 'cat'],
+        textContent: "",
+      },
+    ],
+    codeNode: `
+    <div class='container'> &#60; game &#62
+    <div class='second one'>&#60; bigHouse &#62;
+    <div class='third two'>&#60; catWhite <span class = 'id'>class = 'cat' </span>/ &#62;</div>
+    <div class='third three'>&#60; catblack <span class = 'id'>class = 'cat' </span>/ &#62;</div>
+    <div class='third four'>&#60; elk / &#62;</div>
+    <div class='third five'>&#60; hare / &#62;</div>
+    &#60; bigHouse / &#62 </div>
+    <div class='second six'>&#60; catblack <span class = 'id'>class = 'cat' </span>/ &#62;</div>
+    &#60; game / &#62
+    </div>`,
+  },
+  {
+    level: 11,
+    solution: 'catWhite:first-child',
+    description:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Select the moving object.",
+      },
+    boardMarkup:
+    [
+      {
+        tag: 'bigHouse',
+        classNames: ['one',],
+        textContent: "",
+        child: [
+          {
+            tag: 'catWhite',
+            classNames: ['two','animate', 'animal', 'cat'],
+            textContent: "",
+          },
+          {
+            tag: 'catWhite',
+            classNames: ['three','animal', 'cat'],
+            textContent: "",
+          },
+          {
+            tag: 'catWhite',
+            classNames: ['four','animal', 'right-animal'],
+            textContent: "",
+          },
+          {
+            tag: 'dogWhite',
+            classNames: ['five','animal', 'right-animal'],
+            textContent: "",
+          },
+        ]
+      },
+    ],
+    codeNode: `
+    <div class='container'> &#60; game &#62
+    <div class='second one'>&#60; bigHouse &#62;
+    <div class='third two'>&#60; catWhite / &#62;</div>
+    <div class='third three'>&#60; catWhite / &#62;</div>
+    <div class='third four'>&#60; catWhite / &#62;</div>
+    <div class='third five'>&#60; dogWhite / &#62;</div>
+    &#60; bigHouse / &#62 </div>
     &#60; game / &#62
     </div>`,
   },

@@ -1,21 +1,9 @@
 import './level.css';
 import { ILevelOptions } from '../../../types/types';
-import { ElementCreator } from '../elementCreator'
+import { ElementCreator} from '../elementCreator'
 
 export class GameLevel {
-/*
-  promptText: Element | null
-  taskDescription: Element | null
-  gethtmlWindow: Element | null
-  getGameWindow: Element | null
 
-  constructor() {
-    this.promptText = document.querySelector('.prompt-text')
-    this.taskDescription = document.querySelector('.task-desc-container')
-    this.gethtmlWindow = document.querySelector('.html-window')
-    this.getGameWindow = document.querySelector('.game__window')
-  }
-*/
   draw(levelData: ILevelOptions): void {
     const taskDescription: Element | null = document.querySelector('.task-desc-container')
     const gethtmlWindow: Element | null = document.querySelector('.html-window')
@@ -27,10 +15,9 @@ export class GameLevel {
       taskDescription.innerHTML = ''
       getGameWindow.innerHTML = ''
       promptText.textContent = levelData.solution
-      new ElementCreator(levelData.description, taskDescription)
-
+      new ElementCreator(levelData.description, taskDescription, false)
       levelData.boardMarkup.forEach((element) => {
-        new ElementCreator(element, getGameWindow)
+        new ElementCreator(element, getGameWindow, true)
       })
       gethtmlWindow.innerHTML = levelData.codeNode;
     }
