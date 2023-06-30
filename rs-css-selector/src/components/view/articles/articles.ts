@@ -48,10 +48,14 @@ export class Articles {
     }
   }
 
-  passLevelEffect() {
+  passLevelEffect(isClueUsed?: boolean) {
     const actualLevel: HTMLElement | null = document.querySelector('.active')
     if (actualLevel) {
-      actualLevel.classList.add('done')
+      if (isClueUsed) {
+        actualLevel.classList.add('clue')
+      } else {
+        actualLevel.classList.add('done')
+      }
     }
   }
 }

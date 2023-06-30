@@ -27,6 +27,18 @@
   color: #65E04D;
 }
 
+.clue::after {
+  content: '';
+  background: url(./img/clue.png) no-repeat center;
+  width: 15px;
+  height: 15px;
+  margin-left: 10px;
+}
+
+.clue {
+  color: #d32822;
+}
+
 .task-desc {
   padding: 20px 0;
   text-align: center;
@@ -157,8 +169,14 @@ houseDark {
 .id {
   color: rgb(85, 130, 98);
 }
+.class {
+  color: rgb(137, 135, 68);
+}
 .second:hover .id {
   color: rgb(58, 108, 72);
+}
+.second:hover .class {
+  color: rgb(125, 101, 47);
 }
 
 @keyframes jerking {
@@ -179,18 +197,35 @@ houseDark {
   }
 }
 
-@keyframes choosen {
+@keyframes jerkingSmall {
   0% {
-    transform: none;
+    transform: skew(2deg, 0deg) scaleX(0.7);
+  }
+  10% {
+    transform: skew(2deg, 0deg) scaleY(0.6);
+  }
+  50% {
+    transform: skew(-2deg, 0deg) scaleX(0.7);
+  }
+  60% {
+    transform: skew(-2deg, 0deg) scaleY(0.6);
   }
   100% {
-    transform: none;
+    transform: skew(2deg, 0deg) scaleX(0.7);
   }
 }
 
 
+
+
 body:has(.one:hover) .one {
   box-shadow: 0px 5px 10px -10px #000, 0px 0px 10px 5px #fff;
+  transition: 1s ease;
+  display: block;
+}
+
+body:has(.bigHouse:hover) .bigHouse {
+  box-shadow: none;
   transition: 1s ease;
   display: block;
 }
@@ -228,8 +263,9 @@ body:has(.six:hover) .six {
 
 /*tooltip*/
 .tooltip {
-  position: relative;
-  top: -50px;
+  position: fixed;
+  top: 70px;
+  left: 35%;
   display: none;
   text-align: center;
   width: 170px;
@@ -238,9 +274,4 @@ body:has(.six:hover) .six {
   font-weight: 600;
   background-color: #2e2922;
   z-index: 15;
-}
-
-bigHouse .one {
-  position: fixed;
-  top: 50px;
 }

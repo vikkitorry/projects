@@ -16,7 +16,7 @@ export class ElementCreator {
     parent.append(element)
 
     if (isNeedClue) {
-      this.createClueForItem(params, element)
+      this.createClueForItem(params)
     }
 
     if (params.child) {
@@ -24,11 +24,14 @@ export class ElementCreator {
     }
   }
 
-  createClueForItem(params: ElementParams, parent: Element): void {
-    const clue = document.createElement('div')
-    clue.textContent = `<${params.tag}> <${params.tag}/>`;
-    clue.classList.add('tooltip');
-    clue.classList.add(params.classNames[0]);
-    parent.append(clue);
+  createClueForItem(params: ElementParams): void {
+    const clueContainer = document.querySelector('.html-clue')
+    if (clueContainer) {
+      const clue = document.createElement('div')
+      clue.textContent = `<${params.tag}> <${params.tag}/>`;
+      clue.classList.add('tooltip');
+      clue.classList.add(params.classNames[0]);
+      clueContainer.append(clue);
+    }
   }
 }

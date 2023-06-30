@@ -28,17 +28,36 @@ export class AppView {
     }
   }
 
-  addVisualEffects(isSolutionCorrect: boolean, level: number) {
+  addVisualEffects(isSolutionCorrect: boolean, level: number, isClueUsed?: boolean): void {
     if (!isSolutionCorrect) {
       this.game.wrongAnswerEffect()
     }
     if (isSolutionCorrect) {
-        this.articles.passLevelEffect()
+        this.articles.passLevelEffect(isClueUsed)
         this.game.passLevelEffect()
         setTimeout(() => {
           this.game.draw(levelsData[level])
           this.articles.highlightLevel(level)
         }, 1000)
     }
+  }
+
+  removePreviousLevel(inputWindow: HTMLInputElement| null, promptBlock: HTMLElement| null, userSolution: HTMLElement| null) {
+    const htmlClue = document.querySelector('.html-clue')
+    if (inputWindow && promptBlock && userSolution && htmlClue) {
+      promptBlock.classList.contains('prompt-active')? promptBlock.classList.remove('prompt-active') : 0
+      inputWindow.value = ''
+      userSolution.innerHTML = ''
+      htmlClue.innerHTML = ''
+    }
+  }
+
+  async addWinEffects() {
+    const overlayElement = document.querySelector('.overlay')
+    await overlayElement?.classList.add('win')
+    const closeButton = document.querySelector('.close')
+    closeButton?.addEventListener('click', ()=> {
+      overlayElement?.classList.remove('win')
+    })
   }
 }

@@ -11,6 +11,40 @@ body {
   color: rgba(255,255,255,.6);
 }
 
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: #221e18;
+  z-index: 200;
+  display: none;
+}
+
+.win {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #a03217;
+  font-size: 30px;
+  gap: 20px;
+}
+
+.close {
+  color: #221e18;
+  cursor: pointer;
+  padding: 20px;
+  background-color: #a032175a;
+  border-radius: 20px;
+  border: 1px solid #a03217;
+}
+
+.close:hover {
+  color: #5d0900;
+  background-color: #27a0175a;
+  border: 1px solid #37a017;
+}
+
 .header {
   position: relative;
   display: flex;
@@ -20,8 +54,16 @@ body {
   height: 5%;
 }
 
+.html-clue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 30px;
+}
+
 .reset-container {
-  position: absolute;
+  position: fixed;
   top: 10px;
   left: 10px;
   padding: 2px 10px;
@@ -52,9 +94,17 @@ body {
   background-color: #221e18;
 }
 
-.game__window {
+.game-container {
   width: 100%;
   height: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game__window {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -98,18 +148,18 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 1% 0;
+  padding: 7px 0;
   bottom: -50%;
-  width: 60%;
-  height: auto;
-  border-radius: 10px;
-  background: rgba(38, 255, 0, 0.489);
-  border: 1px solid rgb(38, 255, 0);
+  width: 100%;
+  height: 40px;
+  background: rgb(128, 164, 114);
+  border: 1px solid rgb(0, 255, 0);
   transition: 1s ease;
+  z-index: 100;
 }
 
 .prompt-active {
-  bottom: 10%;
+  top: 0;
 }
 
 .prompt p {
@@ -198,7 +248,7 @@ body {
 
 .task-desc {
   white-space: nowrap;
-  overflow: hidden;
+  overflow-x: hidden;
   font-size: 18px;
   animation: animated-text 1s steps(30,end) 0.5s 1 normal both;
 }
@@ -209,7 +259,7 @@ body {
 }
 
 
-@media (max-width: 740px) {
+@media screen and (max-width: 740px) {
   .game__code {
     grid-template-columns: 1fr 1fr;
   }
@@ -218,5 +268,9 @@ body {
   }
   .html-window {
     font-size: 14px;
+  }
+  .header {
+    justify-content: end;
+    margin-right: 20px;
   }
 }

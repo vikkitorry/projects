@@ -166,25 +166,25 @@ export const levelsData: Array<ILevelOptions> = [
         textContent: "",
         id: 'house',
         child: [{
-          tag: 'catWhite',
+          tag: 'catBlack',
           classNames: ['four', 'animate', 'animal', 'cat'],
           textContent: "",
         },]
       },
+      /*
       {
         tag: 'house',
         classNames: ['five'],
         textContent: "",
-      },
+      },*/
     ],
     codeNode: `
     <div class='container'> &#60; game &#62
-    <div class='second one'>&#60; catWhite <span class = 'id'>class = 'cat' </span>/ &#62;</div>
+    <div class='second one'>&#60;catWhite <span class = 'class'>class = 'cat' </span>/&#62;</div>
     <div class='second two'>&#60; elk / &#62;</div>
     <div class='second three'>&#60; house &#62;
-    <div class='third four'>&#60; catWhite <span class = 'id'>class = 'cat' </span>/ &#62;</div>
+    <div class='third four'>&#60;catBlack <span class = 'class'>class = 'cat'</span>/&#62;</div>
     &#60; house / &#62 </div>
-    <div class='second five'>&#60; house / &#62 </div>
     &#60; game / &#62
     </div>`,
   },
@@ -220,7 +220,7 @@ export const levelsData: Array<ILevelOptions> = [
           textContent: "",
         },]
       },
-      {
+      /*{
         tag: 'houseDark',
         classNames: ['five'],
         textContent: "",
@@ -230,18 +230,15 @@ export const levelsData: Array<ILevelOptions> = [
           classNames: ['six','animal'],
           textContent: "",
         },]
-      },
+      },*/
     ],
     codeNode: `
     <div class='container'> &#60; game &#62
-    <div class='second one'>&#60; catWhite <span class = 'id'>class = 'sweet' </span>/ &#62;</div>
-    <div class='second two'>&#60; dogWhite <span class = 'id'>class = 'sweet' </span> / &#62;</div>
+    <div class='second one'>&#60;catWhite <span class = 'class'>class = 'sweet'</span>/&#62;</div>
+    <div class='second two'>&#60;dogWhite <span class = 'class'>class = 'sweet'</span>/&#62;</div>
     <div class='second three'>&#60; house &#62;
-    <div class='third four'>&#60; catWhite <span class = 'id'>class = 'sweet' </span>/ &#62;</div>
+    <div class='third four'>&#60;catWhite <span class = 'class'>class = 'sweet'</span>/&#62;</div>
     &#60; house / &#62 </div>
-    <div class='second five'>&#60; houseDark &#62;
-    <div class='third six'>&#60; catWhite / &#62;</div>
-    &#60; houseDark / &#62 </div>
     &#60; game / &#62
     </div>`,
   },
@@ -340,7 +337,7 @@ export const levelsData: Array<ILevelOptions> = [
     [
       {
         tag: 'bigHouse',
-        classNames: ['one',],
+        classNames: ['bigHouse',],
         textContent: "",
         child: [
           {
@@ -368,7 +365,7 @@ export const levelsData: Array<ILevelOptions> = [
     ],
     codeNode: `
     <div class='container'> &#60; game &#62
-    <div class='second one'>&#60; bigHouse &#62;
+    <div class='second bigHouse'>&#60; bigHouse &#62;
     <div class='third two'>&#60; catWhite / &#62;</div>
     <div class='third three'>&#60; catblack / &#62;</div>
     <div class='third four'>&#60; dogblack / &#62;</div>
@@ -379,7 +376,7 @@ export const levelsData: Array<ILevelOptions> = [
   },
   {
     level: 10,
-    solution: 'bigHouse .cat',
+    solution: '.cat, #elk',
     description:
       {
         tag: 'p',
@@ -390,7 +387,7 @@ export const levelsData: Array<ILevelOptions> = [
     [
       {
         tag: 'bigHouse',
-        classNames: ['one',],
+        classNames: ['bigHouse',],
         textContent: "",
         child: [
           {
@@ -405,8 +402,9 @@ export const levelsData: Array<ILevelOptions> = [
           },
           {
             tag: 'elk',
-            classNames: ['four','animal', 'right-animal'],
+            classNames: ['four','animal', 'right-animal', 'animate'],
             textContent: "",
+            id: 'elk',
           },
           {
             tag: 'hare',
@@ -415,21 +413,15 @@ export const levelsData: Array<ILevelOptions> = [
           },
         ]
       },
-      {
-        tag: 'catBlack',
-        classNames: ['six','animal', 'cat'],
-        textContent: "",
-      },
     ],
     codeNode: `
     <div class='container'> &#60; game &#62
-    <div class='second one'>&#60; bigHouse &#62;
-    <div class='third two'>&#60; catWhite <span class = 'id'>class = 'cat' </span>/ &#62;</div>
-    <div class='third three'>&#60; catblack <span class = 'id'>class = 'cat' </span>/ &#62;</div>
-    <div class='third four'>&#60; elk / &#62;</div>
+    <div class='second bigHouse'>&#60; bigHouse &#62;
+    <div class='third two'>&#60; catWhite <span class = 'class'>class = 'cat' </span>/ &#62;</div>
+    <div class='third three'>&#60; catblack <span class = 'class'>class = 'cat' </span>/ &#62;</div>
+    <div class='third four'>&#60; elk <span class = 'id'>id = 'elk' </span>/ &#62;</div>
     <div class='third five'>&#60; hare / &#62;</div>
     &#60; bigHouse / &#62 </div>
-    <div class='second six'>&#60; catblack <span class = 'id'>class = 'cat' </span>/ &#62;</div>
     &#60; game / &#62
     </div>`,
   },
@@ -446,7 +438,7 @@ export const levelsData: Array<ILevelOptions> = [
     [
       {
         tag: 'bigHouse',
-        classNames: ['one',],
+        classNames: ['bigHouse',],
         textContent: "",
         child: [
           {
@@ -474,7 +466,7 @@ export const levelsData: Array<ILevelOptions> = [
     ],
     codeNode: `
     <div class='container'> &#60; game &#62
-    <div class='second one'>&#60; bigHouse &#62;
+    <div class='second bigHouse'>&#60; bigHouse &#62;
     <div class='third two'>&#60; catWhite / &#62;</div>
     <div class='third three'>&#60; catWhite / &#62;</div>
     <div class='third four'>&#60; catWhite / &#62;</div>
@@ -483,26 +475,54 @@ export const levelsData: Array<ILevelOptions> = [
     &#60; game / &#62
     </div>`,
   },
+  {
+    level: 12,
+    solution: 'dogWhite:last-child',
+    description:
+      {
+        tag: 'p',
+        classNames: ['task-desc'],
+        textContent: "Select the moving object.",
+      },
+    boardMarkup:
+    [
+      {
+        tag: 'bigHouse',
+        classNames: ['bigHouse',],
+        textContent: "",
+        child: [
+          {
+            tag: 'hedgehog',
+            classNames: ['two', 'animal', 'cat'],
+            textContent: "",
+          },
+          {
+            tag: 'hedgehog',
+            classNames: ['three','animal', 'cat'],
+            textContent: "",
+          },
+          {
+            tag: 'hedgehog',
+            classNames: ['four','animal', 'right-animal'],
+            textContent: "",
+          },
+          {
+            tag: 'dogWhite',
+            classNames: ['five','animal', 'right-animal', 'animate'],
+            textContent: "",
+          },
+        ]
+      },
+    ],
+    codeNode: `
+    <div class='container'> &#60; game &#62
+    <div class='second bigHouse'>&#60; bigHouse &#62;
+    <div class='third two'>&#60; hedgehog / &#62;</div>
+    <div class='third three'>&#60; hedgehog / &#62;</div>
+    <div class='third four'>&#60; hedgehog / &#62;</div>
+    <div class='third five'>&#60; dogWhite / &#62;</div>
+    &#60; bigHouse / &#62 </div>
+    &#60; game / &#62
+    </div>`,
+  },
 ]
-
-/*
-01. plate
-02. bento
-03. #fancy
-04. plate apple
-05. #fancy pickle
-06. .small
-07. orange.small
-08. bento orange.small
-09. plate, bento
-10. *
-11. plate *
-12. plate + apple
-13. bento ~ pickle
-14. plate > apple
-15. orange:first-child
-16. plate apple:only-child, plate pickle:only-child
-17. .small:last-child
-18. plate:nth-child(3)
-19. bento:nth-last-child(3)
-20. apple:first-of-type*/

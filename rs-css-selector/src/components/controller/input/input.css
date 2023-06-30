@@ -35,6 +35,11 @@
 
 .btns-container {
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
   top: 60px;
   left: 50%;
   transform: translate(-50%, 0);
@@ -115,4 +120,13 @@
 
 code .hljs-selector-id {
   color: red;
+}
+
+@media (max-width: 740px) {
+  .input-highlight-container {
+    font-size: 12px;
+  }
+  .input {
+    font-size: 12px;
+  }
 }

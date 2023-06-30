@@ -27,6 +27,11 @@ export class LocalStorage {
     localStorage.setItem(LocalStorageName.name, JSON.stringify(getLocalStorage))
   }
 
+  checkIsAllLevelsDone(): boolean {
+    const getLocalStorage = JSON.parse(localStorage.getItem(LocalStorageName.name) || "")
+    return !Object.values(getLocalStorage.levels).includes(LevelState.available)
+  }
+
   setNewLocalStorage() {
     const LocalStorageData: IlocalStorage = {
       levels: [

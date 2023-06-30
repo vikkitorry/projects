@@ -38,7 +38,7 @@ export class AppController {
       .every((node, index) => node === list2[index]);
   }
 
-  private getActualLevel(): number {
+  getActualLevel(): number {
     const levelElement: HTMLElement | null = document.querySelector('.active')
     const level = levelElement?.textContent?.replace(/[^0-9]/g,"")
     const levelAsNumber = Number(level)

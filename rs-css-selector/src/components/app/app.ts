@@ -49,15 +49,19 @@ class App {
 
     levelsArticles?.addEventListener('click', (e) => {
       promptBlock?.classList.remove('prompt-active')
+      this.view.removePreviousLevel(inputWindow, promptBlock, userSolution)
       this.view.drawGame(e)
-      if (inputWindow && userSolution) {
-        inputWindow.value = ''
-        userSolution.innerHTML = ''
-      }
     })
 
     helpButton?.addEventListener('click', () => {
         promptBlock?.classList.add('prompt-active')
+        const level = this.controller.getActualLevel()
+        this.localStorageOpt.changeLocalStorage(level, LevelState.clue)
+        setTimeout(() => {
+          this.view.addVisualEffects(true, level, true)
+          this.view.removePreviousLevel(inputWindow, promptBlock, userSolution)
+        }, 2000)
+        this.localStorageOpt.checkIsAllLevelsDone() ? this.view.addWinEffects() : 0
     });
 
     enterButton?.addEventListener('click', () => {
@@ -74,12 +78,9 @@ class App {
       const [isSolutionCorrect, level] = controller.checkInputValue(inputWindow)
       if (isSolutionCorrect) {
         localStorageOpt.changeLocalStorage(level, LevelState.done)
-        if (inputWindow && promptBlock && userSolution) {
-          promptBlock.classList.contains('prompt-active')? promptBlock.classList.remove('prompt-active') : 0
-          inputWindow.value = ''
-          userSolution.innerHTML = ''
-        }
+        view.removePreviousLevel(inputWindow, promptBlock, userSolution)
       }
+      localStorageOpt.checkIsAllLevelsDone() ? view.addWinEffects() : 0
       view.addVisualEffects(isSolutionCorrect, level)
     }
   }

@@ -13,7 +13,8 @@ export type ILevelOptions = {
 export enum LevelState {
   active = 'active',
   done = 'done',
-  available = 'available'
+  available = 'available',
+  clue = 'clue'
 }
 
 export interface IlocalStorage {

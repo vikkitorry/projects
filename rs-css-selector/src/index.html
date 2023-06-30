@@ -5,16 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPz8JBQTtKOm1x82iUKrRG1EF4NGGJgJAE_Q&usqp=CAU">
     <meta charset="utf-8" />
-<!--
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/shades-of-purple.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
--->
-
     <title>RS-CSS</title>
   </head>
 <body>
-
+  <div class="overlay">
+    <div>YOU ARE WINNER!!</div>
+    <div class="close">Close</div>
+  </div>
   <main class="main">
     <section class="game">
       <div class="header">
@@ -23,8 +20,10 @@
           <div class="reset">RESET GAME</div>
         </div>
       </div>
-      <game class="game__window">
-      </game>
+      <div class="game-container">
+        <div class="html-clue"></div>
+        <game class="game__window"></game>
+      </div>
       <div class="game__code">
         <div class="input-window">
           <input type="text" class="input">
@@ -36,11 +35,15 @@
             <button class="btn help">Help</button>
           </div>
           <div class="task-desc-container"></div>
+
           <div class="prompt">
+            <!--
             <p>SUPER PUPER PROMPT</p>
             <p>Try to use</p>
+            -->
             <p class="prompt-text"></p>
           </div>
+
         </div>
         <div class="html-window"></div>
       </div>
