@@ -2,6 +2,8 @@ import { GameLevel } from './level/level'
 import { Articles } from './articles/articles'
 import { levelsData } from '../data/data'
 import { IlocalStorage } from '../../types/types'
+import 'highlight.js/styles/default.css';
+import './input/input.css'
 
 export class AppView {
 

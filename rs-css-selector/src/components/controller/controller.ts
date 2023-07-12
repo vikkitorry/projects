@@ -1,6 +1,3 @@
-import 'highlight.js/styles/default.css';
-import './input/input.css'
-
 export class AppController {
 
   checkInputValue(inputElement: HTMLInputElement | null): [boolean, number] {
@@ -14,7 +11,7 @@ export class AppController {
     return [false, level]
   }
 
-  private checkSolution(value : string): boolean {
+  checkSolution(value : string): boolean {
     const gameWindow: HTMLElement | null = document.querySelector('.game__window')
     const correctSolutionElements: NodeListOf<Element> | undefined = gameWindow?.querySelectorAll('.animate')
     let isCorrect = false
@@ -32,7 +29,7 @@ export class AppController {
     return isCorrect
   }
 
-  private isNodeListsEqual(list1: NodeListOf<Element>, list2: NodeListOf<Element>): boolean {
+  isNodeListsEqual(list1: NodeListOf<Element>, list2: NodeListOf<Element>): boolean {
     if (list1.length !== list2.length) return false;
     return Array.from(list1)
       .every((node, index) => node === list2[index]);
