@@ -1,6 +1,4 @@
-export enum LocalStorageName {
-  name = 'aqww00044q'
-}
+export const LOCAL_STORAGE_GAME_STATE_KEY = 'vikkiTorry'
 
 export type ILevelOptions = {
   level: number;
@@ -14,17 +12,16 @@ export enum LevelState {
   active = 'active',
   done = 'done',
   available = 'available',
-  clue = 'clue'
+  withClue = 'clue'
 }
 
+//переделать массив из объектов (айдишник уровня и стейт уровня)
 export interface IlocalStorage {
   levels: LevelState[],
   currentLevel: number
 }
 
-export enum NumberOfLevels {
-  number = 12
-}
+export const LEVELS_COUNT = 12
 
 export interface ElementParams {
   tag: string,

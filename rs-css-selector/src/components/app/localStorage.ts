@@ -1,4 +1,5 @@
-import { LevelState, IlocalStorage, LocalStorageName } from '../../types/types'
+import { LevelState, IlocalStorage, LOCAL_STORAGE_GAME_STATE_KEY } from '../../types/types'
+import { levelsData } from '../../components/data/data'
 
 export class LocalStorage {
 
@@ -8,48 +9,33 @@ export class LocalStorage {
   }
 
   getDataFromLocalStorage(): IlocalStorage {
-    const getLocalStorage = localStorage.getItem(LocalStorageName.name)
-    if (getLocalStorage) {
-      return JSON.parse(localStorage.getItem(LocalStorageName.name) || "")
-    } else {
+    const getLocalStorage = localStorage.getItem(LOCAL_STORAGE_GAME_STATE_KEY)
+    if (!getLocalStorage) {
       this.setNewLocalStorage()
-      return JSON.parse(localStorage.getItem(LocalStorageName.name) || "")
     }
+    return JSON.parse(localStorage.getItem(LOCAL_STORAGE_GAME_STATE_KEY) || "")
   }
 
-  changeLocalStorage(level: number, status: string ) {
-    const getLocalStorage = JSON.parse(localStorage.getItem(LocalStorageName.name) || "")
+  updateLocalStorage(level: number, status: string ) {
+    const getLocalStorage = JSON.parse(localStorage.getItem(LOCAL_STORAGE_GAME_STATE_KEY) || "")
     if (status === LevelState.active) {
       getLocalStorage.currentLevel = level
     } else {
       getLocalStorage.levels[level - 1] = status
     }
-    localStorage.setItem(LocalStorageName.name, JSON.stringify(getLocalStorage))
+    localStorage.setItem(LOCAL_STORAGE_GAME_STATE_KEY, JSON.stringify(getLocalStorage))
   }
 
   checkIsAllLevelsDone(): boolean {
-    const getLocalStorage = JSON.parse(localStorage.getItem(LocalStorageName.name) || "")
+    const getLocalStorage = JSON.parse(localStorage.getItem(LOCAL_STORAGE_GAME_STATE_KEY) || "")
     return !Object.values(getLocalStorage.levels).includes(LevelState.available)
   }
 
   setNewLocalStorage() {
-    const LocalStorageData: IlocalStorage = {
-      levels: [
-        LevelState.available,
-        LevelState.available,
-        LevelState.available,
-        LevelState.available,
-        LevelState.available,
-        LevelState.available,
-        LevelState.available,
-        LevelState.available,
-        LevelState.available,
-        LevelState.available,
-        LevelState.available,
-        LevelState.available,
-      ],
+    const initialGameState: IlocalStorage = {
+      levels: new Array(levelsData.length).fill(LevelState.available),
       currentLevel: 0
     }
-    localStorage.setItem(LocalStorageName.name, JSON.stringify(LocalStorageData))
+    localStorage.setItem(LOCAL_STORAGE_GAME_STATE_KEY, JSON.stringify(initialGameState))
   }
 }

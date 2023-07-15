@@ -144,7 +144,7 @@ describe('LocalStorage', () => {
     };
     localStorage.setItem(LocalStorageName.name, JSON.stringify(mockLocalStorage));
     const localStorageObj = new LocalStorage();
-    localStorageObj.changeLocalStorage(2, LevelState.done);
+    localStorageObj.updateLocalStorage(2, LevelState.done);
     const updatedLocalStorage = JSON.parse(localStorage.getItem(LocalStorageName.name) || '');
     expect(updatedLocalStorage.levels[1]).toBe(LevelState.done);
   });

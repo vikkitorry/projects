@@ -6,26 +6,26 @@ export class GameLevel {
 
   draw(levelData: ILevelOptions): void {
     const taskDescription: Element | null = document.querySelector('.task-desc-container')
-    const gethtmlWindow: Element | null = document.querySelector('.html-window')
-    const getGameWindow: Element | null = document.querySelector('.game__window')
+    const htmlWindow: Element | null = document.querySelector('.html-window')
+    const gameWindow: Element | null = document.querySelector('.game__window')
     const promptText: Element | null = document.querySelector('.prompt-text')
 
-    if (taskDescription && gethtmlWindow && levelData && getGameWindow && promptText ) {
-      gethtmlWindow.innerHTML = ''
+    if (taskDescription && htmlWindow && levelData && gameWindow && promptText ) {
+      htmlWindow.innerHTML = ''
       taskDescription.innerHTML = ''
-      getGameWindow.innerHTML = ''
+      gameWindow.innerHTML = ''
       promptText.textContent = levelData.solution
       new ElementCreator(levelData.description, taskDescription, false)
       levelData.boardMarkup.forEach((element) => {
-        new ElementCreator(element, getGameWindow, true)
+        new ElementCreator(element, gameWindow, true)
       })
-      gethtmlWindow.innerHTML = levelData.codeNode;
+      htmlWindow.innerHTML = levelData.codeNode;
     }
   }
 
   passLevelEffect() {
-    const getGameWindow: NodeListOf<HTMLElement> = document.querySelectorAll('.game__window *')
-    getGameWindow.forEach((el) => el.classList.add('fly'))
+    const gameWindow: NodeListOf<HTMLElement> = document.querySelectorAll('.game__window *')
+    gameWindow.forEach((el) => el.classList.add('fly'))
   }
 
   wrongAnswerEffect() {

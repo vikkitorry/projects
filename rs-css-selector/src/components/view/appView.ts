@@ -21,8 +21,8 @@ export class AppView {
   }
 
   drawGame(e: MouseEvent) {
-    const target = e.target as HTMLElement;
-    const level: string | undefined = target.textContent?.replace(/[^0-9]/g,"")
+    const levelButton = e.target as HTMLElement;
+    const level: string | undefined = levelButton.textContent?.replace(/[^0-9]/g,"")
     if (level) {
       const levelAsNumber = Number(level);
       this.game.draw(levelsData[levelAsNumber - 1])
@@ -33,8 +33,7 @@ export class AppView {
   addVisualEffects(isSolutionCorrect: boolean, level: number, isClueUsed?: boolean): void {
     if (!isSolutionCorrect) {
       this.game.wrongAnswerEffect()
-    }
-    if (isSolutionCorrect) {
+    }else {
         this.articles.passLevelEffect(isClueUsed)
         this.game.passLevelEffect()
         setTimeout(() => {

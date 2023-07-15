@@ -8,17 +8,17 @@ import hljs from 'highlight.js';
 class App {
   private controller : AppController
   private view : AppView
-  private localStorageOpt: LocalStorage
+  private localStorageOptions: LocalStorage
 
   constructor() {
     this.controller = new AppController();
     this.view = new AppView();
-    this.localStorageOpt = new LocalStorage()
+    this.localStorageOptions = new LocalStorage()
   }
 
   start() {
-    const localData = this.localStorageOpt.getDataFromLocalStorage()
-    const levelOnLoad = this.localStorageOpt.getLevelOnLoad()
+    const localData = this.localStorageOptions.getDataFromLocalStorage()
+    const levelOnLoad = this.localStorageOptions.getLevelOnLoad()
     this.view.drawGameOnLoad(levelOnLoad, localData)
     this.addListeners()
   }
@@ -29,58 +29,58 @@ class App {
     const enterButton: HTMLInputElement | null  = document.querySelector('.enter');
     const helpButton: HTMLInputElement | null  = document.querySelector('.help');
     const promptBlock: HTMLInputElement | null  = document.querySelector('.prompt');
-    const userSolution: HTMLInputElement | null  = document.querySelector('.highlight-input');
+    const answerInput: HTMLInputElement | null  = document.querySelector('.highlight-input');
     const resetGameButton: HTMLInputElement | null  = document.querySelector('.reset');
 
     resetGameButton?.addEventListener('click', () => {
-      this.localStorageOpt.setNewLocalStorage()
+      this.localStorageOptions.setNewLocalStorage()
       if (levelsArticles) {
         levelsArticles.innerHTML = ''
       }
-      const localData = this.localStorageOpt.getDataFromLocalStorage()
-      this.view.drawGameOnLoad(this.localStorageOpt.getLevelOnLoad(), localData )
+      const localData = this.localStorageOptions.getDataFromLocalStorage()
+      this.view.drawGameOnLoad(this.localStorageOptions.getLevelOnLoad(), localData )
     })
 
     inputWindow?.addEventListener('input', () => {
-      if (userSolution) {
-        userSolution.innerHTML = `${hljs.highlight(inputWindow.value, {language: 'css'}).value}`
+      if (answerInput) {
+        answerInput.innerHTML = `${hljs.highlight(inputWindow.value, {language: 'css'}).value}`
       }
     })
 
     levelsArticles?.addEventListener('click', (e) => {
       promptBlock?.classList.remove('prompt-active')
-      this.view.removePreviousLevel(inputWindow, promptBlock, userSolution)
+      this.view.removePreviousLevel(inputWindow, promptBlock, answerInput)
       this.view.drawGame(e)
     })
 
     helpButton?.addEventListener('click', () => {
         promptBlock?.classList.add('prompt-active')
         const level = this.controller.getActualLevel()
-        this.localStorageOpt.changeLocalStorage(level, LevelState.clue)
+        this.localStorageOptions.updateLocalStorage(level, LevelState.withClue)
         setTimeout(() => {
           this.view.addVisualEffects(true, level, true)
-          this.view.removePreviousLevel(inputWindow, promptBlock, userSolution)
+          this.view.removePreviousLevel(inputWindow, promptBlock, answerInput)
         }, 2000)
-        this.localStorageOpt.checkIsAllLevelsDone() ? this.view.addWinEffects() : 0
+        this.localStorageOptions.checkIsAllLevelsDone() ? this.view.addWinEffects() : 0
     });
 
     enterButton?.addEventListener('click', () => {
-      inputActionsAfterEnter(this.controller, this.localStorageOpt, this.view)
+      inputActionsAfterEnter(this.controller, this.localStorageOptions, this.view)
     });
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
-        inputActionsAfterEnter(this.controller, this.localStorageOpt, this.view)
+        inputActionsAfterEnter(this.controller, this.localStorageOptions, this.view)
       }
     });
 
-    function inputActionsAfterEnter(controller: AppController, localStorageOpt: LocalStorage, view: AppView) {
+    function inputActionsAfterEnter(controller: AppController, localStorageOptions: LocalStorage, view: AppView) {
       const [isSolutionCorrect, level] = controller.checkInputValue(inputWindow)
       if (isSolutionCorrect) {
-        localStorageOpt.changeLocalStorage(level, LevelState.done)
-        view.removePreviousLevel(inputWindow, promptBlock, userSolution)
+        localStorageOptions.updateLocalStorage(level, LevelState.done)
+        view.removePreviousLevel(inputWindow, promptBlock, answerInput)
       }
-      localStorageOpt.checkIsAllLevelsDone() ? view.addWinEffects() : 0
+      localStorageOptions.checkIsAllLevelsDone() ? view.addWinEffects() : 0
       view.addVisualEffects(isSolutionCorrect, level)
     }
   }

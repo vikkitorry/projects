@@ -76,8 +76,6 @@ body {
   background-color: #774438;
 }
 
-/*main*/
-
 .main {
   display: grid;
   grid-template-columns: 3fr 1fr;
@@ -141,8 +139,6 @@ body {
   background-color: #221e18;
 }
 
-/*prompt window*/
-
 .prompt {
   position: absolute;
   display: flex;
@@ -180,8 +176,6 @@ body {
   animation: animated-text 2s steps(30,end) 0.5s 1 normal both;
 }
 
-/*footer*/
-
 .footer {
   display: flex;
   align-items: center;
@@ -199,8 +193,6 @@ body {
   width: auto;
   height: 4vh;
 }
-
-/*animation for wrong answer*/
 
 .shake {
   animation: shake 0.5s linear;
@@ -242,9 +234,6 @@ body {
       transform: translate(1px, -2px) rotate(-1deg);
   }
 }
-
-/*
-@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');*/
 
 .task-desc {
   white-space: nowrap;

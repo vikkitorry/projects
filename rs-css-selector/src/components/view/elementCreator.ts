@@ -4,7 +4,6 @@ import { ElementParams } from '../../types/types';
 export class ElementCreator {
 
   constructor(params: ElementParams, parent: Element, isNeedClue: boolean) {
-    //this.element = document.createElement(params.tag)
     this.createAndAddElement(params, parent, isNeedClue);
   }
 
@@ -12,7 +11,9 @@ export class ElementCreator {
     const element = document.createElement(params.tag)
     element.textContent = params.textContent;
     params.classNames.map((cssClass) => element.classList.add(cssClass));
-    params.id ? element.id = params.id : ''
+    if (params.id) {
+      element.id = params.id
+    }
     parent.append(element)
 
     if (isNeedClue) {

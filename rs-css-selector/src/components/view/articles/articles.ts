@@ -1,4 +1,4 @@
-import { ElementParams, IlocalStorage, LevelState, NumberOfLevels } from '../../../types/types';
+import { ElementParams, IlocalStorage, LevelState, LEVELS_COUNT } from '../../../types/types';
 import { ElementCreator } from '../elementCreator'
 import { LocalStorage }  from '../../app/localStorage'
 
@@ -13,7 +13,7 @@ export class Articles {
   createArticlesArray(localData: IlocalStorage) {
     const levelProgressData = localData.levels
     const activeLevel = localData.currentLevel
-    const articlesArr: Array<ElementParams> = [...Array(NumberOfLevels.number)]
+    const articlesArr: Array<ElementParams> = [...Array(LEVELS_COUNT)]
       .map((element: ElementParams, i: number) => {
         return element = {
           tag: 'div',
@@ -39,7 +39,7 @@ export class Articles {
   highlightLevel(level: number) {
     const levelsArticles: NodeListOf<HTMLElement> = document.querySelectorAll('.level')
     const previousLevel: HTMLElement | null = document.querySelector('.active')
-    this.localStorageMethod.changeLocalStorage(level, LevelState.active)
+    this.localStorageMethod.updateLocalStorage(level, LevelState.active)
     if (previousLevel) {
       previousLevel.classList.remove('active')
     }
@@ -51,11 +51,8 @@ export class Articles {
   passLevelEffect(isClueUsed?: boolean) {
     const actualLevel: HTMLElement | null = document.querySelector('.active')
     if (actualLevel) {
-      if (isClueUsed) {
-        actualLevel.classList.add('clue')
-      } else {
-        actualLevel.classList.add('done')
-      }
+      const addedClassName = isClueUsed ? 'clue' :' done'
+      actualLevel.classList.add(addedClassName)
     }
   }
 }
