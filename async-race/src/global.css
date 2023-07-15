@@ -1,0 +1,129 @@
+body {
+  box-sizing: border-box;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+}
+
+.menu-container {
+  margin: 10px auto;
+  top: 10px;
+  left: 50%;
+}
+
+.create-container, .update-container {
+  display: flex;
+  align-items: center;
+}
+
+
+/*garage*/
+.garage-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.item-buttons-container, .item-move-buttons-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 5px;
+}
+
+.btn {
+  width: 70px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: aqua;
+}
+
+.race-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  border-bottom: 2px dotted black;
+}
+
+.car {
+  position: absolute;
+  left: 0; /* будет меняться*/
+}
+
+.car-courpuse-active {
+  animation: shake 1s infinite;
+  overflow: hidden;
+}
+/*
+.wheel-active {
+  animation: wheel 10s infinite;
+  overflow: hidden;
+}*/
+
+@keyframes shake {
+  0% {
+      transform: translate(2px, 1px) rotate(0deg);
+  }
+  10% {
+      transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+      transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+      transform: translate(0px, 2px) rotate(0deg);
+  }
+  40% {
+      transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+      transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+      transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+      transform: translate(2px, 1px) rotate(-1deg);
+  }
+  80% {
+      transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+      transform: translate(2px, 2px) rotate(0deg);
+  }
+  100% {
+      transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+/*
+@keyframes wheel {
+  0% {
+      transform: translate(0px, 0px) rotate(0deg);
+  }
+  100% {
+      transform: translate(0px, 0px) rotate(360deg);
+  }
+}*/
+
+.flag {
+  margin-right: 80px;
+}
+
+.change-page-container {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
