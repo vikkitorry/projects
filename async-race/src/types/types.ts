@@ -1,7 +1,24 @@
+export const SERVER = "http://127.0.0.1:3000"
+export const LOCAL_SERVER = "http://localhost:3000"
+
+export enum URL {
+  garage = `${LOCAL_SERVER}/garage`,
+  engine = `${LOCAL_SERVER}/engine`,
+  winners = `${LOCAL_SERVER}/winners`,
+}
+
+export enum Method {
+  post = 'POST',
+  put = 'PUT',
+  get = 'GET',
+  delete = 'DELETE',
+  patch = 'PATCH',
+}
+
 export interface ICar {
   name: string;
   color: string;
-  id: number;
+  id?: number;
 }
 
 export interface IWinner {
