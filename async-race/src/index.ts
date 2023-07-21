@@ -2,11 +2,9 @@ import './normalize.css';
 import './global.css';
 //import {GarageApi} from './components/api/garage'
 
-//import startApp from './components/app';
-//const app = new App();
+import {App} from './components/app/app';
+const app = new App();
 
-
+app.addMainButtons()
 
 //const garage = new GarageApi
-
-

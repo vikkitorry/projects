@@ -1,15 +1,19 @@
-import { ICar, URL, Method } from '../../types/types'
+import { URL, Method } from './serverTypes'
+import { ICar } from '../../types/types'
 
 export class GarageApi {
 
-  async createCar(carData: ICar): Promise<void> {
-    await fetch(URL.garage, {
+  async createCar(carData: ICar): Promise<ICar> {
+    const response = await fetch(URL.garage, {
       method: Method.post,
       body: JSON.stringify(carData),
       headers: {
         'Content-Type': 'application/json',
       },
     });
+    const car = await response.json()
+
+    return car
   }
 
   async getCar(id: number): Promise<ICar> {
