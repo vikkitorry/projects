@@ -1,5 +1,5 @@
 import { header } from '../view/header/header'
-import { garage } from '../view/garage/garage'
+import { garage } from './garage/garageTemplate'
 import { winners } from '../view/winners/winners'
 import { Car } from '../view/garage/car/car'
 import { ICar } from '../../types/types'
@@ -39,6 +39,32 @@ export class AppView {
   }
 
   addCar(newCar: ICar) {
-    const car = new Car(this.garageContainer, newCar)
+    new Car(this.garageContainer, newCar)
   }
+
+  setCarAmount(amount: number) {
+    const carAmount = document.querySelector('.car-amount')
+    if (carAmount){
+      carAmount.textContent = `(${amount})`
+    }
+  }
+
+  // addDriveEffect(idArray: number[]) {
+  //    idArray.forEach()
+  // racer.animate(
+  //   [
+  //     {
+  //       transform: 'translateX(0)',
+  //     },
+
+  //     {
+  //       transform: `translateX(${carContent.clientWidth}px)`,
+  //     },
+  //   ],
+  //   {
+  //     duration,
+  //     fill: 'forwards',
+  //   },
+  // );
+  // }
 }

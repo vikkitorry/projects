@@ -1,6 +1,6 @@
-export function getCarImage(color: string): string {
+export function getCarImage(color: string, id?: number): string {
   return `
-  <svg xmlns="http://www.w3.org/2000/svg" width="70px" height="70px" viewBox="0 0 1024 1024" class="car" version="1.1">
+  <svg xmlns="http://www.w3.org/2000/svg" width="70px" height="70px" viewBox="0 0 1024 1024" class="car" version="1.1" data-car = "${id}">
   <path d="M766.976 508.736c80.576 0 152.448 32.128 199.232 82.176" fill="#AEBCC9" />
   <path
     d="M64.704 684.992c10.816 19.2 32.064 32.192 56.576 32.192h784.64c35.84 0 64.832-27.648 64.832-61.76v-17.408h-36.608a15.744 15.744 0 0 1-16.064-15.296V550.912a277.568 277.568 0 0 0-150.144-44.16h1.6l-55.04-0.256c-53.632-115.2-157.504-210.752-294.208-210.752-136.512 0-251.008 89.728-282.176 210.688h-16.832c-35.456 0-56.128 27.392-56.128 61.184"

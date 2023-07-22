@@ -1,29 +1,31 @@
 // import { AppController } from '../controller/controller'
 // import { AppView } from '../view/appView'
-// import { LocalStorage } from './localStorage'
+import { createHtmlElement } from '../helpers/createHtmlElement'
+import { Element } from '../../types/types'
+
 
 export class Button {
   private button: HTMLButtonElement;
   //public allButtons: Array<HTMLButtonElement>
 
-  constructor(classNames: string[], text: string, buttonAction: (e: Event) => void) {
-    this.button = this.createButton(classNames, text)
-    this.button.addEventListener("click", buttonAction)
+  constructor(elementParams: Element, buttonAction?: (e: Event) => void) {
+    this.button = createHtmlElement({
+      tag: elementParams.tag,
+      classNames: elementParams.classNames,
+      textContent: elementParams.textContent,
+      id: elementParams.id}) as HTMLButtonElement
+    if (buttonAction) {
+      this.button.addEventListener("click", buttonAction)
+    }
     //this.allButtons = []
   }
 
-  createButton(classNames: string[], text: string): HTMLButtonElement {
-    const button: HTMLButtonElement = document.createElement('button')
-    button.textContent = text
-    classNames.forEach((className) => {
-      button.classList.add(className)
-    });
-    return button
-  }
+  // setButtonId(id?: number): void {
+  //   if (id) {
+  //     this.button.id = `${id}`
+  //   }
 
-  setButtonId(id: string): void {
-    this.button.id = id
-  }
+  // }
 
   setButtonCondition(isWork: boolean): void {
     this.button.disabled = isWork
