@@ -5,15 +5,19 @@ import { createHtmlElement } from '../../../helpers/createHtmlElement'
 import { EngineApi } from '../../../api/engine'
 import { GarageApi } from '../../../api/garage'
 import { Button } from '../../../controllers/button'
+import {CarAnimation} from '../../../helpers/animation'
+import {EngineStatus} from '../../../api/serverTypes'
+
 
 export class Car  {
   private garage : GarageApi
   private engine : EngineApi
   public id: number
+  public animation: CarAnimation
 
   public carNode: Element
   public carName: Element
-  private raceContainer: Element
+  private raceContainer: HTMLElement
   private selectButton: HTMLButtonElement
   private removeButton: HTMLButtonElement
   private startButton: HTMLButtonElement
@@ -47,7 +51,8 @@ export class Car  {
         textContent: 'B',
         id: newCar.id}).getButton()
     this.createCarContainer(newCar)
-    this.addListener()
+    this.handleCarButtons()
+    this.animation = new CarAnimation(this.raceContainer, this.id)
   }
 
   private createCarContainer(carData: ICar) {
@@ -62,16 +67,16 @@ export class Car  {
   }
 
   setCarColor(carData: ICar) {
-    const car = getCarImage(carData.color, carData.id)
-    this.raceContainer.insertAdjacentHTML('afterbegin', car)
+    const carImg = getCarImage(carData.color, carData.id)
+    this.raceContainer.insertAdjacentHTML('afterbegin', carImg)
   }
 
   getCarNode() {
     return this.carNode
   }
 
-  private addListener() {
-    this.carNode.addEventListener('click', (e: Event) => {
+  private handleCarButtons() {
+    this.carNode.addEventListener('click', async (e: Event) => {
       if (e?.target instanceof HTMLButtonElement) {
         const classNames = e.target.className
         if (classNames.includes('remove')) {
@@ -79,9 +84,13 @@ export class Car  {
           this.garage.deleteCar(+e.target.id)
         } else if (classNames.includes('select')) {
           //console.log('select')
-        } else if (classNames.includes('start') || classNames.includes('stop')) {
-          //const enjineStatus = classNames.includes('start')? EngineStatus.start : EngineStatus.stop
-          //this.startStopCar(+e.target.id, enjineStatus)
+        } else if (classNames.includes('start')) {
+          const a = await this.engine.startStopEngine(+e.target.id, EngineStatus.start)
+          console.log(a)
+        } else if (classNames.includes('stop')) {
+          this.animation.stopAnimation()
+          const a = await this.engine.startStopEngine(+e.target.id, EngineStatus.stop)
+          console.log(a)
         }
       }
     })

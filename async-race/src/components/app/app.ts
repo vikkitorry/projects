@@ -5,7 +5,7 @@ import { EngineApi } from '../api/engine'
 import { GarageApi } from '../api/garage'
 import { WinnersApi } from '../api/winners'
 import { getRandomHexColor, getRandomCarFullName } from '../helpers/randomizers'
-import { IEngine } from '../../types/types'
+import { IMainButtons, IInputs } from '../../types/types'
 import { EngineStatus } from '../api/serverTypes'
 //import { CarListener } from './carListener'
 
@@ -14,63 +14,67 @@ export class App {
   private garage : GarageApi
   private winners : WinnersApi
   private engine : EngineApi
-
-  public raceButton: HTMLButtonElement
-  private resetButton: HTMLButtonElement
-  private generateButton: HTMLButtonElement
-  private createButton: HTMLButtonElement
-  private updateButton: HTMLButtonElement
-  private inputColorCreateContainer: HTMLInputElement
-  private inputColorUpdateContainer: HTMLInputElement
-  private inputTextUpdateContainer: HTMLInputElement
-  private inputTextCreateContainer: HTMLInputElement
+  private buttons : IMainButtons
+  private inputs : IInputs
 
   constructor() {
     this.view = new AppView
     this.garage = new GarageApi
     this.engine = new EngineApi
     this.winners = new WinnersApi
+    this.buttons = this.createMainButtons()
+    this.inputs = this.createInputElements()
+    this.addMainButtons()
+  }
 
-    this.raceButton = new Button({
-        tag: 'button',
-        classNames: ['race', 'btn-menu'],
-        textContent: 'Race'},
-      () => this.handleRaceButtonClick()).getButton()
+  createMainButtons() {
+    const raceButton = new Button({
+      tag: 'button',
+      classNames: ['race', 'btn-menu'],
+      textContent: 'Race'},
+    () => this.handleRaceButtonClick()).getButton()
 
-    this.resetButton = new Button({
-        tag: 'button',
-        classNames: ['reset', 'btn-menu'],
-        textContent: 'Reset'},
-      () => this.handleResetButtonClick()).getButton()
+    const resetButton = new Button({
+      tag: 'button',
+      classNames: ['reset', 'btn-menu'],
+      textContent: 'Reset'},
+    () => this.handleResetButtonClick()).getButton()
 
-    this.generateButton = new Button({
-        tag: 'button',
-        classNames: ['generate-cars', 'btn-menu'],
-        textContent: 'Generate'},
-      () => this.handleGenerateButtonClick()).getButton()
+    const generateButton = new Button({
+      tag: 'button',
+      classNames: ['generate-cars', 'btn-menu'],
+      textContent: 'Generate'},
+    () => this.handleGenerateButtonClick()).getButton()
 
-    this.createButton = new Button({
-        tag: 'button',
-        classNames: ['create'],
-        textContent: 'Create'},
-      () => this.handleCreateButtonClick()).getButton()
+    const createButton = new Button({
+      tag: 'button',
+      classNames: ['create'],
+      textContent: 'Create'},
+    () => this.handleCreateButtonClick()).getButton()
 
-    this.updateButton = new Button({
-        tag: 'button',
-        classNames: ['update'],
-        textContent: 'Update'},
-        () => this.handleUpdateButtonClick()).getButton()
+    const updateButton = new Button({
+      tag: 'button',
+      classNames: ['update'],
+      textContent: 'Update'},
+      () => this.handleUpdateButtonClick()).getButton()
 
-    this.inputColorCreateContainer = new Input(['rgb', 'create-color'], 'color', () => this.handleInputUserSelectedColor()).getInputElement()
-    this.inputColorUpdateContainer = new Input(['rgb', 'update-color'], 'color', () => this.handleInputUserSelectedColor()).getInputElement()
-    this.inputTextUpdateContainer = new Input(['input'], 'text', () => this.handleInputUserSelectedColor()).getInputElement()
-    this.inputTextCreateContainer = new Input(['input'], 'text', () => this.handleInputUserSelectedColor()).getInputElement()
+  const buttons = {raceButton, resetButton, generateButton, createButton, updateButton}
+  return buttons
+  }
+
+  createInputElements() {
+    const inputColorCreateContainer = new Input(['rgb', 'create-color'], 'color').getInputElement()
+    const inputColorUpdateContainer = new Input(['rgb', 'update-color'], 'color').getInputElement()
+    const inputTextUpdateContainer = new Input(['input'], 'text').getInputElement()
+    const inputTextCreateContainer = new Input(['input'], 'text').getInputElement()
+    const inputs = {inputColorCreateContainer, inputColorUpdateContainer, inputTextUpdateContainer, inputTextCreateContainer}
+    return inputs
   }
 
   addMainButtons() {
-    document.querySelector('.menu-buttons-container')?.append(this.raceButton, this.resetButton, this.generateButton)
-    document.querySelector('.create-container')?.append(this.inputTextCreateContainer, this.inputColorCreateContainer, this.createButton)
-    document.querySelector('.update-container')?.append(this.inputTextUpdateContainer, this.inputColorUpdateContainer, this.updateButton)
+    document.querySelector('.menu-buttons-container')?.append(this.buttons.raceButton, this.buttons.resetButton, this.buttons.generateButton)
+    document.querySelector('.create-container')?.append(this.inputs.inputTextCreateContainer, this.inputs.inputColorCreateContainer, this.buttons.createButton)
+    document.querySelector('.update-container')?.append(this.inputs.inputTextUpdateContainer, this.inputs.inputColorUpdateContainer, this.buttons.updateButton)
   }
 
   async addCars() {
@@ -90,26 +94,26 @@ export class App {
     this.view.setCarAmount(Object.values(allCars).length)
   }
 
-  async startStopCar(id: number, enjineStatus: EngineStatus.start | EngineStatus.stop) {
-    const raceParams = await this.engine.startStopEngine(id, enjineStatus)
-    return raceParams
-  }
-
-  handleInputUserSelectedColor(){
-    console.log('handleInputUserSelectedColor')
-  }
-
   async handleRaceButtonClick() {
-    const allCars = await this.garage.getCars()
+    const allCars = this.view.garageView.carsInPage
     const carArray = Object.values(allCars)
+    //const disableElements = Object.values(this.buttons).concat(Object.values(this.inputs))
+    //disableElements.forEach(btn => btn.disabled = true)
     carArray.forEach(async car => {
-      const raceParams = await this.startStopCar(car.id, EngineStatus.start)
-      this.view.addDriveEffect(car.id, raceParams)
+      const raceParams = await this.engine.startStopEngine(car.id, EngineStatus.start)
+      this.view.addDriveEffect(car, raceParams)
     })
+    //надо дождаться победителя
+    //disableElements.forEach(btn => btn.disabled = false)
   }
 
   handleResetButtonClick() {
-    console.log('Reset')
+    const allCars = this.view.garageView.carsInPage
+    const carArray = Object.values(allCars)
+    carArray.forEach(async car => {
+      await this.engine.startStopEngine(car.id, EngineStatus.stop)
+      this.view.removeDriveEffect(car)
+    })
   }
 
   handleGenerateButtonClick() {
@@ -117,9 +121,9 @@ export class App {
   }
 
   handleCreateButtonClick() {
-    const name = this.inputTextCreateContainer.value
+    const name = this.inputs.inputTextCreateContainer.value
     if (name) {
-      const color = this.inputColorCreateContainer.value
+      const color = this.inputs.inputColorCreateContainer.value
       this.createCar(name, color)
     }
   }
@@ -127,5 +131,7 @@ export class App {
   handleUpdateButtonClick() {
     console.log('Update')
   }
+
+  
 
 }

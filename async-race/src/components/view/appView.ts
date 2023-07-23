@@ -2,7 +2,7 @@ import { header } from '../view/header/header'
 import { winners } from '../view/winners/winners'
 import { ICar, IEngine } from '../../types/types'
 import { GarageView } from './garage/garageView'
-import {setAnimation} from '../helpers/animation'
+import { Car } from './garage/car/car'
 
 export class AppView {
 
@@ -66,12 +66,13 @@ export class AppView {
     this.garageView.carsAmount.textContent = `(${amount})`
   }
 
-  addDriveEffect(id: number, raceParams: IEngine) {
-    const carImg = this.garageView.container.querySelector(`[data-car="${id}"]`)
+  addDriveEffect(car: Car, raceParams: IEngine) {
     const way = this.garageView.main.clientWidth
-    if (carImg) {
-      setAnimation(id, raceParams.distance, raceParams.velocity, way, carImg)
-    }
+    car.animation.setAnimation(raceParams.distance, raceParams.velocity, way)
+  }
+
+  removeDriveEffect(car: Car) {
+    car.animation.removeAnimation()
   }
 
 }

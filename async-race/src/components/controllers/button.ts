@@ -1,14 +1,14 @@
 // import { AppController } from '../controller/controller'
 // import { AppView } from '../view/appView'
 import { createHtmlElement } from '../helpers/createHtmlElement'
-import { Element } from '../../types/types'
+import { IElement } from '../../types/types'
 
 
 export class Button {
   private button: HTMLButtonElement;
   //public allButtons: Array<HTMLButtonElement>
 
-  constructor(elementParams: Element, buttonAction?: (e: Event) => void) {
+  constructor(elementParams: IElement, buttonAction?: (e: Event) => void) {
     this.button = createHtmlElement({
       tag: elementParams.tag,
       classNames: elementParams.classNames,
@@ -19,13 +19,6 @@ export class Button {
     }
     //this.allButtons = []
   }
-
-  // setButtonId(id?: number): void {
-  //   if (id) {
-  //     this.button.id = `${id}`
-  //   }
-
-  // }
 
   setButtonCondition(isWork: boolean): void {
     this.button.disabled = isWork

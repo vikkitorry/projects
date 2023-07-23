@@ -5,7 +5,7 @@ import './global.css';
 import {App} from './components/app/app';
 const app = new App();
 
-app.addMainButtons()
+//app.addMainButtons()
 app.addCars()
 
 //const garage = new GarageApi

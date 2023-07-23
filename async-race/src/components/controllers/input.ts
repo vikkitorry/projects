@@ -1,9 +1,11 @@
 export class Input {
   private input: HTMLInputElement;
 
-  constructor(classNames: string[], type: string, inputAction: (e: Event) => void) {
+  constructor(classNames: string[], type: string) {
     this.input = this.createInput(classNames, type);
-    this.input.addEventListener("change", inputAction);
+    // if (inputAction) {
+    //   this.input.addEventListener("change", inputAction);
+    // }
   }
 
   createInput(classNames: string[], type: string): HTMLInputElement {
@@ -18,8 +20,4 @@ export class Input {
   getInputElement() {
     return this.input
   }
-
-  /*getValue() {
-
-  }*/
 }
