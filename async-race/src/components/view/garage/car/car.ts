@@ -2,19 +2,16 @@ import { ICar } from '../../../../types/types'
 import { getCarImage } from '../../../data/carSVG'
 import { getFlagImage } from '../../../data/flagSVG'
 import { createHtmlElement } from '../../../helpers/createHtmlElement'
-import { EngineApi } from '../../../api/engine'
-import { GarageApi } from '../../../api/garage'
 import { Button } from '../../../controllers/button'
 import {CarAnimation} from '../../../helpers/animation'
-import {EngineStatus} from '../../../api/serverTypes'
 
 
 export class Car  {
-  private garage : GarageApi
-  private engine : EngineApi
-  public id: number
-  public animation: CarAnimation
 
+  private params: ICar
+  public id: number
+
+  public animation: CarAnimation
   public carNode: Element
   public carName: Element
   private raceContainer: HTMLElement
@@ -23,10 +20,9 @@ export class Car  {
   private startButton: HTMLButtonElement
   private stopButton: HTMLButtonElement
 
-  constructor( newCar: ICar) {
+  constructor( newCar: ICar, listenner: (e: Event) => void) {
     this.id = newCar.id || 0
-    this.garage = new GarageApi
-    this.engine = new EngineApi
+    this.params = newCar
     this.raceContainer = createHtmlElement({tag: 'div', classNames: ['race-container']})
     this.carNode = createHtmlElement({tag: 'div', classNames: ['item-container'], id: newCar.id})
     this.carName = createHtmlElement({tag: 'div', classNames: ['item-name'], textContent: newCar.name})
@@ -51,7 +47,7 @@ export class Car  {
         textContent: 'B',
         id: newCar.id}).getButton()
     this.createCarContainer(newCar)
-    this.handleCarButtons()
+    this.carNode.addEventListener('click', listenner)
     this.animation = new CarAnimation(this.raceContainer, this.id)
   }
 
@@ -62,40 +58,29 @@ export class Car  {
     moveButtonsContainer.append(this.startButton, this.stopButton, this.carName)
     this.raceContainer.insertAdjacentHTML('afterbegin', getFlagImage())
 
-    this.setCarColor(carData)
+    this.createCarImg(carData)
     this.carNode.append(mainButtonsContainer, moveButtonsContainer, this.raceContainer)
   }
 
-  setCarColor(carData: ICar) {
+  private createCarImg(carData: ICar) {
     const carImg = getCarImage(carData.color, carData.id)
     this.raceContainer.insertAdjacentHTML('afterbegin', carImg)
   }
 
-  getCarNode() {
-    return this.carNode
+  setNewCarColor(color: string) {
+    const carCourpuse = this.raceContainer.querySelector('.car-courpuse')
+    if (carCourpuse) {
+      carCourpuse.setAttribute('fill', `${color}`)
+    }
   }
 
-  private handleCarButtons() {
-    this.carNode.addEventListener('click', async (e: Event) => {
-      if (e?.target instanceof HTMLButtonElement) {
-        const classNames = e.target.className
-        if (classNames.includes('remove')) {
-          this.carNode.remove()
-          this.garage.deleteCar(+e.target.id)
-        } else if (classNames.includes('select')) {
-          //console.log('select')
-        } else if (classNames.includes('start')) {
-          const a = await this.engine.startStopEngine(+e.target.id, EngineStatus.start)
-          console.log(a)
-        } else if (classNames.includes('stop')) {
-          this.animation.stopAnimation()
-          const a = await this.engine.startStopEngine(+e.target.id, EngineStatus.stop)
-          console.log(a)
-        }
-      }
-    })
+  setNewParams(newName: string, newColor: string) {
+    this.params.name = newName
+    this.params.color = newColor
   }
 
-
+  getParams() {
+    return this.params
+  }
 
 }

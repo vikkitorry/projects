@@ -31,8 +31,8 @@ export interface IMainButtons {
 }
 
 export interface IInputs {
-  inputColorCreateContainer: HTMLInputElement;
-  inputColorUpdateContainer: HTMLInputElement;
-  inputTextUpdateContainer: HTMLInputElement;
-  inputTextCreateContainer: HTMLInputElement;
+  inputColorCreate: HTMLInputElement;
+  inputColorUpdate: HTMLInputElement;
+  inputTextUpdate: HTMLInputElement;
+  inputTextCreate: HTMLInputElement;
 }

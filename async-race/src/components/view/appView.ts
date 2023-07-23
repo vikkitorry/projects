@@ -1,6 +1,6 @@
 import { header } from '../view/header/header'
 import { winners } from '../view/winners/winners'
-import { ICar, IEngine } from '../../types/types'
+import { ICar, IEngine, IMainButtons, IInputs } from '../../types/types'
 import { GarageView } from './garage/garageView'
 import { Car } from './garage/car/car'
 
@@ -24,7 +24,10 @@ export class AppView {
     this.body.insertAdjacentHTML('beforeend', winners)
   }
 
-  renderFirsPage() {
+  renderFirsPage(buttons: IMainButtons, inputs: IInputs) {
+    document.querySelector('.menu-buttons-container')?.append(buttons.raceButton, buttons.resetButton, buttons.generateButton)
+    document.querySelector('.create-container')?.append(inputs.inputTextCreate, inputs.inputColorCreate, buttons.createButton)
+    document.querySelector('.update-container')?.append(inputs.inputTextUpdate, inputs.inputColorUpdate, buttons.updateButton)
     this.garageView.createFirstPage()
   }
 
@@ -58,8 +61,8 @@ export class AppView {
     })
   }
 
-  addCar(newCar: ICar) {
-    this.garageView.addNewCar(newCar)
+  addCar(newCar: ICar, listenner: (e: Event) => void) {
+    this.garageView.addNewCar(newCar, listenner)
   }
 
   setCarAmount(amount: number) {
@@ -73,6 +76,15 @@ export class AppView {
 
   removeDriveEffect(car: Car) {
     car.animation.removeAnimation()
+  }
+
+  removeCar(id: number) {
+    this.garageView.removeCar(id)
+  }
+
+  changeCarView(car: Car) {
+    car.setNewCarColor(car.getParams().color)
+    car.carName.textContent = car.getParams().name
   }
 
 }

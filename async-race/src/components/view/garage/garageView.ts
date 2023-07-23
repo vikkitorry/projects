@@ -35,12 +35,21 @@ export class GarageView {
   createFirstPage() {
     const carsNodes = this.allCars.slice(0, 7)
     this.carsInPage = carsNodes
-    carsNodes.forEach(car => this.container.append(car.getCarNode()))
+    carsNodes.forEach(car => this.container.append(car.carNode))
   }
 
-  addNewCar(newCar: ICar) {
-    const car = new Car(newCar)
+  addNewCar(newCar: ICar, listenner: (e: Event) => void) {
+    const car = new Car(newCar, listenner)
     this.allCars.push(car)
+  }
+
+  removeCar(id: number) {
+    this.allCars = this.allCars.filter(car => car.id !== id)
+    this.carsInPage.forEach(car => car.id === id ? car.carNode.remove() : 0)
+  }
+
+  getCar(id: number): Car | undefined {
+    return this.allCars.find(car => car.id === id)
   }
 
   setCurrentPage(page: number, counter: 1 | -1) {
@@ -53,7 +62,7 @@ export class GarageView {
     }
     this.container.innerHTML = ''
 
-    this.carsInPage.forEach(car => this.container.append(car.getCarNode()))
+    this.carsInPage.forEach(car => this.container.append(car.carNode))
   }
 
 }

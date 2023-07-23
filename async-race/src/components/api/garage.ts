@@ -30,8 +30,8 @@ export class GarageApi {
     });
   }
 
-  async updateCar(id: number, carData: ICar): Promise<void> {
-    await fetch(`${URL.garage}/${id}`, {
+  async updateCar(carData: ICar): Promise<void> {
+    await fetch(`${URL.garage}/${carData.id}`, {
       method: Method.put,
       body: JSON.stringify(carData),
       headers: {

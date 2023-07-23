@@ -3,9 +3,6 @@ export class Input {
 
   constructor(classNames: string[], type: string) {
     this.input = this.createInput(classNames, type);
-    // if (inputAction) {
-    //   this.input.addEventListener("change", inputAction);
-    // }
   }
 
   createInput(classNames: string[], type: string): HTMLInputElement {
