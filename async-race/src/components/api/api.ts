@@ -16,5 +16,4 @@ export class Api {
   async getCars() {
     return await this.garage.getCars()
   }
-  
 }

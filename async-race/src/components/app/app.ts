@@ -79,15 +79,33 @@ export class App {
     carArray.forEach(car => {
       this.view.addCar(car)
     })
+    this.view.renderFirsPage()
     this.view.setCarAmount(carArray.length)
   }
 
-  handleInputUserSelectedColor(){
-    console.log(555)
+  async createCar(name:string, color: string) {
+    const newCar = await this.garage.createCar({name, color})
+    this.view.addCar(newCar)
+    const allCars = await this.garage.getCars()
+    this.view.setCarAmount(Object.values(allCars).length)
   }
 
-  handleRaceButtonClick() {
-    console.log('Race')
+  async startStopCar(id: number, enjineStatus: EngineStatus.start | EngineStatus.stop) {
+    const raceParams = await this.engine.startStopEngine(id, enjineStatus)
+    return raceParams
+  }
+
+  handleInputUserSelectedColor(){
+    console.log('handleInputUserSelectedColor')
+  }
+
+  async handleRaceButtonClick() {
+    const allCars = await this.garage.getCars()
+    const carArray = Object.values(allCars)
+    carArray.forEach(async car => {
+      const raceParams = await this.startStopCar(car.id, EngineStatus.start)
+      this.view.addDriveEffect(car.id, raceParams)
+    })
   }
 
   handleResetButtonClick() {
@@ -106,22 +124,8 @@ export class App {
     }
   }
 
-  async createCar(name:string, color: string) {
-    const newCar = await this.garage.createCar({name, color})
-    this.view.addCar(newCar)
-    const allCars = await this.garage.getCars()
-    this.view.setCarAmount(Object.values(allCars).length)
-  }
-
   handleUpdateButtonClick() {
     console.log('Update')
   }
-
-  // async startStopCar(id: number, enjineStatus: EngineStatus.start | EngineStatus.stop) {
-  //   const raceParams = await this.engine.startStopEngine(id, enjineStatus)
-  //   //this.view.addDriveEffect([id])
-  //   console.log(raceParams)
-  // }
-
 
 }

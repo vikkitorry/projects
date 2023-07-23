@@ -6,23 +6,23 @@ import { EngineApi } from '../../../api/engine'
 import { GarageApi } from '../../../api/garage'
 import { Button } from '../../../controllers/button'
 
-export class Car {
+export class Car  {
   private garage : GarageApi
   private engine : EngineApi
+  public id: number
 
   public carNode: Element
   public carName: Element
   private raceContainer: Element
-  private garageContainer: HTMLElement
   private selectButton: HTMLButtonElement
   private removeButton: HTMLButtonElement
   private startButton: HTMLButtonElement
   private stopButton: HTMLButtonElement
 
-  constructor(garageContainer: HTMLElement, newCar: ICar) {
+  constructor( newCar: ICar) {
+    this.id = newCar.id || 0
     this.garage = new GarageApi
     this.engine = new EngineApi
-    this.garageContainer = garageContainer
     this.raceContainer = createHtmlElement({tag: 'div', classNames: ['race-container']})
     this.carNode = createHtmlElement({tag: 'div', classNames: ['item-container'], id: newCar.id})
     this.carName = createHtmlElement({tag: 'div', classNames: ['item-name'], textContent: newCar.name})
@@ -59,7 +59,6 @@ export class Car {
 
     this.setCarColor(carData)
     this.carNode.append(mainButtonsContainer, moveButtonsContainer, this.raceContainer)
-    this.garageContainer.prepend(this.carNode)
   }
 
   setCarColor(carData: ICar) {
@@ -79,7 +78,7 @@ export class Car {
           this.carNode.remove()
           this.garage.deleteCar(+e.target.id)
         } else if (classNames.includes('select')) {
-          console.log('select')
+          //console.log('select')
         } else if (classNames.includes('start') || classNames.includes('stop')) {
           //const enjineStatus = classNames.includes('start')? EngineStatus.start : EngineStatus.stop
           //this.startStopCar(+e.target.id, enjineStatus)
@@ -87,5 +86,7 @@ export class Car {
       }
     })
   }
+
+
 
 }

@@ -1,26 +1,31 @@
 import { header } from '../view/header/header'
-import { garage } from './garage/garageTemplate'
 import { winners } from '../view/winners/winners'
-import { Car } from '../view/garage/car/car'
-import { ICar } from '../../types/types'
+import { ICar, IEngine } from '../../types/types'
+import { GarageView } from './garage/garageView'
+import {setAnimation} from '../helpers/animation'
 
 export class AppView {
 
   public body: HTMLElement
-  public garageContainer: HTMLElement
+  public garageView: GarageView
 
   constructor() {
     this.body = document.querySelector('body') as HTMLElement;
+    this.garageView = new GarageView()
     this.render()
-    this.garageContainer = document.querySelector('.garage-container') as HTMLElement;
     this.toggleView()
+    this.handleChangePageButtons()
   }
 
   render() {
     this.body.classList.add('garage-active')
     this.body.insertAdjacentHTML('beforeend', header)
-    this.body.insertAdjacentHTML('beforeend', garage)
+    this.body.append(this.garageView.main)
     this.body.insertAdjacentHTML('beforeend', winners)
+  }
+
+  renderFirsPage() {
+    this.garageView.createFirstPage()
   }
 
   toggleView() {
@@ -38,33 +43,35 @@ export class AppView {
     })
   }
 
+  handleChangePageButtons() {
+    this.garageView.nextPageButton.addEventListener('click', () => {
+      const page = this.garageView.currentPage.textContent
+      if (page && Math.ceil(this.garageView.allCars.length / 7) > +page) {
+        this.garageView.setCurrentPage(+page, 1)
+      }
+    })
+    this.garageView.previousPageButton.addEventListener('click', () => {
+      const page = this.garageView.currentPage.textContent
+      if (page && +page > 1) {
+        this.garageView.setCurrentPage(+page, -1)
+      }
+    })
+  }
+
   addCar(newCar: ICar) {
-    new Car(this.garageContainer, newCar)
+    this.garageView.addNewCar(newCar)
   }
 
   setCarAmount(amount: number) {
-    const carAmount = document.querySelector('.car-amount')
-    if (carAmount){
-      carAmount.textContent = `(${amount})`
+    this.garageView.carsAmount.textContent = `(${amount})`
+  }
+
+  addDriveEffect(id: number, raceParams: IEngine) {
+    const carImg = this.garageView.container.querySelector(`[data-car="${id}"]`)
+    const way = this.garageView.main.clientWidth
+    if (carImg) {
+      setAnimation(id, raceParams.distance, raceParams.velocity, way, carImg)
     }
   }
 
-  // addDriveEffect(idArray: number[]) {
-  //    idArray.forEach()
-  // racer.animate(
-  //   [
-  //     {
-  //       transform: 'translateX(0)',
-  //     },
-
-  //     {
-  //       transform: `translateX(${carContent.clientWidth}px)`,
-  //     },
-  //   ],
-  //   {
-  //     duration,
-  //     fill: 'forwards',
-  //   },
-  // );
-  // }
 }
