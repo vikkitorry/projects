@@ -1,7 +1,17 @@
 export function getTableTemplate() {
   return `
-  <span class="page-name">Winners</span>
-  <span class="car-amount">(100)</span>
+  <div class ="tittle">
+  <span>
+    <div>W</div>
+    <div>I</div>
+    <div>N</div>
+    <div>N</div>
+    <div>E</div>
+    <div>R</div>
+    <div>S</div>
+  </span>
+    </div>
+  <span class="winners-amount"></span>
   <table class="table">
   <thead>
     <tr class="table_nav">
@@ -9,19 +19,20 @@ export function getTableTemplate() {
       <th class="table_car">CAR</th>
       <th class="table_name">NAME</th>
       <th class="table_wins sort">
-        <div class="table_wins">
+        <div>
           <span>WINS</span>
           <span class="table_wins-order"></span>
         </div>
       </th>
-      <th class="table_time sort active-sort ASC">
-        <div class="table_time">
+      <th class="table_time sort active-sort">
+        <div>
           <span>BEST TIME (sec)</span>
           <span class="table_time-order"></span>
         </div>
       </th>
     </tr>
   </thead>
+<thead class="winners_container"></thead>
   <tbody class="table_body"></tbody>
 </table>`
 }

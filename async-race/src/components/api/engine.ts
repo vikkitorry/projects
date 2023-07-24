@@ -14,7 +14,7 @@ export class EngineApi {
     const response = await fetch(`${URL.engine}?id=${id}&status=${EngineStatus.drive}`, {
       method: "PATCH",
     }).catch()
-    return response.status !== Status.OK ? { success: false } : { ...(await response.json()) };
+    return  response.status !== Status.OK? { success: false } : { ...(await response.json()) };
   }
 }
 

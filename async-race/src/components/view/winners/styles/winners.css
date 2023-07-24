@@ -1,5 +1,13 @@
 .table {
   margin: 20px 0;
+  margin-top: 50px;
+}
+
+.winners-amount {
+  position: absolute;
+  top: 70px;
+  font-size: 30px;
+  right: 250px;
 }
 
 .sort {
@@ -50,6 +58,16 @@ tr:first-child {
   max-width: 150px;
 }
 
-.ASC .table_time-order::after, .ASC .table_wins-order::after {
+.table_time-order::after,
+.table_wins-order::after {
+  content: '↓';
+}
+
+.ASC .table_time-order::after,
+.ASC .table_wins-order::after {
   content: '↑';
+}
+
+.active-sort {
+  background-color: #242fff57;
 }

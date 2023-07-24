@@ -36,14 +36,11 @@ export class WinnersApi {
     });
   }
 
-  async getWinners({ page, limit = WinnersPages.limit, sort, order }: IGetWinners): Promise<IWinner> {
+  async getWinners({ page, limit = WinnersPages.limit, sort, order }: IGetWinners): Promise<IWinner[]> {
     return (await fetch(`${URL.winners}?_page=${page}&_limit=${limit}${this.getSortOrder(sort, order)}`)).json();
   }
 
   getSortOrder = (sort: string, order: string) => {
-    if (sort && order) {
-        return `&_sort=${sort}&_order=${order}`
-    }
-    return ''
+    return `&_sort=${sort}&_order=${order}`
   }
 }

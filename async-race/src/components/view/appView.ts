@@ -101,8 +101,4 @@ export class AppView {
     car.carName.textContent = car.getParams().name
   }
 
-  addWinner(wins: number, time: number, car: ICar) {
-    this.winnersView.addWinnerToTable(wins, time, car)
-  }
-
 }

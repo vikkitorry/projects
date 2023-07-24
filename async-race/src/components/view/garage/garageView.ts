@@ -49,8 +49,10 @@ export class GarageView {
   }
 
   removeCar(id: number) {
+    //переписать
     this.allCars = this.allCars.filter(car => car.id !== id)
     this.carsInPage.forEach(car => car.id === id ? car.carNode.remove() : 0)
+    this.carsInPage = this.carsInPage.filter(car => car.id !== id)
   }
 
   getCar(id: number): Car | undefined {

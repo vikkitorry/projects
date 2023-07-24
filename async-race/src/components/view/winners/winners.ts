@@ -1,8 +1,9 @@
 import {createHtmlElement} from '../../helpers/createHtmlElement'
 import {getTableTemplate} from './winnersTemplate'
 import { getWinnerTemplate } from './winnerTemplate'
-import { ICar } from '../../../types/types'
 import { WinnersApi } from '../../api/winners'
+import { GarageApi } from '../../api/garage'
+import {Sort, Order} from '../../api/serverTypes'
 import './styles/winners.css'
 
 export class WinnersView {
@@ -11,20 +12,29 @@ export class WinnersView {
   previousButton: HTMLElement
   nextButton: HTMLElement
   actualPageElement: HTMLElement
+  sortByTimeBtn: HTMLElement
+  sortByWinsBtn: HTMLElement
   actualPage: number
-  winnersInPage: number
   winnersApi: WinnersApi
+  garageApi: GarageApi
+  sort: Sort
+  order: Order
 
   constructor() {
     this.main = createHtmlElement({ classNames: ['winners'], tag: 'main'})
-    this.main.addEventListener('click', (e) => this.handleSortButtons(e))
     this.previousButton = createHtmlElement({ classNames: ['btn'], tag: 'div', textContent: 'Previous'})
     this.nextButton = createHtmlElement({ classNames: ['btn'], tag: 'div', textContent: 'Next'})
     this.actualPageElement = createHtmlElement({ classNames: ['page'], tag: 'span', textContent: '1'})
     this.actualPage = 1
     this.createWinnersPage()
-    this.winnersInPage = 0
+    this.sortByTimeBtn = this.main.querySelector('.table_time') as HTMLElement
+    this.sortByWinsBtn = this.main.querySelector('.table_wins') as HTMLElement
+    this.handleSortButtons()
+    this.handlePageButtons()
     this.winnersApi = new WinnersApi
+    this.garageApi = new GarageApi
+    this.sort = Sort.time
+    this.order = Order.up
   }
 
   createWinnersPage() {
@@ -34,40 +44,73 @@ export class WinnersView {
     this.main.append(buttonsContainer)
   }
 
-  addWinnerToTable(wins: number, time: number, car: ICar){
-    const winnerContainer = this.main.querySelector(`[data-winner="${car.id}"]`)
-    if (winnerContainer) {
-      const winsAmount = winnerContainer.querySelector('.winner-wins') as HTMLElement
-      if (winsAmount.textContent) {
-        winsAmount.textContent = `${+winsAmount.textContent + 1}`
-      }
-    } else {
-      this.winnersInPage = this.winnersInPage + 1
-      const winner = getWinnerTemplate(this.winnersInPage, wins, time, car)
-      this.main.querySelector('thead')?.insertAdjacentHTML('beforeend', winner)
-    }
-  }
-
   removeWinner(id: number) {
     const winner = this.main.querySelector(`[data-winner="${id}"]`)
     winner?.remove()
   }
 
-  sortWinners(sort: string, order: string) {
-    this.winnersApi.getWinners({page: this.actualPage, limit: 10, sort, order})
+  async addWinners() {
+    const winners =  await this.winnersApi.getWinners({
+      page: this.actualPage, limit: 10, sort: this.sort, order: this.order
+    })
+    const container = this.main.querySelector('.winners_container')
+    const total = this.main.querySelector('.winners-amount')
+    let winnersInPage = 1
+    if (container && total) {
+      container.innerHTML = ''
+      total.textContent = `(${winners.length})`
+      winners.forEach(async w => {
+        const car = await this.garageApi.getCar(w.id)
+        const winner = getWinnerTemplate(winnersInPage++, w.wins, w.time, car)
+        container.insertAdjacentHTML('beforeend', winner)
+      });
+    }
   }
 
-  handleSortButtons(e: Event) {
-    if (e?.target instanceof Element) {
-      const classNames = e.target.className
-      const wins = e.target.closest('.table_wins')
-      const time = e.target.closest('.table_time')
-      if (wins) {
-console.log('wins')
-      } else if (time) {
-        console.log('time')
+  handleSortButtons() {
+    this.sortByTimeBtn.addEventListener('click', async () => {
+      this.sortByWinsBtn.classList.remove('active-sort')
+      this.sortByTimeBtn.classList.add('active-sort')
+      this.sortByTimeBtn.classList.toggle('ASC')
+      this.sort = Sort.time
+      if (this.sortByTimeBtn.className.includes('ASC')) {
+        this.order = Order.up
+      } else {
+        this.order = Order.down
       }
-    }
+      await this.addWinners()
+    })
+
+    this.sortByWinsBtn.addEventListener('click', async () => {
+      this.sortByTimeBtn.classList.remove('active-sort')
+      this.sortByWinsBtn.classList.add('active-sort')
+      this.sortByWinsBtn.classList.toggle('ASC')
+      this.sort = Sort.wins
+      if (this.sortByWinsBtn.className.includes('ASC')) {
+        this.order = Order.up
+      } else {
+        this.order = Order.down
+      }
+      await this.addWinners()
+    })
+  }
+
+  handlePageButtons() {
+    this.previousButton.addEventListener('click', async () => {
+      if (this.actualPage > 1) {
+        this.actualPage --
+        this.actualPageElement.textContent = `${this.actualPage}`
+        await this.addWinners()
+      }
+    })
+
+    this.nextButton.addEventListener('click', async () => {
+      if (this.actualPage < 7) {
+        this.actualPage ++
+        this.actualPageElement.textContent = `${this.actualPage}`
+        await this.addWinners()
+      }
+    })
   }
 
 }

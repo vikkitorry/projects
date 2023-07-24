@@ -53,3 +53,13 @@ export interface IGetWinners {
   sort: string;
   order: string;
 }
+
+export enum Sort {
+  wins = 'wins',
+  time = 'time',
+}
+
+export enum Order {
+  up = 'ASC',
+  down = 'DESC',
+}

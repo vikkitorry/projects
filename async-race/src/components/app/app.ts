@@ -5,7 +5,7 @@ import { EngineApi } from '../api/engine'
 import { GarageApi } from '../api/garage'
 import { WinnersApi } from '../api/winners'
 import { getRandomHexColor, getRandomCarFullName } from '../helpers/randomizers'
-import { IMainButtons, IInputs, ICar } from '../../types/types'
+import { IMainButtons, IInputs } from '../../types/types'
 import { EngineStatus, IWinnerForModal } from '../api/serverTypes'
 import { Car } from '../view/garage/car/car'
 
@@ -83,12 +83,7 @@ export class App {
       this.view.addCar(car, (e) => this.handleCarButtons(e))
     })
     this.view.renderButtons(this.buttons, this.inputs)
-    const winners = await this.winners.getWinners({page: 1, limit: 10, sort: 'time', order: 'ASC'})
-    const winnersArray = Object.values(winners)
-    winnersArray.forEach(async winner => {
-      const carParams: ICar = await this.garage.getCar(winner.id)
-      this.view.addWinner(winner.wins, winner.time, carParams)
-    })
+    this.view.winnersView.addWinners()
     this.view.setCarAmount(carArray.length)
   }
 
@@ -106,8 +101,7 @@ export class App {
       winsNum += 1
       await this.winners.updateWinner({id: id, wins: winsNum, time: time})
     }
-    const car = await this.garage.getCar(id)
-    this.view.addWinner(winsNum, time, car)
+    this.view.winnersView.addWinners()
   }
 
   async handleRaceButtonClick() {
@@ -204,7 +198,7 @@ export class App {
       if (car) {
         if (classNames.includes('remove')) {
           this.view.removeCar(id)
-          this.garage.deleteCar(id)
+          await this.garage.deleteCar(id)
           await this.winners.deleteWinner(id)
         } else if (classNames.includes('select')) {
           this.selectedCar = car

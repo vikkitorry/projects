@@ -19,6 +19,10 @@ nav, .create-container, .update-container {
   gap: 10px;
 }
 
+.create-container {
+  margin-bottom: 5px;
+}
+
 .garage-container {
   width: 100%;
   align-items: center;
@@ -75,14 +79,18 @@ button:hover, .btn:hover {
   border-radius: 5px;
 }
 
+.create, .update {
+  height: 100%;
+  width: 70px;
+  margin-left: 0;
+}
+
 .race {
   background-color: #fede00;
 }
 
 .create {
   background-color: #00b2fe;
-  height: 100%;
-  width: 70px;
 }
 
 .generate-cars {
@@ -91,10 +99,87 @@ button:hover, .btn:hover {
 
 .update {
   background-color: #ef3c40;
-  height: 100%;
-  width: 70px;
 }
 
 .reset {
   background-color: #eb080c;
+}
+
+input[type="color"] {
+  border: none;
+  height: 20px;
+  border: 2px solid #242fff;
+  border-radius: 5px;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+}
+
+input[type="text"] {
+  background-color: #f9f9f9d1;
+  border: 2px solid #242fff;
+  font-family: monospace;
+}
+
+input[type="text"]:hover {
+  background-color: #97f966b0;
+  border: 2px solid #ffffffee;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border: 2px solid rgb(120, 255, 62);
+}
+
+.tittle {
+  position: fixed;
+  top: 70px;
+  right: 70px;
+}
+
+@import  url(https://fonts.googleapis.com/css?family=Merienda);
+
+.tittle span {
+  text-align:center;
+  display: flex;
+  font-family:calibri;
+}
+
+.tittle div, .winners-amount {
+  cursor: pointer;
+  opacity:0.4;
+  color:white;
+  font: 30px Merienda;
+  text-shadow:1px 1px 5px #dddddd,2px 2px 5px #ffffff,3px 3px 5px #ffffff,4px 4px 5px #ffffff,5px 5px 1px #ffffff,6px 6px 1px #adadad,3px 3px 1px #adadad,2px 2px 1px #adadad,9px 9px 5px #adadad,2px 2px 5px #adadad,3px 3px 5px ,3px 3px 5px ;
+  transition:opacity 500ms linear,text-shadow 500ms ease-in-out,color 300ms linear;
+}
+
+.tittle div:hover, .winners-amount:hover {
+  opacity:0.8;
+  text-shadow:1px 1px #454545;
+  color:#242fff;
+  text-shadow:0px 0px 4px #000000;
+  animation:myanim 100ms infinite linear;
+}
+
+.tittle div:active {
+  opacity:0.8;
+  text-shadow:1px 1px 5px #000000,2px 2px 5px #000000,3px 3px 5px #000000,4px 4px 5px #000000,5px 5px 5px #000000,6px 6px 50px #000000,7px 7px 5px #000000,8px 8px 5px #000000,9px 9px 5px #000000,10px 10px 5px #000000,11px 11px 5px #000000,12px 12px 5px #000000,13px 13px 5px #000000,14px 14px 5px #000000,15px 15px 5px #000000,16px 16px 5px #000000,16px 16px 5px #000000,17px 17px 5px #000000,18px 18px 5px #000000,19px 19px 5px #000000; 
+}
+
+@keyframes myanim 
+{
+  10%{transform:scale(1)rotate(0deg);}
+  20%{transform:scale(1)rotate(-3deg);}
+  80%{transform:scale(1)rotate(3deg);}
+  100%{transform:scale(1)rotate(0deg);}
+}
+
+@media (max-width: 640px) {
+  .tittle {
+    right: 45px;
+  }
 }
