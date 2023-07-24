@@ -1,0 +1,43 @@
+.table {
+  margin: 20px 0;
+}
+
+th {
+  border-bottom: 1px solid #242fff;
+  padding: 10px;
+  text-align: left;
+}
+
+td {
+  padding: 10px;
+}
+
+tr:nth-child(even) {
+  background: rgba(84, 84, 84, 0.179);
+}
+
+tr:first-child {
+  background: none;
+}
+
+.table_number {
+  min-width: 40px;
+}
+
+.table_car {
+  min-width: 40px;
+  max-width: 50px;
+}
+
+.table_name {
+  min-width: 60px;
+  max-width: 150px;
+}
+
+.table_wins {
+  width: 90px;
+}
+
+.table_time {
+  width: 210px;
+}

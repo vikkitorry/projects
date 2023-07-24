@@ -1,17 +1,22 @@
 import { header } from '../view/header/header'
-import { winners } from '../view/winners/winners'
+import { WinnersView } from '../view/winners/winners'
 import { ICar, IEngine, IMainButtons, IInputs } from '../../types/types'
 import { GarageView } from './garage/garageView'
 import { Car } from './garage/car/car'
+import { ModalWindow } from './modalWindow/modal'
 
 export class AppView {
 
-  public body: HTMLElement
-  public garageView: GarageView
+  body: HTMLElement
+  garageView: GarageView
+  winnersView: WinnersView
+  modalWindow: ModalWindow
 
   constructor() {
     this.body = document.querySelector('body') as HTMLElement;
+    this.modalWindow = new ModalWindow(this.body)
     this.garageView = new GarageView()
+    this.winnersView = new WinnersView()
     this.render()
     this.toggleView()
     this.handleChangePageButtons()
@@ -21,7 +26,7 @@ export class AppView {
     this.body.classList.add('garage-active')
     this.body.insertAdjacentHTML('beforeend', header)
     this.body.append(this.garageView.main)
-    this.body.insertAdjacentHTML('beforeend', winners)
+    this.body.append(this.winnersView.main)
   }
 
   renderFirsPage(buttons: IMainButtons, inputs: IInputs) {

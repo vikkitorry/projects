@@ -6,7 +6,7 @@ import { GarageApi } from '../api/garage'
 import { WinnersApi } from '../api/winners'
 import { getRandomHexColor, getRandomCarFullName } from '../helpers/randomizers'
 import { IMainButtons, IInputs } from '../../types/types'
-import { EngineStatus } from '../api/serverTypes'
+import { EngineStatus, IWinnerForModal } from '../api/serverTypes'
 import { Car } from '../view/garage/car/car'
 
 export class App {
@@ -14,6 +14,7 @@ export class App {
   private garage : GarageApi
   private winners : WinnersApi
   private engine : EngineApi
+  private isRace: boolean
   private buttons : IMainButtons
   private inputs : IInputs
   private selectedCar : Car | null
@@ -27,6 +28,7 @@ export class App {
     this.inputs = this.createInputElements()
     this.createGarage()
     this.selectedCar = null
+    this.isRace = false
   }
 
   createMainButtons() {
@@ -92,23 +94,67 @@ export class App {
   async handleRaceButtonClick() {
     const allCars = this.view.garageView.carsInPage
     const carArray = Object.values(allCars)
-    //const disableElements = Object.values(this.buttons).concat(Object.values(this.inputs))
-    //disableElements.forEach(btn => btn.disabled = true)
-    carArray.forEach(async car => {
-      const raceParams = await this.engine.startStopEngine(car.id, EngineStatus.start)
-      this.view.addDriveEffect(car, raceParams)
+    const disableElements = Object.values(this.buttons).concat(Object.values(this.inputs))
+    disableElements.forEach(btn => {
+      if (btn !== this.buttons.resetButton) {
+        btn.disabled = true
+      }
     })
-    //надо дождаться победителя
+    let winner: IWinnerForModal | null = null
+
+
+    const timeArr = await Promise.all(
+    carArray.map(async car => {
+      this.isRace = true
+      car.removeButton.disabled = true
+      car.startButton.disabled = true
+      const raceParams = await this.engine.startStopEngine(car.id, EngineStatus.start)
+      car.setRaceParams(raceParams)
+      const time: number = Math.round(raceParams.distance / raceParams.velocity) / 1000
+      return time
+    }))
+    carArray.forEach(car => {
+      this.view.addDriveEffect(car, car.getRaceParams())
+    })
+
+    await Promise.all(carArray.map(async (car, i) => {
+      const isDrive = await this.engine.drive(car.id)
+      if (!isDrive.success) {
+        car.animation.stopAnimation()
+        return 1
+      } else {
+        if ((await car.animation.animation.finished).playState === 'finished') {
+          const carParams = car.getParams()
+          if(!winner) {
+            winner = {id: carParams.id, name: carParams.name, time: timeArr[i]}
+            this.view.modalWindow.showModal(winner.name, winner.time)
+            this.handleResetButtonClick()
+            disableElements.forEach(btn => btn.disabled = false)
+          }
+        }
+        return 1
+      }
+      if (i === carArray.length - 1) {
+        this.handleResetButtonClick()
+        disableElements.forEach(btn => btn.disabled = false)
+        this.isRace = false
+        return 1
+      }
+    }))
+
+    //this.handleResetButtonClick()
+
     //disableElements.forEach(btn => btn.disabled = false)
   }
 
   handleResetButtonClick() {
     const allCars = this.view.garageView.carsInPage
     const carArray = Object.values(allCars)
-    carArray.forEach(async car => {
+    Promise.all(carArray.map(async car => {
       await this.engine.startStopEngine(car.id, EngineStatus.stop)
+      car.startButton.disabled = false
       this.view.removeDriveEffect(car)
-    })
+    }))
   }
 
   handleGenerateButtonClick() {
@@ -150,9 +196,17 @@ export class App {
         } else if (classNames.includes('start')) {
           const raceParams = await this.engine.startStopEngine(+e.target.id, EngineStatus.start)
           car.animation.setAnimation(raceParams.distance, raceParams.velocity, car.carNode.clientWidth)
+          const driveParams = await this.engine.drive(+e.target.id)
+          if (!driveParams.success) {
+            car.animation.stopAnimation()
+          }
         } else if (classNames.includes('stop')) {
-          await this.engine.startStopEngine(+e.target.id, EngineStatus.stop)
           car.animation.stopAnimation()
+          if(!this.isRace) {
+            console.log('dfsfsdsdsdf')
+            await this.engine.startStopEngine(+e.target.id, EngineStatus.stop)
+            car.animation.removeAnimation()
+          }
         }
       }
     }

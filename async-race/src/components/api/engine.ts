@@ -1,4 +1,4 @@
-import { URL, Method, EngineStatus } from './serverTypes'
+import { URL, Method, EngineStatus, Status } from './serverTypes'
 import { IEngine } from '../../types/types'
 
 export class EngineApi {
@@ -9,6 +9,12 @@ export class EngineApi {
     })
     return response.json()
   }
-//добавить для драйв (по докам запускается только после статус старт, падает в любой момент)
+
+  async drive( id: number) {
+    const response = await fetch(`${URL.engine}?id=${id}&status=${EngineStatus.drive}`, {
+      method: "PATCH",
+    }).catch()
+    return response.status !== Status.OK ? { success: false } : { ...(await response.json()) };
+  }
 }
 

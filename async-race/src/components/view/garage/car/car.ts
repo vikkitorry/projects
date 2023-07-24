@@ -1,28 +1,30 @@
-import { ICar } from '../../../../types/types'
+import { ICar, IEngine } from '../../../../types/types'
 import { getCarImage } from '../../../data/carSVG'
 import { getFlagImage } from '../../../data/flagSVG'
 import { createHtmlElement } from '../../../helpers/createHtmlElement'
 import { Button } from '../../../controllers/button'
-import {CarAnimation} from '../../../helpers/animation'
+import {CarAnimation} from './animation'
 
 
 export class Car  {
 
   private params: ICar
   public id: number
+  public raceParams: IEngine
 
   public animation: CarAnimation
   public carNode: Element
   public carName: Element
   private raceContainer: HTMLElement
   private selectButton: HTMLButtonElement
-  private removeButton: HTMLButtonElement
-  private startButton: HTMLButtonElement
+  public removeButton: HTMLButtonElement
+  public startButton: HTMLButtonElement
   private stopButton: HTMLButtonElement
 
   constructor( newCar: ICar, listenner: (e: Event) => void) {
     this.id = newCar.id || 0
     this.params = newCar
+    this.raceParams = {velocity: 0, distance: 0}
     this.raceContainer = createHtmlElement({tag: 'div', classNames: ['race-container']})
     this.carNode = createHtmlElement({tag: 'div', classNames: ['item-container'], id: newCar.id})
     this.carName = createHtmlElement({tag: 'div', classNames: ['item-name'], textContent: newCar.name})
@@ -81,6 +83,14 @@ export class Car  {
 
   getParams() {
     return this.params
+  }
+
+  setRaceParams(params: IEngine) {
+    this.raceParams = params
+  }
+
+  getRaceParams() {
+    return this.raceParams
   }
 
 }

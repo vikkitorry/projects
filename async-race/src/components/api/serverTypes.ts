@@ -15,7 +15,7 @@ export enum Method {
   patch = 'PATCH',
 }
 
-export enum StatusCodes {
+export enum Status {
   OK = 200,
   CREATED = 201,
   BAD_REQUEST = 400,
@@ -28,4 +28,28 @@ export enum EngineStatus {
   start = 'started',
   stop = 'stopped',
   drive = 'drive'
+}
+
+export interface IWinner {
+  id: number,
+  wins: number,
+  time: number,
+}
+
+export interface IWinnerForModal {
+  id: number | undefined,
+  time: number,
+  name: string
+}
+
+export enum WinnersPages {
+  page = 1,
+  limit = 10
+}
+
+export interface IGetWinners {
+  page: number;
+  limit: number;
+  sort: string;
+  order: string;
 }
