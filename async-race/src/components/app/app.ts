@@ -90,7 +90,6 @@ export class App {
       this.view.addWinner(winner.wins, winner.time, carParams)
     })
     this.view.setCarAmount(carArray.length)
-
   }
 
   async createCar(name:string, color: string) {
@@ -99,11 +98,16 @@ export class App {
   }
 
   async setNewWinner(id: number, time: number) {
-    let wins = (await this.winners.getWinner(id)).wins
-    !wins ? wins = 1 : wins += 1
-    await this.winners.setWinner({id: id, wins: wins, time: time})
+    let winsNum = (await this.winners.getWinner(id)).wins
+    if (!winsNum) {
+      winsNum = 1
+      await this.winners.setWinner({id: id, wins: winsNum, time: time})
+    } else {
+      winsNum += 1
+      await this.winners.updateWinner({id: id, wins: winsNum, time: time})
+    }
     const car = await this.garage.getCar(id)
-    this.view.addWinner(wins, time, car)
+    this.view.addWinner(winsNum, time, car)
   }
 
   async handleRaceButtonClick() {
@@ -111,9 +115,7 @@ export class App {
     const carArray = Object.values(allCars)
     const disableElements = Object.values(this.buttons).concat(Object.values(this.inputs))
     disableElements.forEach(btn => {
-      if (btn !== this.buttons.resetButton) {
-        btn.disabled = true
-      }
+      btn.disabled = true
     })
     let winner: IWinnerForModal | null = null
 
@@ -151,15 +153,14 @@ export class App {
             this.handleResetButtonClick()
         }
       }
+      this.buttons.resetButton.disabled = false
       return 1
     }))
   }
 
   handleResetButtonClick() {
-
     const disableElements = Object.values(this.buttons).concat(Object.values(this.inputs))
     disableElements.forEach(btn => btn.disabled = false)
-
     const allCars = this.view.garageView.carsInPage
     const carArray = Object.values(allCars)
     Promise.all(carArray.map(async car => {

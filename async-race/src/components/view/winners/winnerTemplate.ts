@@ -7,7 +7,7 @@ export function getWinnerTemplate(number: number, wins: number, time: number, ca
     <td>${number}</td>
     <td>${getCarImage(carParams.color)}</td>
     <td>${carParams.name}</td>
-    <td>${wins}</td>
+    <td class="winner-wins">${wins}</td>
     <td>${time}</td>
   </tr>`;
 }

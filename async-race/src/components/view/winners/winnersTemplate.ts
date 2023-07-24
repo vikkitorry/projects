@@ -8,13 +8,13 @@ export function getTableTemplate() {
       <th class="table_number">№</th>
       <th class="table_car">CAR</th>
       <th class="table_name">NAME</th>
-      <th class="table_wins sort" data-sort="wins">
+      <th class="table_wins sort">
         <div class="table_wins">
           <span>WINS</span>
           <span class="table_wins-order"></span>
         </div>
       </th>
-      <th class="table_time sort" data-sort="time">
+      <th class="table_time sort active-sort ASC">
         <div class="table_time">
           <span>BEST TIME (sec)</span>
           <span class="table_time-order"></span>

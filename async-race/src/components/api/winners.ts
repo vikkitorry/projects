@@ -26,8 +26,8 @@ export class WinnersApi {
     });
   }
 
-  async updateWinner(id: number, winner: IWinner): Promise<void> {
-    await fetch(`${URL.winners}/${id}`, {
+  async updateWinner(winner: IWinner): Promise<void> {
+    await fetch(`${URL.winners}/${winner.id}`, {
       method: Method.put,
       body: JSON.stringify(winner),
       headers: {

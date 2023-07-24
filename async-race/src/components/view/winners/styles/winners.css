@@ -2,6 +2,11 @@
   margin: 20px 0;
 }
 
+.sort {
+  cursor: pointer;
+  user-select: none;
+}
+
 .car-tr {
   position: relative;
   height: 40px;
@@ -43,4 +48,8 @@ tr:first-child {
 .table_name {
   min-width: 60px;
   max-width: 150px;
+}
+
+.ASC .table_time-order::after, .ASC .table_wins-order::after {
+  content: '↑';
 }
