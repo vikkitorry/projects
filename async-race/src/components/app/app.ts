@@ -87,8 +87,11 @@ export class App {
   async createCar(name:string, color: string) {
     const newCar = await this.garage.createCar({name, color})
     this.view.addCar(newCar, (e) => this.handleCarButtons(e))
-    const allCars = await this.garage.getCars()
-    this.view.setCarAmount(Object.values(allCars).length)
+  }
+
+  async setNewWinner(id: number, time: number) {
+    const wins = (await this.winners.getWinner(id)).wins
+    await this.winners.setWinner({id: id, wins: wins, time: time})
   }
 
   async handleRaceButtonClick() {
@@ -102,7 +105,7 @@ export class App {
     })
     let winner: IWinnerForModal | null = null
 
-
+//запуск двигателя
     const timeArr = await Promise.all(
     carArray.map(async car => {
       this.isRace = true
@@ -113,41 +116,38 @@ export class App {
       const time: number = Math.round(raceParams.distance / raceParams.velocity) / 1000
       return time
     }))
+//добавление эффекта
     carArray.forEach(car => {
       this.view.addDriveEffect(car, car.getRaceParams())
     })
-
-    await Promise.all(carArray.map(async (car, i) => {
+//состояние двигателя
+    Promise.all(carArray.map(async (car, i) => {
+      // переписать есть баги и повтор
       const isDrive = await this.engine.drive(car.id)
       if (!isDrive.success) {
         car.animation.stopAnimation()
-        return 1
       } else {
         if ((await car.animation.animation.finished).playState === 'finished') {
           const carParams = car.getParams()
-          if(!winner) {
+          if(!winner && carParams.id) {
             winner = {id: carParams.id, name: carParams.name, time: timeArr[i]}
             this.view.modalWindow.showModal(winner.name, winner.time)
             this.handleResetButtonClick()
-            disableElements.forEach(btn => btn.disabled = false)
+            this.setNewWinner(carParams.id, winner.time)
           }
+        } else if (i === carArray.length - 1) {
+            this.handleResetButtonClick()
         }
-        return 1
       }
-      if (i === carArray.length - 1) {
-        this.handleResetButtonClick()
-        disableElements.forEach(btn => btn.disabled = false)
-        this.isRace = false
-        return 1
-      }
+      return 1
     }))
-
-    //this.handleResetButtonClick()
-
-    //disableElements.forEach(btn => btn.disabled = false)
   }
 
   handleResetButtonClick() {
+
+    const disableElements = Object.values(this.buttons).concat(Object.values(this.inputs))
+    disableElements.forEach(btn => btn.disabled = false)
+
     const allCars = this.view.garageView.carsInPage
     const carArray = Object.values(allCars)
     Promise.all(carArray.map(async car => {
@@ -155,6 +155,7 @@ export class App {
       car.startButton.disabled = false
       this.view.removeDriveEffect(car)
     }))
+    this.isRace = false
   }
 
   handleGenerateButtonClick() {
@@ -189,6 +190,9 @@ export class App {
         if (classNames.includes('remove')) {
           this.view.removeCar(+e.target.id)
           this.garage.deleteCar(+e.target.id)
+
+
+
         } else if (classNames.includes('select')) {
           this.selectedCar = car
           this.inputs.inputTextUpdate.value = car.carName.textContent || ''
@@ -203,7 +207,6 @@ export class App {
         } else if (classNames.includes('stop')) {
           car.animation.stopAnimation()
           if(!this.isRace) {
-            console.log('dfsfsdsdsdf')
             await this.engine.startStopEngine(+e.target.id, EngineStatus.stop)
             car.animation.removeAnimation()
           }

@@ -11,8 +11,10 @@ export class AppView {
   garageView: GarageView
   winnersView: WinnersView
   modalWindow: ModalWindow
+  totalCars: number
 
   constructor() {
+    this.totalCars = 0
     this.body = document.querySelector('body') as HTMLElement;
     this.modalWindow = new ModalWindow(this.body)
     this.garageView = new GarageView()
@@ -37,6 +39,7 @@ export class AppView {
   }
 
   toggleView() {
+    //переписать с боди на нав
     this.body.addEventListener('click', (e) => {
       if (e.target instanceof HTMLElement) {
         if (e.target?.className.includes('to-garage')) {
@@ -67,10 +70,13 @@ export class AppView {
   }
 
   addCar(newCar: ICar, listenner: (e: Event) => void) {
+    this.totalCars = this.totalCars + 1
+    this.setCarAmount()
     this.garageView.addNewCar(newCar, listenner)
   }
 
-  setCarAmount(amount: number) {
+  setCarAmount(amount?: number) {
+    amount ? this.totalCars = amount : amount = this.totalCars
     this.garageView.carsAmount.textContent = `(${amount})`
   }
 
@@ -84,6 +90,8 @@ export class AppView {
   }
 
   removeCar(id: number) {
+    this.totalCars = this.totalCars - 1
+    this.setCarAmount()
     this.garageView.removeCar(id)
   }
 

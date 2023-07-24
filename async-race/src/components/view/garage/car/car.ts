@@ -4,21 +4,22 @@ import { getFlagImage } from '../../../data/flagSVG'
 import { createHtmlElement } from '../../../helpers/createHtmlElement'
 import { Button } from '../../../controllers/button'
 import {CarAnimation} from './animation'
+import './styles/styles.css'
 
 
 export class Car  {
 
-  private params: ICar
-  public id: number
-  public raceParams: IEngine
+  id: number
+  raceParams: IEngine
+  animation: CarAnimation
+  carNode: Element
+  carName: Element
+  removeButton: HTMLButtonElement
+  startButton: HTMLButtonElement
 
-  public animation: CarAnimation
-  public carNode: Element
-  public carName: Element
+  private params: ICar
   private raceContainer: HTMLElement
   private selectButton: HTMLButtonElement
-  public removeButton: HTMLButtonElement
-  public startButton: HTMLButtonElement
   private stopButton: HTMLButtonElement
 
   constructor( newCar: ICar, listenner: (e: Event) => void) {

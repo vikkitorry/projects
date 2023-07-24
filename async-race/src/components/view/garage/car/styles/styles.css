@@ -1,0 +1,44 @@
+.race-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.car {
+  position: absolute;
+  left: 0;
+}
+
+.race-container::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  border-top: 2px dashed #000000;
+  border-bottom: 3px dashed #000000;
+  left: 0;
+  right: 3px;
+  height: 40px;
+  background-color: #b9b5b5e3;
+  z-index: -5;
+  transform: skewX(-15deg);
+}
+
+.flag {
+  margin-right: 30px;
+}
+
+.btn {
+  color: #ffffff;
+  font-size: 80%;
+  width: 70px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0011ff;
+  border: 2px solid #242fff;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+}

@@ -2,16 +2,17 @@ import { createHtmlElement } from "../../helpers/createHtmlElement"
 import { garageTemplate } from "../garage/garageTemplate"
 import { Car } from './car/car'
 import { ICar } from '../../../types/types'
+import './styles/garage.css'
 
 export class GarageView {
-  public container: HTMLElement
-  public currentPage: HTMLElement
-  public carsAmount: HTMLElement
-  public previousPageButton: HTMLElement
-  public nextPageButton: HTMLElement
-  public main: HTMLElement
-  public allCars: Array<Car>
-  public carsInPage: Array<Car>
+  container: HTMLElement
+  currentPage: HTMLElement
+  carsAmount: HTMLElement
+  previousPageButton: HTMLElement
+  nextPageButton: HTMLElement
+  main: HTMLElement
+  allCars: Array<Car>
+  carsInPage: Array<Car>
 
   constructor() {
     this.main = createHtmlElement({tag: 'main', classNames: ['garage']})
@@ -41,6 +42,9 @@ export class GarageView {
   addNewCar(newCar: ICar, listenner: (e: Event) => void) {
     const car = new Car(newCar, listenner)
     this.allCars.push(car)
+    if (this.carsInPage.length < 7) {
+      this.container.append(car.carNode)
+    }
   }
 
   removeCar(id: number) {

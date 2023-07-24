@@ -1,0 +1,100 @@
+.winners-active .garage,
+.garage-active .winners {
+  display: none;
+}
+
+.garage-active .garage,
+.winners-active .winners {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-container {
+  margin-bottom: 10px;
+}
+
+nav, .create-container, .update-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.garage-container {
+  width: 100%;
+  align-items: center;
+}
+
+.item-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.item-buttons-container, .item-move-buttons-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 5px;
+}
+
+.change-page-container {
+  margin: 0 auto;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 2px solid #242fff;
+  border-bottom: none;
+  padding: 0.6rem;
+  border-radius: 5px;
+}
+
+button:disabled {
+  background-color: #2e2e30;
+}
+
+button:hover, .btn:hover {
+  opacity: 0.8;
+  border: 2px solid #ffffff;
+}
+
+.menu-buttons-container {
+  margin-top: 5px;
+}
+
+.remove {
+  background-color: #ff0004;
+}
+
+.btn-menu, .update, .create{
+  font-weight: 600;
+  border: 2px solid #242fff;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
+.race {
+  background-color: #fede00;
+}
+
+.create {
+  background-color: #00b2fe;
+  height: 100%;
+  width: 70px;
+}
+
+.generate-cars {
+  background-color: #13a72e;
+}
+
+.update {
+  background-color: #ef3c40;
+  height: 100%;
+  width: 70px;
+}
+
+.reset {
+  background-color: #eb080c;
+}
