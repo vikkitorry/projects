@@ -1,14 +1,13 @@
 import {getCarImage} from '../../data/carSVG'
-import {IWinner} from '../../api/serverTypes'
 import {ICar} from '../../../types/types'
 
-export function winnerTemplate(number: number, params: IWinner, carParams: ICar) {
+export function getWinnerTemplate(number: number, wins: number, time: number, carParams: ICar) {
   return `
-  <tr>
+  <tr classs="car-tr" data-winner="${carParams.id}">
     <td>${number}</td>
     <td>${getCarImage(carParams.color)}</td>
     <td>${carParams.name}</td>
-    <td>${params.wins}</td>
-    <td>${params.time}</td>
+    <td>${wins}</td>
+    <td>${time}</td>
   </tr>`;
 }

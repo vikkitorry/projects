@@ -43,6 +43,7 @@ export class GarageView {
     const car = new Car(newCar, listenner)
     this.allCars.push(car)
     if (this.carsInPage.length < 7) {
+      this.carsInPage.push(car)
       this.container.append(car.carNode)
     }
   }

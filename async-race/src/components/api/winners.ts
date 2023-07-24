@@ -36,7 +36,7 @@ export class WinnersApi {
     });
   }
 
-  async getWinners({ page, limit = WinnersPages.limit, sort, order }: IGetWinners) {
+  async getWinners({ page, limit = WinnersPages.limit, sort, order }: IGetWinners): Promise<IWinner> {
     return (await fetch(`${URL.winners}?_page=${page}&_limit=${limit}${this.getSortOrder(sort, order)}`)).json();
   }
 

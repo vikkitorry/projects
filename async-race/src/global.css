@@ -41,6 +41,7 @@ main {
   background-color: rgba(34,34,34,.85);
   border-radius: 5px;
   padding: 10px 10px 0 10px;
+  overflow-x: hidden
 }
 
 

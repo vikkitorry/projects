@@ -5,7 +5,7 @@ import { EngineApi } from '../api/engine'
 import { GarageApi } from '../api/garage'
 import { WinnersApi } from '../api/winners'
 import { getRandomHexColor, getRandomCarFullName } from '../helpers/randomizers'
-import { IMainButtons, IInputs } from '../../types/types'
+import { IMainButtons, IInputs, ICar } from '../../types/types'
 import { EngineStatus, IWinnerForModal } from '../api/serverTypes'
 import { Car } from '../view/garage/car/car'
 
@@ -14,9 +14,10 @@ export class App {
   private garage : GarageApi
   private winners : WinnersApi
   private engine : EngineApi
-  private isRace: boolean
   private buttons : IMainButtons
   private inputs : IInputs
+
+  private isRace: boolean
   private selectedCar : Car | null
 
   constructor() {
@@ -27,6 +28,7 @@ export class App {
     this.buttons = this.createMainButtons()
     this.inputs = this.createInputElements()
     this.createGarage()
+
     this.selectedCar = null
     this.isRace = false
   }
@@ -80,8 +82,15 @@ export class App {
     carArray.forEach(car => {
       this.view.addCar(car, (e) => this.handleCarButtons(e))
     })
-    this.view.renderFirsPage(this.buttons, this.inputs)
+    this.view.renderButtons(this.buttons, this.inputs)
+    const winners = await this.winners.getWinners({page: 1, limit: 10, sort: 'time', order: 'ASC'})
+    const winnersArray = Object.values(winners)
+    winnersArray.forEach(async winner => {
+      const carParams: ICar = await this.garage.getCar(winner.id)
+      this.view.addWinner(winner.wins, winner.time, carParams)
+    })
     this.view.setCarAmount(carArray.length)
+
   }
 
   async createCar(name:string, color: string) {
@@ -90,8 +99,11 @@ export class App {
   }
 
   async setNewWinner(id: number, time: number) {
-    const wins = (await this.winners.getWinner(id)).wins
+    let wins = (await this.winners.getWinner(id)).wins
+    !wins ? wins = 1 : wins += 1
     await this.winners.setWinner({id: id, wins: wins, time: time})
+    const car = await this.garage.getCar(id)
+    this.view.addWinner(wins, time, car)
   }
 
   async handleRaceButtonClick() {
@@ -152,6 +164,7 @@ export class App {
     const carArray = Object.values(allCars)
     Promise.all(carArray.map(async car => {
       await this.engine.startStopEngine(car.id, EngineStatus.stop)
+      car.removeButton.disabled = false
       car.startButton.disabled = false
       this.view.removeDriveEffect(car)
     }))
@@ -186,28 +199,27 @@ export class App {
     if (e?.target instanceof HTMLButtonElement) {
       const classNames = e.target.className
       const car = this.view.garageView.getCar(+e.target.id)
+      const id = +e.target.id
       if (car) {
         if (classNames.includes('remove')) {
-          this.view.removeCar(+e.target.id)
-          this.garage.deleteCar(+e.target.id)
-
-
-
+          this.view.removeCar(id)
+          this.garage.deleteCar(id)
+          await this.winners.deleteWinner(id)
         } else if (classNames.includes('select')) {
           this.selectedCar = car
           this.inputs.inputTextUpdate.value = car.carName.textContent || ''
           this.inputs.inputColorUpdate.value = car.getParams().color
         } else if (classNames.includes('start')) {
-          const raceParams = await this.engine.startStopEngine(+e.target.id, EngineStatus.start)
+          const raceParams = await this.engine.startStopEngine(id, EngineStatus.start)
           car.animation.setAnimation(raceParams.distance, raceParams.velocity, car.carNode.clientWidth)
-          const driveParams = await this.engine.drive(+e.target.id)
+          const driveParams = await this.engine.drive(id)
           if (!driveParams.success) {
             car.animation.stopAnimation()
           }
         } else if (classNames.includes('stop')) {
           car.animation.stopAnimation()
           if(!this.isRace) {
-            await this.engine.startStopEngine(+e.target.id, EngineStatus.stop)
+            await this.engine.startStopEngine(id, EngineStatus.stop)
             car.animation.removeAnimation()
           }
         }

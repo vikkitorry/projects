@@ -2,14 +2,26 @@
   margin: 20px 0;
 }
 
+.car-tr {
+  position: relative;
+  height: 40px;
+}
+
+td .car {
+  position: static;
+  width: 50px !important;
+  height: 50px !important;
+}
+
 th {
   border-bottom: 1px solid #242fff;
   padding: 10px;
-  text-align: left;
+  text-align: center;
 }
 
 td {
-  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 tr:nth-child(even) {
@@ -21,23 +33,14 @@ tr:first-child {
 }
 
 .table_number {
-  min-width: 40px;
+  width: 20px;
 }
 
 .table_car {
-  min-width: 40px;
-  max-width: 50px;
+  width: 60px;
 }
 
 .table_name {
   min-width: 60px;
   max-width: 150px;
-}
-
-.table_wins {
-  width: 90px;
-}
-
-.table_time {
-  width: 210px;
 }

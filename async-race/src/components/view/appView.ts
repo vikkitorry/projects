@@ -31,7 +31,7 @@ export class AppView {
     this.body.append(this.winnersView.main)
   }
 
-  renderFirsPage(buttons: IMainButtons, inputs: IInputs) {
+  renderButtons(buttons: IMainButtons, inputs: IInputs) {
     document.querySelector('.menu-buttons-container')?.append(buttons.raceButton, buttons.resetButton, buttons.generateButton)
     document.querySelector('.create-container')?.append(inputs.inputTextCreate, inputs.inputColorCreate, buttons.createButton)
     document.querySelector('.update-container')?.append(inputs.inputTextUpdate, inputs.inputColorUpdate, buttons.updateButton)
@@ -70,7 +70,7 @@ export class AppView {
   }
 
   addCar(newCar: ICar, listenner: (e: Event) => void) {
-    this.totalCars = this.totalCars + 1
+    this.totalCars = ++this.totalCars
     this.setCarAmount()
     this.garageView.addNewCar(newCar, listenner)
   }
@@ -81,7 +81,7 @@ export class AppView {
   }
 
   addDriveEffect(car: Car, raceParams: IEngine) {
-    const way = this.garageView.main.clientWidth
+    const way = this.garageView.main.clientWidth || this.winnersView.main.clientWidth
     car.animation.setAnimation(raceParams.distance, raceParams.velocity, way)
   }
 
@@ -90,14 +90,19 @@ export class AppView {
   }
 
   removeCar(id: number) {
-    this.totalCars = this.totalCars - 1
+    this.totalCars = --this.totalCars
     this.setCarAmount()
     this.garageView.removeCar(id)
+    this.winnersView.removeWinner(id)
   }
 
   changeCarView(car: Car) {
     car.setNewCarColor(car.getParams().color)
     car.carName.textContent = car.getParams().name
+  }
+
+  addWinner(wins: number, time: number, car: ICar) {
+    this.winnersView.addWinnerToTable(wins, time, car)
   }
 
 }
