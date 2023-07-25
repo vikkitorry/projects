@@ -110,7 +110,6 @@ export class App {
   }
 
   async handleRaceButtonClick() {
-    try {
       const allCars = this.view.garageView.carsInPage
       const carArray = Object.values(allCars)
       const disableElements = Object.values(this.buttons).concat(Object.values(this.inputs))
@@ -122,7 +121,7 @@ export class App {
         }
       })
       let winner: IWinnerForModal | null = null
-  
+
   //запуск двигателя
       const timeArr = await Promise.all(
       carArray.map(async car => {
@@ -158,9 +157,6 @@ export class App {
         }
         return 1
       }))
-    } catch {
-      throw new Error
-    }
   }
 
   handleResetButtonClick() {
