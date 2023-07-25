@@ -16,11 +16,12 @@ export class Car  {
   carName: Element
   removeButton: HTMLButtonElement
   startButton: HTMLButtonElement
+  stopButton: HTMLButtonElement
 
   private params: ICar
   private raceContainer: HTMLElement
   private selectButton: HTMLButtonElement
-  private stopButton: HTMLButtonElement
+
 
   constructor( newCar: ICar, listenner: (e: Event) => void) {
     this.id = newCar.id || 0
@@ -55,6 +56,7 @@ export class Car  {
   }
 
   private createCarContainer(carData: ICar) {
+    this.stopButton.disabled = true
     const mainButtonsContainer = createHtmlElement({tag: 'div', classNames: ['item-buttons-container']})
     const moveButtonsContainer = createHtmlElement({tag: 'div', classNames: ['item-move-buttons-container']})
     mainButtonsContainer.append(this.selectButton, this.removeButton)

@@ -119,6 +119,7 @@ export class App {
       this.isRace = true
       car.removeButton.disabled = true
       car.startButton.disabled = true
+      car.stopButton.disabled = true
       const raceParams = await this.engine.startStopEngine(car.id, EngineStatus.start)
       car.setRaceParams(raceParams)
       const time: number = Math.round(raceParams.distance / raceParams.velocity) / 1000
@@ -129,7 +130,7 @@ export class App {
       this.view.addDriveEffect(car, car.getRaceParams())
     })
 //состояние двигателя
-    Promise.all(carArray.map(async (car, i) => {
+    await Promise.all(carArray.map(async (car, i) => {
       // переписать есть баги и повтор
       const isDrive = await this.engine.drive(car.id)
       if (!isDrive.success) {
@@ -143,13 +144,11 @@ export class App {
             this.handleResetButtonClick()
             this.setNewWinner(carParams.id, winner.time)
           }
-        } else if (i === carArray.length - 1) {
-            this.handleResetButtonClick()
         }
       }
-      this.buttons.resetButton.disabled = false
       return 1
     }))
+
   }
 
   handleResetButtonClick() {
@@ -205,17 +204,32 @@ export class App {
           this.inputs.inputTextUpdate.value = car.carName.textContent || ''
           this.inputs.inputColorUpdate.value = car.getParams().color
         } else if (classNames.includes('start')) {
+          car.startButton.disabled = true
+          car.stopButton.disabled = false
           const raceParams = await this.engine.startStopEngine(id, EngineStatus.start)
           car.animation.setAnimation(raceParams.distance, raceParams.velocity, car.carNode.clientWidth)
           const driveParams = await this.engine.drive(id)
           if (!driveParams.success) {
             car.animation.stopAnimation()
+            setTimeout(() => {
+              car.animation.removeAnimation()
+              car.startButton.disabled = false
+              car.stopButton.disabled = true
+            }, 1000);
+          } else {
+            if ((await car.animation.animation.finished).playState === 'finished') {
+              car.animation.removeAnimation()
+              car.startButton.disabled = false
+              car.stopButton.disabled = true
+            }
           }
         } else if (classNames.includes('stop')) {
           car.animation.stopAnimation()
+          car.startButton.disabled = false
           if(!this.isRace) {
             await this.engine.startStopEngine(id, EngineStatus.stop)
             car.animation.removeAnimation()
+            car.stopButton.disabled = true
           }
         }
       }

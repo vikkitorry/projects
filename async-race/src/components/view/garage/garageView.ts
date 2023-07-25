@@ -68,8 +68,6 @@ export class GarageView {
       this.carsInPage = this.allCars.slice((newPage -1) * 7, newPage * 7)
     }
     this.container.innerHTML = ''
-
     this.carsInPage.forEach(car => this.container.append(car.carNode))
   }
-
 }
