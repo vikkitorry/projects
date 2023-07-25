@@ -77,15 +77,19 @@ export class App {
   }
 
   async createGarage() {
-    const allCars = await this.garage.getCars()
-    const carArray = Object.values(allCars)
-    carArray.forEach(car => {
-      this.view.addCar(car, (e) => this.handleCarButtons(e))
-    })
-    this.view.renderButtons(this.buttons, this.inputs)
-    this.view.winnersView.addWinners()
-    this.view.setCarAmount(carArray.length)
-    this.buttons.resetButton.disabled = true
+    try {
+      const allCars = await this.garage.getCars()
+      const carArray = Object.values(allCars)
+      carArray.forEach(car => {
+        this.view.addCar(car, (e) => this.handleCarButtons(e))
+      })
+      this.view.renderButtons(this.buttons, this.inputs)
+      this.view.winnersView.addWinners()
+      this.view.setCarAmount(carArray.length)
+      this.buttons.resetButton.disabled = true
+    } catch {
+      alert(' You need to start server :) ')
+    }
   }
 
   async createCar(name:string, color: string) {
