@@ -19,8 +19,10 @@ export class WinnersView {
   garageApi: GarageApi
   sort: Sort
   order: Order
+  winnersAmount: number
 
   constructor() {
+    this.winnersAmount = 0
     this.main = createHtmlElement({ classNames: ['winners'], tag: 'main'})
     this.previousButton = createHtmlElement({ classNames: ['btn'], tag: 'div', textContent: 'Previous'})
     this.nextButton = createHtmlElement({ classNames: ['btn'], tag: 'div', textContent: 'Next'})
@@ -58,7 +60,8 @@ export class WinnersView {
     let winnersInPage = 1
     if (container && total) {
       container.innerHTML = ''
-      total.textContent = `(${winners.length})`
+      this.winnersAmount = (await this.winnersApi.getAllWinners()).length
+      total.textContent = `(${this.winnersAmount})`
       winners.forEach(async w => {
         const car = await this.garageApi.getCar(w.id)
         const winner = getWinnerTemplate(winnersInPage++, w.wins, w.time, car)
@@ -105,7 +108,7 @@ export class WinnersView {
     })
 
     this.nextButton.addEventListener('click', async () => {
-      if (this.actualPage < 7) {
+      if (this.actualPage < this.winnersAmount / 10) {
         this.actualPage ++
         this.actualPageElement.textContent = `${this.actualPage}`
         await this.addWinners()

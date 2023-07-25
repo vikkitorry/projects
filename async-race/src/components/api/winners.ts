@@ -40,6 +40,10 @@ export class WinnersApi {
     return (await fetch(`${URL.winners}?_page=${page}&_limit=${limit}${this.getSortOrder(sort, order)}`)).json();
   }
 
+  async getAllWinners(): Promise<IWinner[]> {
+    return (await fetch(`${URL.winners}?}`)).json();
+  }
+
   getSortOrder = (sort: string, order: string) => {
     return `&_sort=${sort}&_order=${order}`
   }
