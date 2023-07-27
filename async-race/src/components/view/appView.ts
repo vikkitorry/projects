@@ -12,9 +12,11 @@ export class AppView {
   winnersView: WinnersView
   modalWindow: ModalWindow
   totalCars: number
+  isRaceMode:boolean
 
   constructor() {
     this.totalCars = 0
+    this.isRaceMode = false
     this.body = document.querySelector('body') as HTMLElement;
     this.modalWindow = new ModalWindow(this.body)
     this.garageView = new GarageView()
@@ -57,13 +59,13 @@ export class AppView {
   handleChangePageButtons() {
     this.garageView.nextPageButton.addEventListener('click', () => {
       const page = this.garageView.currentPage.textContent
-      if (page && Math.ceil(this.garageView.allCars.length / 7) > +page) {
+      if (page && Math.ceil(this.garageView.allCars.length / 7) > +page && !this.isRaceMode) {
         this.garageView.setCurrentPage(+page, 1)
       }
     })
     this.garageView.previousPageButton.addEventListener('click', () => {
       const page = this.garageView.currentPage.textContent
-      if (page && +page > 1) {
+      if (page && +page > 1 && !this.isRaceMode) {
         this.garageView.setCurrentPage(+page, -1)
       }
     })

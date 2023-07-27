@@ -5,6 +5,7 @@ import { ICar } from '../../../types/types'
 import './styles/garage.css'
 
 export class GarageView {
+
   container: HTMLElement
   currentPage: HTMLElement
   carsAmount: HTMLElement

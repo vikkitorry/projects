@@ -111,6 +111,7 @@ export class App {
 
   async handleRaceButtonClick() {
       const allCars = this.view.garageView.carsInPage
+      this.view.isRaceMode = true
       const carArray = Object.values(allCars)
       const disableElements = Object.values(this.buttons).concat(Object.values(this.inputs))
       disableElements.forEach(btn => {
@@ -152,6 +153,7 @@ export class App {
               this.view.modalWindow.showModal(winner.name, winner.time)
               this.handleResetButtonClick()
               this.setNewWinner(carParams.id, winner.time)
+              this.view.isRaceMode = false
             }
           }
         }
@@ -172,6 +174,7 @@ export class App {
     const disableElements = Object.values(this.buttons).concat(Object.values(this.inputs))
     disableElements.forEach(btn => btn.disabled = false)
     this.isRace = false
+    this.view.isRaceMode = false
     this.buttons.resetButton.disabled = true
   }
 
