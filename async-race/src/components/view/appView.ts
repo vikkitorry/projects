@@ -1,18 +1,18 @@
 import { header } from '../view/header/header'
 import { WinnersView } from '../view/winners/winners'
-import { ICar, IEngine, IMainButtons, IInputs } from '../../types/types'
+import { ICar, IEngine, IMainButtons, IInputs, winnersLimit } from '../../types/types'
 import { GarageView } from './garage/garageView'
 import { Car } from './garage/car/car'
 import { ModalWindow } from './modalWindow/modal'
 
 export class AppView {
 
-  body: HTMLElement
-  garageView: GarageView
-  winnersView: WinnersView
-  modalWindow: ModalWindow
-  totalCars: number
-  isRaceMode:boolean
+  private garageView: GarageView
+  private modalWindow: ModalWindow
+  private winnersView: WinnersView
+  private body: HTMLElement
+  private totalCars: number
+  private isRaceMode:boolean
 
   constructor() {
     this.totalCars = 0
@@ -26,7 +26,7 @@ export class AppView {
     this.handleChangePageButtons()
   }
 
-  render() {
+  private render() {
     this.body.classList.add('garage-active')
     this.body.insertAdjacentHTML('beforeend', header)
     this.body.append(this.garageView.main)
@@ -40,8 +40,7 @@ export class AppView {
     this.garageView.createFirstPage()
   }
 
-  toggleView() {
-    //переписать с боди на нав
+  private toggleView() {
     this.body.addEventListener('click', (e) => {
       if (e.target instanceof HTMLElement) {
         if (e.target?.className.includes('to-garage')) {
@@ -56,19 +55,23 @@ export class AppView {
     })
   }
 
-  handleChangePageButtons() {
+  private handleChangePageButtons() {
     this.garageView.nextPageButton.addEventListener('click', () => {
-      const page = this.garageView.currentPage.textContent
-      if (page && Math.ceil(this.garageView.allCars.length / 7) > +page && !this.isRaceMode) {
-        this.garageView.setCurrentPage(+page, 1)
+      const page = Number(this.garageView.currentPage.textContent)
+      if (page && Math.ceil(this.garageView.allCars.length / winnersLimit) > page && !this.isRaceMode) {
+        this.garageView.setCurrentPage(page, 1)
       }
     })
     this.garageView.previousPageButton.addEventListener('click', () => {
-      const page = this.garageView.currentPage.textContent
-      if (page && +page > 1 && !this.isRaceMode) {
-        this.garageView.setCurrentPage(+page, -1)
+      const page = Number(this.garageView.currentPage.textContent)
+      if (page && page > 1 && !this.isRaceMode) {
+        this.garageView.setCurrentPage(page, -1)
       }
     })
+  }
+
+  getCar(id: number): Car | undefined {
+    return this.garageView.allCars.find(car => car.id === id)
   }
 
   addCar(newCar: ICar, listenner: (e: Event) => void) {
@@ -78,7 +81,11 @@ export class AppView {
   }
 
   setCarAmount(amount?: number) {
-    amount ? this.totalCars = amount : amount = this.totalCars
+    if (amount) {
+      this.totalCars = amount
+    }else {
+      amount = this.totalCars
+    }
     this.garageView.carsAmount.textContent = `(${amount})`
   }
 
@@ -103,4 +110,23 @@ export class AppView {
     car.carName.textContent = car.getParams().name
   }
 
+  switchRaceMode(isRace: boolean) {
+    this.isRaceMode = isRace
+  }
+
+  setWinners() {
+    this.winnersView.addWinners()
+  }
+
+  setModalError(err: string) {
+    this.modalWindow.showError(err)
+  }
+
+  setModalWinner(name: string, time: number) {
+    this.modalWindow.showWinner(name, time)
+  }
+
+  getCarsInPage() {
+    return this.garageView.carsInPage
+  }
 }

@@ -1,7 +1,7 @@
 import { createHtmlElement } from "../../helpers/createHtmlElement"
 import { garageTemplate } from "../garage/garageTemplate"
 import { Car } from './car/car'
-import { ICar } from '../../../types/types'
+import { ICar, winnersLimit } from '../../../types/types'
 import './styles/garage.css'
 
 export class GarageView {
@@ -27,7 +27,7 @@ export class GarageView {
     this.renderGarageMenu()
   }
 
-  renderGarageMenu() {
+  private renderGarageMenu() {
     const buttonsContainer = createHtmlElement({tag: 'div', classNames: ['change-page-container']})
     buttonsContainer.append(this.previousPageButton, this.currentPage, this.nextPageButton)
     this.main.innerHTML = garageTemplate
@@ -35,7 +35,7 @@ export class GarageView {
   }
 
   createFirstPage() {
-    const carsNodes = this.allCars.slice(0, 7)
+    const carsNodes = this.allCars.slice(0, winnersLimit)
     this.carsInPage = carsNodes
     carsNodes.forEach(car => this.container.append(car.carNode))
   }
@@ -43,32 +43,27 @@ export class GarageView {
   addNewCar(newCar: ICar, listenner: (e: Event) => void) {
     const car = new Car(newCar, listenner)
     this.allCars.push(car)
-    if (this.carsInPage.length < 7) {
+    if (this.carsInPage.length < winnersLimit) {
       this.carsInPage.push(car)
       this.container.append(car.carNode)
     }
   }
 
   removeCar(id: number) {
-    //переписать
     this.allCars = this.allCars.filter(car => car.id !== id)
-    this.carsInPage.forEach(car => car.id === id ? car.carNode.remove() : 0)
+    const deletedCar = this.carsInPage.find(car => car.id === id )
+    deletedCar?.carNode.remove()
     this.carsInPage = this.carsInPage.filter(car => car.id !== id)
-  }
-
-  getCar(id: number): Car | undefined {
-    return this.allCars.find(car => car.id === id)
   }
 
   setCurrentPage(page: number, counter: 1 | -1) {
     const newPage = page + counter
     this.currentPage.textContent = `${newPage}`
-    if (counter === +1) {
-      this.carsInPage = this.allCars.slice(page * 7, newPage * 7)
-    } else {
-      this.carsInPage = this.allCars.slice((newPage -1) * 7, newPage * 7)
-    }
+    counter === +1 ? this.carsInPage = this.allCars.slice(page * winnersLimit, newPage * winnersLimit) :
+    this.carsInPage = this.allCars.slice((newPage -1) * winnersLimit, newPage * winnersLimit)
     this.container.innerHTML = ''
     this.carsInPage.forEach(car => this.container.append(car.carNode))
   }
+
+
 }

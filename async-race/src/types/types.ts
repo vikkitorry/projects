@@ -36,3 +36,7 @@ export interface IInputs {
   inputTextUpdate: HTMLInputElement;
   inputTextCreate: HTMLInputElement;
 }
+
+export const winnersLimit = 7
+
+export const numberOfCars = 100

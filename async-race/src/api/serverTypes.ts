@@ -37,19 +37,19 @@ export interface IWinner {
 }
 
 export interface IWinnerForModal {
-  id: number | undefined,
+  id: number,
   time: number,
   name: string
 }
 
-export enum WinnersPages {
+export enum PaginationParams {
   page = 1,
   limit = 10
 }
 
 export interface IGetWinners {
   page: number;
-  limit: number;
+  limit?: number;
   sort: string;
   order: string;
 }

@@ -1,9 +1,9 @@
 import { URL, Method, EngineStatus, Status } from './serverTypes'
-import { IEngine } from '../../types/types'
+import { IEngine } from '../types/types'
 
 export class EngineApi {
 
-  async startStopEngine(id: number, status: EngineStatus.start | EngineStatus.stop): Promise<IEngine> {
+  async switchEngineMode(id: number, status: EngineStatus.start | EngineStatus.stop): Promise<IEngine> {
     const response = await fetch(`${URL.engine}?id=${id}&status=${status}`, {
       method: Method.patch,
     })

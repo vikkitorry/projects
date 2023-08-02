@@ -1,5 +1,5 @@
 import { URL, Method } from './serverTypes'
-import { ICar } from '../../types/types'
+import { ICar } from '../types/types'
 
 export class GarageApi {
 

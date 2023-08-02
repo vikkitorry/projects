@@ -8,15 +8,12 @@ export class CarAnimation {
     this.parent = parent
     this.carImg = this.getCarImage(parent, id)
     this.animation = this.carImg.animate(
-      [
-        {
+      [{
           transform: 'translateX(0)',
         },
-
         {
           transform: `translateX(0px)`,
-        },
-      ],
+        },],
       {
         fill: 'forwards',
       },
@@ -35,14 +32,12 @@ export class CarAnimation {
   setAnimation(distance: number, velocity: number, wayWidth: number) {
     const duration: number = distance / velocity;
     this.animation = this.carImg.animate(
-      [
-        {
+      [{
           transform: 'translateX(0)',
         },
         {
           transform: `translateX(${wayWidth - 90}px)`,
-        },
-      ],
+        },],
       {
         duration,
         fill: 'forwards',
@@ -52,15 +47,12 @@ export class CarAnimation {
 
   removeAnimation() {
     this.carImg.animate(
-      [
-        {
+      [{
           transform: 'translateX(0)',
         },
-
         {
           transform: `translateX(0px)`,
-        },
-      ],
+        },],
       {
         fill: 'forwards',
       },

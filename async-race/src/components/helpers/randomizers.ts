@@ -1,4 +1,4 @@
-import { carBrand, carModel } from '../data/carsNamesData'
+import { carBrand, carModel } from '../../data/carsNamesData'
 
 export function getRandomElements(arr: Array<string>): string {
   const index: number = Math.floor(Math.random() * arr.length);

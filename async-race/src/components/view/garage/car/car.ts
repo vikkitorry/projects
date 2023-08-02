@@ -1,6 +1,6 @@
 import { ICar, IEngine } from '../../../../types/types'
-import { getCarImage } from '../../../data/carSVG'
-import { getFlagImage } from '../../../data/flagSVG'
+import { getCarImage } from '../../../../data/carSVG'
+import { getFlagImage } from '../../../../data/flagSVG'
 import { createHtmlElement } from '../../../helpers/createHtmlElement'
 import { Button } from '../../../controllers/button'
 import {CarAnimation} from './animation'
@@ -21,7 +21,6 @@ export class Car  {
   private params: ICar
   private raceContainer: HTMLElement
   private selectButton: HTMLButtonElement
-
 
   constructor( newCar: ICar, listenner: (e: Event) => void) {
     this.id = newCar.id || 0
@@ -94,6 +93,11 @@ export class Car  {
 
   getRaceParams() {
     return this.raceParams
+  }
+
+  setStartStopButtonsStatus(isStartDisabled: boolean, IsStopDisabled: boolean) {
+    this.startButton.disabled = isStartDisabled
+    this.stopButton.disabled = IsStopDisabled
   }
 
 }

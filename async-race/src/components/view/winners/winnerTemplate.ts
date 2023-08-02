@@ -1,4 +1,4 @@
-import {getCarImage} from '../../data/carSVG'
+import {getCarImage} from '../../../data/carSVG'
 import {ICar} from '../../../types/types'
 
 export function getWinnerTemplate(number: number, wins: number, time: number, carParams: ICar) {

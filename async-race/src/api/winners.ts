@@ -1,4 +1,4 @@
-import { URL, IWinner, Method, WinnersPages, IGetWinners } from './serverTypes'
+import { URL, IWinner, Method, PaginationParams, IGetWinners } from './serverTypes'
 
 export class WinnersApi {
 
@@ -36,7 +36,7 @@ export class WinnersApi {
     });
   }
 
-  async getWinners({ page, limit = WinnersPages.limit, sort, order }: IGetWinners): Promise<IWinner[]> {
+  async getWinners({ page, limit = PaginationParams.limit, sort, order }: IGetWinners): Promise<IWinner[]> {
     return (await fetch(`${URL.winners}?_page=${page}&_limit=${limit}${this.getSortOrder(sort, order)}`)).json();
   }
 
